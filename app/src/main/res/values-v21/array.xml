@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="items">
+        <item>SB</item>
+        <item>CA</item>
+        <item>OD</item>
+        <item>DD</item>
+        <item>RD</item>
+        <item>ML</item>
+        <item>GL</item>
+        <item>GD</item>
+    </string-array>
+
+
+</resources>

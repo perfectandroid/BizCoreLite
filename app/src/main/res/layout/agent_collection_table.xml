@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="5dp">
+
+            <LinearLayout
+                android:padding="5dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txtSlno"
+                android:layout_weight="1.2"
+                android:textStyle="bold|normal"
+                android:gravity="center_horizontal|center_vertical"
+                android:layout_marginRight="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp" />
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_weight=".9"
+                android:textStyle="bold|normal"
+                android:gravity="center_horizontal|center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/txtAmount"
+                android:layout_weight="1"
+                android:textStyle="bold|normal"
+                android:gravity="center_vertical|right"
+                android:layout_marginRight="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"/>
+                <TextView
+                    android:id="@+id/txtModule"
+                    android:layout_weight="1.1"
+                    android:textStyle="bold|normal"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="4dp"/>
+                <TextView
+                    android:id="@+id/txttym"
+                    android:layout_weight="1.1"
+                    android:textStyle="bold|normal"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="4dp"/>
+               <TextView
+                    android:id="@+id/txtType"
+                  android:layout_weight="1.5"
+    android:textStyle="bold|normal"
+    android:gravity="center_horizontal|center_vertical"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginEnd="4dp"/>
+    </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+    </RelativeLayout>
