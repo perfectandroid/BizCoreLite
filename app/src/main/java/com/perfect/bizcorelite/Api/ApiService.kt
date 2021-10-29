@@ -11,7 +11,11 @@ object ApiService {
 //    val CERT_NAME = "bizcore.pem"
 
     ////Kunnamangalam
-    val BASE_URL = "https://59.96.23.239:14050/Bizcore/api/Bizcore/"
+  /*  val BASE_URL = "https://59.96.23.239:14050/Bizcore/api/Bizcore/"
+    val CERT_NAME = "bizcore.pem"*/
+
+    ////Accent
+    val BASE_URL = "https://202.21.35.44:14050/Bizcore1/"
     val CERT_NAME = "bizcore.pem"
 
 
