@@ -79,9 +79,13 @@
     <string name="BankHeader">The Chathamangalam Service Co-operative Bank Ltd.,No.F.1839 HO CUM MAIN BRANCH</string>
     <string name="bank_name">Chathamangalam SCB</string>-->
 
-    <string name="BankKey"></string>
+  <!--  <string name="BankKey">P.1171</string>
     <string name="BankHeader"></string>
-    <string name="bank_name">Karimpuzha Co-operative Urban Society Ltd.</string>-->
+    <string name="bank_name">Karimpuzha Co-operative Urban Society Ltd.</string>&ndash;&gt;-->
+
+    <string name="BankKey">P.1172</string>
+    <string name="BankHeader">Kanhirapuzha Co-operative Urban Credit Society Ltd; No.P.1172.</string>
+    <string name="bank_name"> Kanhirapuzha Co-operative Urban Credit Society Ltd.</string>
 
     <string name="BankVerified">0</string>
 

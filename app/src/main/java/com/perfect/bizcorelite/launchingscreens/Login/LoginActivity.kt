@@ -170,6 +170,7 @@ class LoginActivity : AppCompatActivity() {
                             try {
                                 progressDialog!!.dismiss()
                                 val jObject = JSONObject(response.body())
+                                Log.e("TAG","response  153   "+response.body())
                                 if (jObject.getString("StatusCode") == "0") {
                                     val jobjt = jObject.getJSONObject("LogInfo")
                                     val UserName = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF5, 0)
