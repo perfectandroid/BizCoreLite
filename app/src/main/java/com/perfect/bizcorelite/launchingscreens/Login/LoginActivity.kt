@@ -169,6 +169,7 @@ class LoginActivity : AppCompatActivity() {
                         ) {
                             try {
                                 progressDialog!!.dismiss()
+                                Log.e("response  ","response   172   "+response.body())
                                 val jObject = JSONObject(response.body())
                                 if (jObject.getString("StatusCode") == "0") {
                                     val jobjt = jObject.getJSONObject("LogInfo")

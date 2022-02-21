@@ -79,9 +79,9 @@
     <string name="BankHeader">The Chathamangalam Service Co-operative Bank Ltd.,No.F.1839 HO CUM MAIN BRANCH</string>
     <string name="bank_name">Chathamangalam SCB</string>-->
 
-    <string name="BankKey"></string>
-    <string name="BankHeader"></string>
-    <string name="bank_name">Kunnamangalam Co-operative Rural Bank</string>-->
+<!--    <string name="BankKey"></string>-->
+<!--    <string name="BankHeader"></string>-->
+<!--    <string name="bank_name">Kunnamangalam Co-operative Rural Bank</string>&ndash;&gt;-->
 
     <string name="BankVerified">0</string>
 
@@ -92,6 +92,12 @@
     <string name="BankHeader">Malabar Social Welfare Co-operative Society Ltd</string>
     <string name="BankVerified">0</string>-->
 
-   <!-- <string name="bank_name">Perfect BcLite</string>-->
-    <!--<string name="bank_name">Malabar Social Welfare Co-operative Society Ltd No.D.3296</string>-->
+<!--    <string name="bank_name">Perfect BcLite</string>-->
+<!--    <string name="bank_name">Malabar Social Welfare Co-operative Society Ltd No.D.3296</string>-->
+
+    <string name="BankKey">No.9349</string>
+    <string name="BankHeader">The Edacheri Service Co-operative Bank Ltd., No.9349 HEAD OFFICE CUM MAIN BRANCH</string>
+    <string name="bank_name"> The Edacheri Service Co-operative Bank Ltd</string>-->
+
+
 </resources>
