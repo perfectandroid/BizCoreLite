@@ -3,12 +3,16 @@ package com.perfect.bizcorelite.Api
 object ApiService {
 
 ////demo
-//    val BASE_URL = "https://202.164.150.65:14004/Bizcore/api/Bizcore/"
-//    val CERT_NAME = "sqlserver.pem"
+    val BASE_URL = "https://202.164.150.65:14004/Bizcore/api/Bizcore/"
+    val CERT_NAME = "sqlserver.pem"
 
-    //Edacheri
-    val BASE_URL = "https://202.21.34.172:14050/Bizcore/api/Bizcore/"
-    val CERT_NAME = "edacheri.pem"
+//    //Edacheri
+//    val BASE_URL = "https://202.21.34.172:14050/Bizcore/api/Bizcore/"
+//    val CERT_NAME = "edacheri.pem"
+
+    //Kothamangalam
+//    val BASE_URL = "https://13.71.91.134:14030/Bizcore/api/Bizcore/"
+//    val CERT_NAME = "kothamangalam.pem"
 
     //Mukkam megala
 //    val BASE_URL = "https://59.96.56.182:14050/Bizcore/api/Bizcore/"
