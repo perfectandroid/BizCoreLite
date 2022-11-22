@@ -2232,7 +2232,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
     private fun amountValidation1(cName: String?) {
         if (input_amount!!.text.toString() == null || input_amount!!.text.toString().isEmpty()) {
-            input_amount!!.setError("Please enter collction amount")
+            input_amount!!.setError("Please enter collection amount")
         }
         else{
             val dialog = Dialog(this)
@@ -2475,25 +2475,76 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         dialogBuilder.setView(dialogView)
 
         val btnShare = dialogView.findViewById(R.id.btnShare) as Button
+        val lnr_success= dialogView.findViewById(R.id.lnr_success) as LinearLayout
+
+
         btnShare.setOnClickListener {
 
 
+            // fileName = successDisplayModel.getTitleLabel()+".png";
             //  alertDialog.dismiss();
             //  ScreenSh(dialogView);
-            val bitmap = Bitmap.createBitmap(dialogView.width,
+            //  Toast.makeText(getApplicationContext(),"TEST",Toast.LENGTH_LONG).show();
+            /* Bitmap bitmap = Bitmap.createBitmap(lnr_success.getWidth(),
+                        lnr_success.getHeight(), Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(bitmap);
+                lnr_success.draw(canvas);*/
+
+            // fileName = successDisplayModel.getTitleLabel()+".png";
+            //  alertDialog.dismiss();
+            //  ScreenSh(dialogView);
+            //  Toast.makeText(getApplicationContext(),"TEST",Toast.LENGTH_LONG).show();
+            /* Bitmap bitmap = Bitmap.createBitmap(lnr_success.getWidth(),
+                        lnr_success.getHeight(), Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(bitmap);
+                lnr_success.draw(canvas);*/
+            val bitmap = Bitmap.createBitmap(
+                lnr_success.width,
+                lnr_success.height, Bitmap.Config.ARGB_8888
+            )
+
+
+            val canvas = Canvas(bitmap)
+            canvas.drawColor(Color.WHITE)
+            lnr_success.draw(canvas)
+
+            //  alertDialog.dismiss();
+            //  ScreenSh(dialogView);
+         /*   val bitmap = Bitmap.createBitmap(dialogView.width,
                     dialogView.height, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bitmap)
-            dialogView.draw(canvas)
+            dialogView.draw(canvas)*/
 
             try {
-                val bmpUri: Uri = getLocalBitmapUri(bitmap, "Deposit")
-                Log.e(TAG, "bmpUri   2496   "+bmpUri)
+
+
+              /*  val bmpUri: Uri = getLocalBitmapUri(bitmap, "Deposit")
+                Log.e(TAG, "bmpUri   2496   "+bmpUri)*/
+
+                val file: File = saveBitmap(
+                    bitmap,
+                    "Deposit" + "_" + System.currentTimeMillis() + ".png"
+                )!!
+                Log.e("chase  2044   ", "filepath: " + file.absolutePath)
+                val bmpUri = Uri.fromFile(file)
+                Log.i("Uri", bmpUri.toString())
+
+
+                // Uri bmpUri = getLocalBitmapUri(bitmap);
                 val shareIntent = Intent()
                 shareIntent.action = Intent.ACTION_SEND
                 shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri)
                 shareIntent.type = "image/*"
                 shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                startActivity(Intent.createChooser(shareIntent, "Share Opportunity"))
+                //    shareIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                //    shareIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                startActivity(Intent.createChooser(shareIntent, "Share Opportunity"));
+
+
+
+
+
+
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
                 Log.e(TAG, "Exception   2496   "+e.toString())
@@ -3277,5 +3328,33 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                 mySnackbar.show()
             }
         }
+
+    }
+
+    private fun saveBitmap(bm: Bitmap, fileName: String): File? {
+        val docsFolder =
+            File(Environment.getExternalStorageDirectory().toString() + "/Download" + "/")
+        val isPresent = true
+        Log.e("photoURI", "StatementDownloadViewActivity   5682   ")
+        if (!docsFolder.exists()) {
+            // isPresent = docsFolder.mkdir();
+            docsFolder.mkdir()
+            Log.e("photoURI", "StatementDownloadViewActivity   5683   ")
+        }
+        val file = File(docsFolder, fileName)
+        Log.i("Filess", file.toString())
+        if (file.exists()) {
+            file.delete()
+        }
+        try {
+            val fOut = FileOutputStream(file)
+            bm.setHasAlpha(true)
+            bm.compress(Bitmap.CompressFormat.PNG, 100, fOut)
+            fOut.flush()
+            fOut.close()
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
+        return file
     }
 }

@@ -79,13 +79,15 @@
     <string name="BankHeader">The Chathamangalam Service Co-operative Bank Ltd.,No.F.1839 HO CUM MAIN BRANCH</string>
     <string name="bank_name">Chathamangalam SCB</string>-->
 
-    <string name="BankKey"></string>
+   <!-- <string name="BankKey"></string>
     <string name="BankHeader"></string>
-    <string name="bank_name">Kunnamangalam Co-operative Rural Bank</string>-->
+    <string name="bank_name">Kunnamangalam Co-operative Rural Bank</string>&ndash;&gt;-->
 
     <string name="BankVerified">0</string>
 
-
+    <string name="BankKey">d.22333</string>
+    <string name="BankHeader">PERFECT SCORE BANK HEAD OFFICE</string>
+    <string name="bank_name">PERFECT SCORE BANK HEAD OFFICE</string>
 
 
     <!--<string name="BankKey">D .3296</string>

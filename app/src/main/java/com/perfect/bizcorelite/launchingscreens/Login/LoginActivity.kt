@@ -1,10 +1,12 @@
 package com.perfect.bizcorelite.launchingscreens.Login
 
+import android.Manifest
 import android.app.AlertDialog
 import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -13,7 +15,10 @@ import android.util.Log
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.GsonBuilder
 import com.perfect.bizcorelite.Api.ApiInterface
@@ -47,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
 
     private val PERMISSIONS_REQUEST_READ_PHONE_STATE = 999
     private var mTelephonyManager: TelephonyManager? = null
-
+    private val STORAGE_PERMISSION_CODE = 101
     lateinit var user: String
     lateinit var pass: String
 
@@ -59,7 +64,10 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, STORAGE_PERMISSION_CODE);
         setContentView(R.layout.activity_login)
+
 
 
         btnLogin!!.setOnClickListener({passwordUserNameValidation()})
@@ -512,6 +520,27 @@ class LoginActivity : AppCompatActivity() {
             }
         }
         dialog .show()
+    }
+
+    fun checkPermission(permission: String, requestCode: Int) {
+        if (ContextCompat.checkSelfPermission(
+                this@LoginActivity,
+                permission
+            ) == PackageManager.PERMISSION_DENIED
+        ) {
+            // Requesting the permission
+            ActivityCompat.requestPermissions(
+                this@LoginActivity,
+                arrayOf(permission),
+                requestCode
+            )
+        } else {
+            Toast.makeText(
+                this@LoginActivity,
+                "Permission already granted",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }
 
