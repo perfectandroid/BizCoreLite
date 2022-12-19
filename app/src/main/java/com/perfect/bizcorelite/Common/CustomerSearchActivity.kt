@@ -3332,9 +3332,11 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     }
 
     private fun saveBitmap(bm: Bitmap, fileName: String): File? {
+
+       //deprecated issue solved -changes in manifest(legacy)
         val docsFolder =
             File(Environment.getExternalStorageDirectory().toString() + "/Download" + "/")
-        val isPresent = true
+
         Log.e("photoURI", "StatementDownloadViewActivity   5682   ")
         if (!docsFolder.exists()) {
             // isPresent = docsFolder.mkdir();
