@@ -27,10 +27,7 @@ import com.perfect.bizcorelite.Api.ApiService
 import com.perfect.bizcorelite.Common.CustomerSearchActivity
 import com.perfect.bizcorelite.DB.DBHandler
 import com.perfect.bizcorelite.Deposit.DepositActivity
-import com.perfect.bizcorelite.Helper.BizcoreApplication
-import com.perfect.bizcorelite.Helper.ConnectivityUtils
-import com.perfect.bizcorelite.Helper.CryptoGraphy
-import com.perfect.bizcorelite.Helper.NumberToWord
+import com.perfect.bizcorelite.Helper.*
 import com.perfect.bizcorelite.Offline.Adapter.SearchCustomerAdapter
 import com.perfect.bizcorelite.Offline.Model.AccountModel
 import com.perfect.bizcorelite.Offline.Model.SearchCustomerModel
@@ -38,6 +35,7 @@ import com.perfect.bizcorelite.Offline.Model.TransactionModel
 import com.perfect.bizcorelite.R
 import com.perfect.bizcorelite.launchingscreens.MPIN.MPINActivity
 import com.perfect.bizcorelite.launchingscreens.MainHome.HomeActivity
+import com.softland.palmtecandro.palmtecandro
 import kotlinx.android.synthetic.main.activity_deposit.*
 import kotlinx.android.synthetic.main.activity_new_collection.*
 import kotlinx.android.synthetic.main.activity_new_collection.input_amount
@@ -76,6 +74,8 @@ class NewCollectionActivity : AppCompatActivity(), View.OnClickListener {
     private var intId: Int?= null
     lateinit var handler: Handler
     lateinit var r: Runnable
+    private var printdata  : String?    = null
+    var from  = "Deposit"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,6 +95,17 @@ class NewCollectionActivity : AppCompatActivity(), View.OnClickListener {
             finish()
         }
         startHandler()
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        palmtecandro.jnidevOpen(115200)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        palmtecandro.jnidevClose()
     }
 
     override fun onUserInteraction() {
@@ -160,8 +171,13 @@ class NewCollectionActivity : AppCompatActivity(), View.OnClickListener {
                             tvAccount.text=jobject.getString("customername")+"\n("+jobject.getString("depositno")+")"
                             masterid=jobject.getString("accountid")
                             customername=jobject.getString("customername")
-                            depositno=jobject.getString("depositno")
+                            depositno=jobject.getString("depositno")+"("+jobject.getString("module")+")"
                             transactionbalance=jobject.getString("balance")
+
+                            printdata =
+                                        "NAME"   +"      :" +jobject.getString("customername") + "|" +
+                                        "AvlBal" +"      :" +jobject.getString("balance")
+
                             alertDialog.dismiss()
                         }
                         override fun onLongClick(view: View?, position: Int) {
@@ -411,7 +427,7 @@ class NewCollectionActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun showSuccessDialog(recAc: String,amount: String,reffNo: String) {
+    private fun showSuccessDialog(recAc: String,amount:String,reffNo:String,printdatas:String,from:String) {
 
         val dialog = Dialog(this)
         dialog .requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -428,6 +444,11 @@ class NewCollectionActivity : AppCompatActivity(), View.OnClickListener {
         val txtRefferenceNo = dialog.findViewById(R.id.txtRefferenceNo)as TextView
         txtRefferenceNo.text = ": " + reffNo
 
+//        printdata += "Rec A/C    :"+recAc + "|" +
+//                "Amount" +"   :" +amount + "|" +
+//                "Ref No" +"   :" +reffNo
+        var value = BizcoreUtility.roundDecimalDoubleZero(""+amount)
+
         val okBtn = dialog .findViewById(R.id.btnOK) as Button
         okBtn.setOnClickListener {
             dialog .dismiss()
@@ -437,6 +458,7 @@ class NewCollectionActivity : AppCompatActivity(), View.OnClickListener {
         val printBtn = dialog .findViewById(R.id.btnprint) as Button
         printBtn.setOnClickListener {
            // dialog .dismiss()
+            BizcoreUtility.preparePrintingMessage(from,printdata!!,recAc,"",value!!,reffNo,this)
         }
         dialog .show()
     }
@@ -523,7 +545,7 @@ class NewCollectionActivity : AppCompatActivity(), View.OnClickListener {
             TransactionModel(transactionid!!,masterid!!,customername!!,depositno!!,depositamount!!,transactionbalance!!,depositdate!!,uniqueid!!,remark!!)
         )
         if(result==true){
-            showSuccessDialog(depositno!!, depositamount!!, uniqueid!!)
+            showSuccessDialog(depositno!!, depositamount!!, uniqueid!!,printdata!!,from!!)
             transactionid = ""
             tvAccount.text = ""
             input_msg.text?.clear()
@@ -532,7 +554,6 @@ class NewCollectionActivity : AppCompatActivity(), View.OnClickListener {
             Toast.makeText(applicationContext,"Some Technical Issues, please try later.",Toast.LENGTH_LONG).show()
         }
     }
-
 }
 
 

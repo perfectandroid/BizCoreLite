@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
@@ -23,14 +24,12 @@ import com.google.gson.GsonBuilder
 import com.perfect.bizcorelite.Api.ApiInterface
 import com.perfect.bizcorelite.Api.ApiService
 import com.perfect.bizcorelite.DB.DBHandler
-import com.perfect.bizcorelite.Helper.BizcoreApplication
-import com.perfect.bizcorelite.Helper.ConnectivityUtils
-import com.perfect.bizcorelite.Helper.CryptoGraphy
-import com.perfect.bizcorelite.Helper.NumberToWord
+import com.perfect.bizcorelite.Helper.*
 import com.perfect.bizcorelite.Offline.Activity.NewCollectionActivity
 import com.perfect.bizcorelite.R
 import com.perfect.bizcorelite.launchingscreens.Login.LoginActivity
 import com.perfect.bizcorelite.launchingscreens.MPIN.MPINActivity
+import com.softland.palmtecandro.palmtecandro
 import kotlinx.android.synthetic.main.activity_deposit.*
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -55,6 +54,7 @@ import javax.net.ssl.*
 
 class DepositActivity : AppCompatActivity() {
 
+    private var TAG = "DepositActivity"
     private var progressDialog  : ProgressDialog? = null
     private var hashString      : String?         = null
     private var strModule       : String?         = null
@@ -63,7 +63,7 @@ class DepositActivity : AppCompatActivity() {
     private var accountName     : String?         = null
     private var strAmount       : String?         = null
     private var strMsg          : String?         = null
-    private var selectedPrinter          : String?         = null
+    private var selectedPrinter : String?         = null
     lateinit var dbHelper : DBHandler
     lateinit var handler: Handler
     lateinit var r: Runnable
@@ -71,6 +71,7 @@ class DepositActivity : AppCompatActivity() {
     private var avlBal          : Double?         = null
     private var netAmt          : Double?         = null
     private var opBal          : Double?         = null
+    private var context : Context? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -449,7 +450,7 @@ class DepositActivity : AppCompatActivity() {
             }
         val printBtn = dialog.findViewById(R.id.btnprint) as Button
             printBtn.setOnClickListener{
-                showPrintDialog()
+//                showPrintDialog()
             }
         dialog .show()
     }
@@ -652,8 +653,9 @@ class DepositActivity : AppCompatActivity() {
         val txtSoftland = dialog.findViewById(R.id.txt_softland)as TextView
         txtSoftland.setOnClickListener {
             val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                "softland", Snackbar.LENGTH_SHORT
-            )
+                "softland", Snackbar.LENGTH_SHORT)
+//            BizcoreUtility.preparePrintingMessage()
+//            palmtecandro.jnidevOpen(115200)
             mySnackbar.show()
             selectedPrinter = "4"
             dialog .dismiss()

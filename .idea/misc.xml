@@ -3,16 +3,77 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/GIT PROJECTS/Bizcorelite/app/src/main/res/layout/activity_balance_enq.xml" value="0.3546875" />
-        <entry key="..\:/GIT PROJECTS/Bizcorelite/app/src/main/res/layout/activity_customer_search.xml" value="0.2" />
-        <entry key="..\:/GIT PROJECTS/Bizcorelite/app/src/main/res/layout/activity_deposit.xml" value="0.3546875" />
-        <entry key="..\:/GIT PROJECTS/Bizcorelite/app/src/main/res/layout/activity_main.xml" value="0.3546875" />
-        <entry key="..\:/GIT PROJECTS/Bizcorelite/app/src/main/res/layout/fragment_home.xml" value="0.3546875" />
-        <entry key="..\:/GIT PROJECTS/Bizcorelite/app/src/main/res/layout/success_deposit_layout.xml" value="0.3546875" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/account_dialog_balenq.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/account_dialog_layout.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_agent_balance.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_agent_collection_list.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_agent_summary.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_balance_enq.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_bluetooth_chat.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_change_mpin.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_change_password.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_collection_details.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_customer_search.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_deposit.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_login.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_main.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_mpin.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_new_collection.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_otp.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_pin_login.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_pin_login1.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_select.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_sortfilterpopup.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_splash.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_welcome.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/adapter_txnhistory.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/agent_balance_popup.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/agent_collection_table.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/arc_list.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/arch_list.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/border_black.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/confirmation_msg_popup.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/custlist.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/customer_popup.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/customerlist.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/customerlist_popup.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/fragment_aboutus.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/fragment_achives.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/fragment_failure1.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/fragment_home.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/fragment_logout.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/fragment_notifications.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/fragment_quit.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/fragment_syncpending.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/fragment_welcome.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/homepage_nav.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/layout_alert_msg.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/layout_alertmsg.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/layout_recyclerview.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/list_account.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/list_item4.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/main.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/message.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/module_selection_layout.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/modulelist_popup.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/offlinepopup.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/otp_layout.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/popup_otp.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/print_selection_layout.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/quit_app_popup.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/slide.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/spinnerlist.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/success_deposit_layout.xml" value="0.24444444444444444" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/success_layout.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/success_ooflinecollection_layout.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/summary_list.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/sync_list.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/tnxhistory_popup.xml" value="0.27291666666666664" />
+        <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/trans_selection_layout.xml" value="0.27291666666666664" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

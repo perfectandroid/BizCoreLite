@@ -1,0 +1,70 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtprintername"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="No Printer "
+        android:textSize="25dp" />
+
+    <LinearLayout
+        android:id="@+id/giflayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/connectbtn"
+        android:layout_below="@+id/txtprintername"
+        android:gravity="center"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/connectbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnLayout"
+        android:layout_centerHorizontal="true"
+        android:background="@color/red"
+        android:padding="8dp"
+        android:text="Connect"
+        android:textColor="@android:color/black"
+        android:visibility="invisible" />
+
+
+
+    <LinearLayout
+        android:id="@+id/btnLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/button_send"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:background="@color/red"
+            android:text="Print"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:background="@color/red"
+            android:text="Cancel"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+
+</RelativeLayout>

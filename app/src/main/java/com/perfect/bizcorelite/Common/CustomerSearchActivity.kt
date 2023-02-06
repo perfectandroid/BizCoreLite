@@ -30,14 +30,12 @@ import com.google.gson.GsonBuilder
 import com.perfect.bizcorelite.Api.ApiInterface
 import com.perfect.bizcorelite.Api.ApiService
 import com.perfect.bizcorelite.DB.DBHandler
-import com.perfect.bizcorelite.Helper.BizcoreApplication
-import com.perfect.bizcorelite.Helper.ConnectivityUtils
-import com.perfect.bizcorelite.Helper.CryptoGraphy
-import com.perfect.bizcorelite.Helper.NumberToWord
+import com.perfect.bizcorelite.Helper.*
 import com.perfect.bizcorelite.Offline.Activity.NewCollectionActivity
 import com.perfect.bizcorelite.R
 import com.perfect.bizcorelite.launchingscreens.Login.LoginActivity
 import com.perfect.bizcorelite.launchingscreens.MainHome.HomeActivity
+import com.softland.palmtecandro.palmtecandro
 import kotlinx.android.synthetic.main.activity_customer_search.*
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -109,6 +107,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     private var mob                     : String?               = null
     private var mAccountNo1             : String?               = null
     private var LastTransactionId       : String?               = null
+    private var printdata               : String?               = null
+    private var printingMessage = ""
+//    private val mGoogleApiClient: GoogleApiClient? = null
+    private var iPortOpen: Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -156,6 +158,16 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         if (branchcode?.length == 3){
             edt_acc_first.setText(branchcode)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        palmtecandro.jnidevOpen(115200)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        palmtecandro.jnidevClose()
     }
 
     private fun initiateViews() {
@@ -1512,6 +1524,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         override fun onResponse(call: retrofit2.Call<String>, response1: Response<String>) {
 //                            progressDialog!!.dismiss()
                             val jObject = JSONObject(response1.body())
+                            Log.e(TAG,"52525  "+response1.body())
 
                             if (jObject.getString("StatusCode") == "0") {
                                 val jobjt = jObject.getJSONObject("LoanDepositBalance")
@@ -2385,22 +2398,50 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         Response<String>
                         ) {
                             try {
+                                Log.e(TAG,"0000111   "+response.body())
                                 progressDialog!!.dismiss()
                                 val jObject = JSONObject(response.body())
                                 if (jObject.getString("StatusCode") == "0") {
-                                    val jobjt = jObject.getJSONObject("TransInfo")
 
+                                    val jobjt = jObject.getJSONObject("TransInfo")
+                                    Log.e(TAG,"33333    " + response.body())
                                     val sdf = SimpleDateFormat("dd-M-yyyy hh:mm:ss")
-                                    showSuccessDialog(": " + jObject.getString("StatusMessage"),
-                                            ": " + strCustname,
-                                            ": " + edt_acc_first!!.text.toString() + edt_acc_second!!.text.toString() + edt_acc_third!!.text.toString() + "(" + strSubModule + ")",
-                                            ": ₹ " + jobjt.getString("NetAmount") + " /-",
-                                            ": " + jobjt.getString("ReferanceNumber"),
+                                    showSuccessDialog(":" + jObject.getString("StatusMessage"),
+                                            ":" + strCustname,
+                                            ":" + edt_acc_first!!.text.toString() + edt_acc_second!!.text.toString() + edt_acc_third!!.text.toString() + "(" + strModule + ")",
+                                            ":₹" + jobjt.getString("NetAmount") + " /-",
+                                            ":" + jobjt.getString("ReferanceNumber"),
                                             jobjt.getString("BalanceAmount"),
                                             jobjt.getString("NetAmount"), ""+sdf.format(Date()),
                                         strOrgName.toString())
 
+//                                    printData =
+////                                         "(" + strModule + ")" + "|" +
+//
+//                                                "Amount" + "      :" + netAmt + "|" +
+//                                                "Depo.Dt" + ":" + sdf + "|"
+
+
+//                                    printdata = "A/C No" + "      :" + "10000000"
+
+
+                                   var value = BizcoreUtility.roundDecimalDoubleZero(""+netAmt)
+                                    var avlbal = BizcoreUtility.roundDecimalDoubleZero(""+avlBal)
+
+                                    printdata =
+                                                "NAME" +"      :" + strCustname + "|" +
+                                                "Amount" +"    :" + value + "|" +
+                                                "AvlBal"+"     :" + avlbal+"Cr"+ "|" +
+                                                "Ref.no"+"     :" + jobjt.getString("ReferanceNumber")
+
+                                    Log.e(TAG,"88888    " + printdata)
+//                                    Log.v("hffghfsrtyhy","88888hh"+ BizcoreUtility.hideAccNo(mAccountNo1!!) )
+//                                    Log.v("hffghfsrtyhy","88888 data"+ "NAME" + "        :" + strCustname)
+//                                    Log.v("hffghfsrtyhy","88888"+ "Depo.Dt" + ":" + strModule)
+
+
                                 } else {
+                                    Log.v(TAG,"66666666")
                                     val dialogBuilder = AlertDialog.Builder(this@CustomerSearchActivity, R.style.MyDialogTheme)
                                     dialogBuilder.setMessage(jObject.getString("StatusMessage"))
                                             .setCancelable(false)
@@ -2414,6 +2455,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                     pbutton.setTextColor(Color.MAGENTA)
                                 }
                             } catch (e: Exception) {
+                                Log.v(TAG,"7777777777"+e)
                                 progressDialog!!.dismiss()
                                 e.printStackTrace()
                             }
@@ -2458,7 +2500,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
 
     @SuppressLint("SetTextI18n")
-    private fun showSuccessDialog(deposit: String, recName: String, recAc: String, amount: String, reffNo: String, BalAmount: String, netAmount: String, datetime: String, orgName : String) {
+    private fun showSuccessDialog(deposit: String, recName: String,recAc: String, amount: String, reffNo: String, BalAmount: String, netAmount: String, datetime: String, orgName : String) {
 
 
         Log.e(TAG, "showSuccessDialog   2464   "+deposit+" "+recName+" "+recAc+" "+amount+" "+reffNo+" "+BalAmount+" "+netAmount+" "+datetime+" "+orgName)
@@ -2590,10 +2632,12 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         opBal= avlBal!! - netAmt!!
 
         val txtAOpeningBal = dialogView.findViewById(R.id.txtAOpeningBal)as TextView
-        txtAOpeningBal.text = ": ₹ "+opBal.toString()+"0Cr"
+        var values = BizcoreUtility.roundDecimalDoubleZero(""+opBal)
+        txtAOpeningBal.text = ": ₹ "+values.toString()+"Cr"
 
         val txtAvbal = dialogView.findViewById(R.id.txtAvbal)as TextView
-        txtAvbal.text = ": ₹ "+BalAmount+"r"
+        var balance = BizcoreUtility.roundDecimalDoubleZero(""+BalAmount)
+        txtAvbal.text = ": ₹ "+balance+"Cr"
 
         val txtDateTime = dialogView.findViewById(R.id.txtDateTime)as TextView
         txtDateTime.text = ": "+datetime
@@ -2614,7 +2658,18 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         }
         val printBtn = dialogView.findViewById(R.id.btnprint) as Button
         printBtn.setOnClickListener{
-            showPrintDialog()
+//            showPrintDialog()
+//            val agent_Name = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF2, 0)
+//            val header: String = agent_Name.toString()
+            var values = BizcoreUtility.roundDecimalDoubleZero(""+opBal)
+            var opball:String = values.toString()+"Cr"
+            Log.e(TAG,"print00000000 "+from)
+            Log.e(TAG,"555555555555 "+printdata)
+            Log.e(TAG,"rec A/c "+recAc)
+            Log.e(TAG,"opball"+opball)
+
+          //  BizcoreUtility.preparePrintingMessage(from!!, printdata!!,recAc,opBal!!.toString(),"","",this@CustomerSearchActivity)
+            BizcoreUtility.preparePrintingMessage(from!!, printdata!!,recAc,opball!!.toString(),"","",this@CustomerSearchActivity)
         }
         val alertDialog = dialogBuilder.create()
         alertDialog .show()
@@ -2697,6 +2752,24 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                     "softland", Snackbar.LENGTH_SHORT
             )
             mySnackbar.show()
+            try {
+//                Toast.makeText(applicationContext, "Please Wait...", Toast.LENGTH_LONG).show()
+//                if (iPortOpen == 0) {
+//                    if (palmtecandro.jnidevOpen(115200) != -1) {
+//                        iPortOpen = 1
+//                    } else {
+////                        alertView("Port open error!")
+//                    }
+//                }
+//                BizcoreUtility.paperFeed(1)
+//                BizcoreUtility.printCustom("hlooooo", 0, 1)
+//                BizcoreUtility.feedForward(4.toByte())
+//                Log.e(TAG,"print 000 ")
+//                val header: String = successDisplayModel.getTitleLabel()
+//                BizcoreUtility.preparePrintingMessage(header, printingMessage, this@CustomerSearchActivity)
+            } catch (e: java.lang.Exception) {
+                Log.e(TAG, "Exception    78982   "+e)
+            }
             selectedPrinter = "4"
             dialog .dismiss()
         }
