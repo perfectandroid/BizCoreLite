@@ -85,6 +85,21 @@
 
     </style>
 
+    <style name="spinner_style11">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:spinnerMode">dialog</item>
+        <item name="android:entries">@array/items</item>
+        <item name="android:background">@drawable/rounded_corner11</item>
+        <item name="android:popupBackground">#ffffff</item>
+        <item name="android:drawableRight">@drawable/spinner_arrow1</item>
+
+    </style>
+
 
     <style name="blue_button">
         <item name="android:background">@drawable/blue_rounded_rect</item>

@@ -3,6 +3,31 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/drawable/button_selector.xml" value="0.196" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/drawable/layout_border.xml" value="0.206" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/drawable/menu_down.xml" value="0.206" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/drawable/rounded_corner11.xml" value="0.2275" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/drawable/spinner_arrow1.xml" value="0.2275" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/layout/activity_agent_summary.xml" value="0.18802083333333333" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/layout/activity_bluetooth_chat1.xml" value="0.2" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/layout/activity_customer_search.xml" value="0.22" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/layout/activity_device_list.xml" value="0.18802083333333333" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/layout/activity_select.xml" value="0.1984375" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/layout/activity_splash.xml" value="0.36666666666666664" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/layout/adapter_txnhistory.xml" value="0.33" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/layout/customerlist_popup.xml" value="0.36666666666666664" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/layout/device_name.xml" value="0.18802083333333333" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/layout/fragment_home.xml" value="0.1984375" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/layout/fragment_notifications.xml" value="0.36666666666666664" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/layout/item_drop_down.xml" value="0.1984375" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/layout/main.xml" value="0.18802083333333333" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/layout/message.xml" value="0.36666666666666664" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/layout/pop_up_delete.xml" value="0.25" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/layout/popup_commonapp.xml" value="0.36666666666666664" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/layout/success_deposit_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/BizcoreLite_7_2_23/app/src/main/res/menu/options.xml" value="0.18802083333333333" />
         <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/account_dialog_balenq.xml" value="0.27291666666666664" />
         <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/account_dialog_layout.xml" value="0.27291666666666664" />
         <entry key="..\:/January 2023/BizcoreLite 27.1.23/app/src/main/res/layout/activity_agent_balance.xml" value="0.27291666666666664" />

@@ -1,6 +1,7 @@
 package com.perfect.bizcorelite.Helper
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Log
 import com.perfect.bizcorelite.R
@@ -78,6 +79,7 @@ object BizcoreUtility {
         val singleLine = "|"
         singleLine.replace("|".toRegex(), "")
         var printValue: String
+        var printValue1: String
 //        val footer: String = CredentialDao.getInstance().getCredentials().getGreetings()
         val footer1 = "."
 
@@ -95,10 +97,20 @@ object BizcoreUtility {
 //        printString = singleLine +"set"+ printdata
         Log.e(TAG, "DeviceAppDetails    789830     "+printdata)
         if (amount.equals("")){
-            printValue =   singleLine + "Rec A/C "+hideAccNo(recAc)+ singleLine + "OpBal :"+opBal+ singleLine + "Agent :"+agent_Name1
+            printValue =   singleLine+"Rec A/C "+hideAccNo(recAc)+ singleLine +"OpBal :"+opBal+ singleLine +"Agent :"+agent_Name1
             Log.e(TAG,"445566"+opBal)
         }else{
-            printValue =   singleLine + "Rec A/C :"+hideAccNo(recAc)+ singleLine + "Amount :"+amount+ singleLine + "Agent :"+agent_Name1
+            printValue =    singleLine+"Rec A/C :"+hideAccNo(recAc)+ singleLine +"Amount :"+amount+ singleLine +"Agent :"+agent_Name1
+        }
+
+
+        val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+
+        if (amount.equals("")){
+            printValue1 =   "Rec A/C "+hideAccNo(recAc)+ singleLine +"Date :"+currentDate+singleLine +"OpBal :"+opBal+ singleLine +"Agent :"+agent_Name1
+            Log.e(TAG,"445566"+opBal)
+        }else{
+            printValue1 =    "Rec A/C :"+hideAccNo(recAc)+ singleLine+"Date :"+currentDate+singleLine +"Amount :"+amount+ singleLine +"Agent :"+agent_Name1
         }
 
 //            printValue =   singleLine + "Rec A/C :"+hideAccNo(recAc)+ singleLine + "Amount :"+amount+ singleLine + "OpBal : "+opBal+ singleLine + "Agent :"+agent_Name1
@@ -115,18 +127,91 @@ object BizcoreUtility {
 
 
 //        softLand4GPrinter  2-02-2023
-        softLand4GPrinter(bankName, title, dateTime,printdata, greetings,printValue)
+    //    softLand4GPrinter(bankName, title, dateTime,printdata, greetings,printValue)
+
+//Bluetooth printer 8-02-2023   //314400
+        bluetoothPrinter(printValue1,printdata,context,doubleLine)
 
 
-        // Thariyode
-        // Bluetooth iprintthermal Printer
 
-//        val intent = Intent(context, BluetoothChat1::class.java)
+
+
+
+//
+//        Log.i("response","bankName="+bankName)
+//        Log.i("response","title="+title)
+//        Log.i("response","printValue="+printValue1)
+//        Log.i("response","printdata="+printdata)
+//        Log.i("response","concate="+printValue+printdata)
+//        var printString = ""
+////        var printString: String
+//        val singleLine_o= "|"
+//        singleLine_o.replace("|".toRegex(), "")
+//        printString= ""+printValue1+ singleLine_o+ printdata + singleLine_o+"sd/-"
+//
+//        Log.i("response12345==", "printString Before cut==$printString")
+//        printString = CustomStringCutter.getInstance()!!.cutter(printString)!!
+//
+//        Log.i("response12345==", "printString Between==$printString")
+//        printString = printString.replace("\\r\\n|\\r|\\n".toRegex(), "")
+//      //  printString = CustomStringCutter.getInstance()?.cutter(printString).toString()
+//
+//      //  printString = CustomStringCutter.getInstance()!!.cutter(printString)!!
+//      //  printString = printString.replace("\\r|\\r|\\n".toRegex(), "")        // printString = printString.replace("\\r|\\r|".toRegex(), "")
+//
+//        Log.i("response1234","printString after cut=="+printString)
+//
+//        // Thariyode
+//        // Bluetooth iprintthermal Printer                          //314400
+//
+//        val intent = Intent(context, BluetoothChat2::class.java)
 //        intent.putExtra("printDataItems", noTrailingwhiteLines(printString + doubleLine + doubleLine + doubleLine + doubleLine))
 //        context.startActivity(intent)
 
 
     }
+
+    private fun bluetoothPrinter(
+        printValue1: String,
+        printdata: String,
+        context: Context,
+        doubleLine: String
+    ) {
+
+//        Log.i("response","bankName="+bankName)
+//        Log.i("response","title="+
+
+        val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+        Log.i("response","printValue="+printValue1)
+        Log.i("response","printdata="+printdata)
+        Log.i("response","concate="+printValue1+printdata)
+        var printString = ""
+//        var printString: String
+        val singleLine_o= "|"
+        singleLine_o.replace("|".toRegex(), "")
+        printString= ""+printValue1+ singleLine_o+ printdata + singleLine_o+"sd/-"
+
+        Log.i("response12345==", "printString Before cut==$printString")
+        printString = CustomStringCutter.getInstance()!!.cutter(printString)!!
+
+        Log.i("response12345==", "printString Between==$printString")
+        printString = printString.replace("\\r\\n|\\r|\\n".toRegex(), "")
+        //  printString = CustomStringCutter.getInstance()?.cutter(printString).toString()
+
+        //  printString = CustomStringCutter.getInstance()!!.cutter(printString)!!
+        //  printString = printString.replace("\\r|\\r|\\n".toRegex(), "")        // printString = printString.replace("\\r|\\r|".toRegex(), "")
+
+        Log.i("response1234","printString after cut=="+printString)
+
+        // Thariyode
+        // Bluetooth iprintthermal Printer                          //314400
+
+        val intent = Intent(context, BluetoothChat2::class.java)
+        intent.putExtra("printDataItems", noTrailingwhiteLines(printString + doubleLine + doubleLine + doubleLine + doubleLine))
+        context.startActivity(intent)
+
+    }
+
 
     private fun softLand4GPrinter(bankName: String, title: String, dateTime: String, printdata: String,greetings: String,printValue: String) {
         try {

@@ -22,6 +22,7 @@ import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import android.widget.AdapterView.OnItemClickListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,7 +36,6 @@ import com.perfect.bizcorelite.Offline.Activity.NewCollectionActivity
 import com.perfect.bizcorelite.R
 import com.perfect.bizcorelite.launchingscreens.Login.LoginActivity
 import com.perfect.bizcorelite.launchingscreens.MainHome.HomeActivity
-import com.softland.palmtecandro.palmtecandro
 import kotlinx.android.synthetic.main.activity_customer_search.*
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -76,6 +76,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     lateinit var dbHelper               : DBHandler
     lateinit var handler                : Handler
     lateinit var r                      : Runnable
+    val resonListModel=ArrayList<ResonListModel>()
+  //  private var reasonList              =ArrayList<ReasonLi>
     private var array_sort1             = ArrayList<CustomerModel>()
     private var searchCustomerArrayList = ArrayList<CustomerModel>()
     private var textlength1             = 0
@@ -96,6 +98,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     private var strCusName              : String?               = ""
     private var strSubModule            : String?               = ""
     private var strfkaccount            : String?               = ""
+    private var reasondel            : String?               = ""
     private var hashString              : String?               = null
     private var strAmount               : String?               = null
     private var strMsg                  : String?               = null
@@ -108,6 +111,17 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     private var mAccountNo1             : String?               = null
     private var LastTransactionId       : String?               = null
     private var printdata               : String?               = null
+    private var acc_no1               : String?               = null
+    private var acc_number               : String?               = null
+    private var deleteFlag               : String?               = null
+    private var reasonId               : String?               = null
+    private var moduleFrom1               : String?               = null
+
+    private var AccountCodeFiledName = ""
+    private var TableName = ""
+    private var FieldName = ""
+    public var reason = ""
+
     private var printingMessage = ""
 //    private val mGoogleApiClient: GoogleApiClient? = null
     private var iPortOpen: Int = 0
@@ -115,6 +129,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+     //   setTheme(android.R.style.TextAppearance_DeviceDefault_Medium_Inverse);
         setContentView(R.layout.activity_customer_search)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         val builder = VmPolicy.Builder()
@@ -160,15 +175,15 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        palmtecandro.jnidevOpen(115200)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        palmtecandro.jnidevClose()
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        palmtecandro.jnidevOpen(115200)
+//    }
+//
+//    override fun onStop() {
+//        super.onStop()
+//        palmtecandro.jnidevClose()
+//    }
 
     private fun initiateViews() {
         llsearch =findViewById(R.id.llsearch)
@@ -376,6 +391,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     }
 
     private fun balanceAccess() {
+
+        Log.i("responseBalance ","Balance access");
 //        when(ConnectivityUtils.isConnected(this)) {
 //            true -> {
 //                progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
@@ -445,17 +462,47 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                             okhttp3.MediaType.parse("application/json; charset=utf-8"),
                             requestObject1.toString()
                     )
+                    Log.i("response","view balnce req="+requestObject1)
                     val call = apiService.getBalanceScreenshowingStatus(body)
                     call.enqueue(object : retrofit2.Callback<String> {
                         override fun onResponse(call: retrofit2.Call<String>, response: Response<String>) {
                             try {
-//                                progressDialog!!.dismiss()
+//                                progressDialog!!.dismiss() //314400
                                 val jObject = JSONObject(response.body())
                                 if (jObject.getString("StatusCode") == "0") {
+
+
                                     val jobjt = jObject.getJSONObject("BalanceScreenshowingStatus")
+                                    deleteFlag=jobjt.getString("DeleteMode")
+                                    Log.i("response","status="+jobjt.getString("DeleteMode"))
+                                    Log.i("response","status="+deleteFlag)
+
+
+                                    val jsonOject12: JSONObject = jObject.getJSONObject("ReasonList")
+                                    val array = jsonOject12.getJSONArray("ReasonListDetails")
+                                    Log.i("response1212","deleteFlag="+deleteFlag)
+                                    Log.i("response1212","array="+array.length())
+                                    Log.i("response1212","array="+array.toString())
+                                    Log.i("response1212","array="+array.toString(0))
+
+
+                                    resonListModel.clear()
+                                    for (i in 0 until array.length()) {
+                                        val Jobject = array.getJSONObject(i)
+                                        resonListModel.add(ResonListModel(Jobject.getString("ID_Reason"),Jobject.getString("ReasonName")))
+
+                                    }
+
+
+
+
+
+
+
                                     val isAccessSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF10, 0)
                                     val isAccessEditor = isAccessSP.edit()
                                     isAccessEditor.putString("isAccess", jobjt.getString("IsShowing"))
+
                                     isAccessEditor.commit()
 
                                 } else {
@@ -465,6 +512,9 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                     isAccessEditor.commit()
 
                                 }
+
+                                Log.i("responseresonListModel","size="+resonListModel.size)
+
                             } catch (e: Exception) {
 //                                progressDialog!!.dismiss()
                                 val mySnackbar = Snackbar.make(
@@ -624,7 +674,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                     ll_trxn_history!!.visibility = View.GONE
                 }
             }
-
+//314400
             R.id.iv_txnHistory -> {
 //                getbal()
                 if (selectedData.equals(0) || selectedData.equals(1)) {
@@ -915,6 +965,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     }
 
     private fun doCusSearch(layoutdialog: AlertDialog) {
+
+        Log.i("responsedosearch","insisde do search")
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
                 progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
@@ -996,6 +1048,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                             okhttp3.MediaType.parse("application/json; charset=utf-8"),
                             requestObject1.toString()
                     )
+                    Log.i("response1212","cust request=="+requestObject1)
                     val call = apiService.getCustomersearchdetails(body)
                     call.enqueue(object : retrofit2.Callback<String> {
                         override fun onResponse(
@@ -1017,6 +1070,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                         val jarray = jobjt.getJSONArray("CustomerSerachDetailsList")
                                         array_sort1 = java.util.ArrayList<CustomerModel>()
                                         searchCustomerArrayList = ArrayList<CustomerModel>()
+
+                                        Log.i("response123","jarray.length()=="+jarray.length())
                                         if (jarray.length() == 1) {
 
                                             fk_acc_ind = jarray.getJSONObject(0).getString("FK_Account")
@@ -1027,6 +1082,9 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
 
                                             val accno = jarray.getJSONObject(0).getString("AccountNumber")
+                                            acc_no1 = jarray.getJSONObject(0).getString("AccountNumber")
+                                            acc_number=accno
+                                            Log.i("response112233","acc="+acc_no1)
                                             val f1: String = accno!!.substring(0, accno!!.length / 4) // gives "How ar"
                                             val f2: String = accno!!.substring(accno!!.length / 2)
                                             val f3: String = accno!!.substring(0, accno!!.length / 2)
@@ -1035,7 +1093,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                             edt_acc_first!!.setText(f1)
                                             edt_acc_second!!.setText(f5)
                                             edt_acc_third!!.setText(f2)
-
+                                           // acc_number=f1
 
                                             if (from!!.equals("Deposit")) {
                                                 getLoanDepositBalance(fk_acc_ind)
@@ -1149,7 +1207,9 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                                 val f2: String = accno!!.substring(accno!!.length / 2)
                                                 val f3: String = accno!!.substring(0, accno!!.length / 2)
                                                 val f5 = f3.substring(f3.length / 2)
-
+                                                acc_number=accno    //314400
+                                                Log.i("responseACC","acc="+accno)
+                                                Log.i("responseACC","1st="+accno!!.length/4)
                                                 edt_acc_first!!.setText(f1)
                                                 edt_acc_second!!.setText(f5)
                                                 edt_acc_third!!.setText(f2)
@@ -1653,10 +1713,12 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                 tv_asondate!!.text = "As On Date : " + getDateTime()
                                 val jobjt = jObject.getJSONObject("CustomerSearchTransactionDetails")
                                 val jarray = jobjt.getJSONArray("CustomerSearchTransactionDetailsList")
+//314400
+                                Log.i("response1234","jarray="+jarray)
                                 val lLayout = GridLayoutManager(this@CustomerSearchActivity, 1)
                                 rvtxnhistorymodule.layoutManager = lLayout as RecyclerView.LayoutManager?
                                 rvtxnhistorymodule.setHasFixedSize(true)
-                                val adapter = TransactionHistoryAdapter(this@CustomerSearchActivity, jarray)
+                                val adapter = TransactionHistoryAdapter(this@CustomerSearchActivity, jarray,deleteFlag!!)
                                 rvtxnhistorymodule.adapter = adapter
                             } else {
                                 val dialogBuilder = AlertDialog.Builder(this@CustomerSearchActivity, R.style.MyDialogTheme)
@@ -1702,6 +1764,563 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         }
 
     }
+
+    private fun getTranshistory1() {
+
+        when(ConnectivityUtils.isConnected(this)) {
+            true -> {
+
+                progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
+                progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
+                progressDialog!!.setCancelable(false)
+                progressDialog!!.setIndeterminate(true)
+                progressDialog!!.setIndeterminateDrawable(this.resources.getDrawable(R.drawable.progress))
+                progressDialog!!.show()
+
+                val AgentIdSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
+                val agentId = AgentIdSP.getString("Agent_ID", null)
+
+                val calendar = Calendar.getInstance()
+                val simpleDateFormat = SimpleDateFormat(
+                    "yyyy-MM-dd HH:mm:ss.SSS",
+                    Locale.ENGLISH
+                )
+                val dateTime = simpleDateFormat.format(calendar.time)
+
+                val DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails(this)
+                var Imei = DeviceAppDetails.imei
+                if (Imei != null && !Imei.isEmpty()) {
+                } else {
+                    val DeviceAppDetails1 = BizcoreApplication.getInstance().getDeviceAppDetails1(this)
+                    Imei = DeviceAppDetails1.imei
+                }
+
+                try {
+
+                    val client1 = OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build()
+                    val gson1 = GsonBuilder()
+                        .setLenient()
+                        .create()
+                    val retrofit1 = Retrofit.Builder()
+                        .baseUrl(ApiService.BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson1))
+                        .client(client1)
+                        .build()
+                    val apiService1 = retrofit1.create(ApiInterface::class.java!!)
+                    val requestObject1 = JSONObject()
+                    try {
+
+                        requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
+                        requestObject1.put(BizcoreApplication.CARD_ACCEPTOR_TERMINAL_CODE, BizcoreApplication.encryptMessage(Imei))
+                        requestObject1.put("Module", BizcoreApplication.encryptMessage(comparevalue))
+                        requestObject1.put("FK_Account", BizcoreApplication.encryptMessage(strfkaccount))
+                        requestObject1.put("LoginMode", BizcoreApplication.encryptMessage("2"))
+                        requestObject1.put(BizcoreApplication.BANKKEY, BizcoreApplication.encryptMessage(resources.getString(R.string.BankKey)))
+                        requestObject1.put(BizcoreApplication.BANKHeader, BizcoreApplication.encryptMessage(resources.getString(R.string.BankHeader)))
+
+                    } catch (e: Exception) {
+                        progressDialog!!.dismiss()
+                        e.printStackTrace()
+                        val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
+                            " Some technical issues. ", Snackbar.LENGTH_SHORT
+                        )
+                        mySnackbar.show()
+                    }
+                    val body1 = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString())
+                    val call1 = apiService1.getTransactionhistory(body1)
+                    call1.enqueue(object : retrofit2.Callback<String> {
+                        override fun onResponse(call: retrofit2.Call<String>, response1: Response<String>) {
+                            progressDialog!!.dismiss()
+                            val jObject = JSONObject(response1.body())
+
+                            if (jObject.getString("StatusCode") == "0") {
+                                ll_trxn_history!!.visibility = View.VISIBLE
+                                tv_asondate!!.text = "As On Date : " + getDateTime()
+                                val jobjt = jObject.getJSONObject("CustomerSearchTransactionDetails")
+                                val jarray = jobjt.getJSONArray("CustomerSearchTransactionDetailsList")
+//314400
+                                Log.i("response1234","jarray="+jarray)
+                                val lLayout = GridLayoutManager(this@CustomerSearchActivity, 1)
+                                rvtxnhistorymodule.layoutManager = lLayout as RecyclerView.LayoutManager?
+                                rvtxnhistorymodule.setHasFixedSize(true)
+                                val adapter = TransactionHistoryAdapter(this@CustomerSearchActivity, jarray,deleteFlag!!)
+                                rvtxnhistorymodule.adapter = adapter
+                            } else {
+//                                val dialogBuilder = AlertDialog.Builder(this@CustomerSearchActivity, R.style.MyDialogTheme)
+//                                dialogBuilder.setMessage(jObject.getString("StatusMessage"))
+//                                    .setCancelable(false)
+//                                    .setPositiveButton("OK", DialogInterface.OnClickListener { dialog, id ->
+//                                        iv_txnHistory?.setBackgroundResource(R.drawable.ic_txn_history)
+//                                    })
+//                                val alert = dialogBuilder.create()
+//                                alert.show()
+//                                val pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE)
+//                                pbutton.setTextColor(Color.MAGENTA)
+                              //  selectedData = 1
+                                iv_txnHistory?.setBackgroundResource(R.drawable.ic_txn_history)
+                                ll_trxn_history.visibility = View.GONE
+                            }
+
+
+                        }
+
+                        override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
+                            progressDialog!!.dismiss()
+                            val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
+                                " Some technical issues.", Snackbar.LENGTH_SHORT
+                            )
+                            mySnackbar.show()
+                        }
+                    })
+                } catch (e: Exception) {
+                    progressDialog!!.dismiss()
+                    e.printStackTrace()
+                    val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
+                        " Some technical issues.", Snackbar.LENGTH_SHORT
+                    )
+                    mySnackbar.show()
+                }
+
+
+            }
+            false -> {
+                val mySnackbar = Snackbar.make(findViewById(R.id.rl_main), "No Internet Connection!!", Snackbar.LENGTH_SHORT)
+                mySnackbar.show()
+            }
+        }
+
+    }
+
+    //314400
+
+    public fun deletePopUp1(
+        context: Context,
+        time: String,
+        channel: String,
+        amount: String,
+        TransType: String,
+        referenceNo: String,
+        TransMode: String,
+        Date1:String
+    ) {
+
+        Log.i("responseACC","acc="+acc_number)
+        val dialog: androidx.appcompat.app.AlertDialog
+        val builder = androidx.appcompat.app.AlertDialog.Builder(context)
+        val view1: View = LayoutInflater.from(context).inflate(R.layout.pop_up_delete, null, false)
+        var reason = ""
+
+        val txt_module = view1.findViewById<TextView>(R.id.txt_module)
+        val txt_time = view1.findViewById<TextView>(R.id.txt_time)
+        val txt_channel = view1.findViewById<TextView>(R.id.txt_channel)
+        val txt_amount = view1.findViewById<TextView>(R.id.txt_amount)
+        val reasonSpinner = view1.findViewById<AutoCompleteTextView>(R.id.reasonSpinner)
+        val closeBtn = view1.findViewById<Button>(R.id.close)
+        val deleteBtn = view1.findViewById<Button>(R.id.delete)
+        val txt_type = view1.findViewById<TextView>(R.id.txt_type)
+//        reasonSpinner.setBackgroundColor(Color.WHITE);
+//        reasonSpinner.setDropDownBackgroundResource(R.color.slate_custom)
+     //  reasonSpinner.sette
+        txt_module.setText(strModule)
+        txt_time.setText(time)
+        txt_channel.setText(channel)
+        txt_amount.setText(amount)
+        txt_type.setText(TransType)
+
+
+//        val UserName = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF5, 0)
+//        val UserNameEditor = UserName.edit()
+//        UserNameEditor.putString("username", "")
+//        UserNameEditor.commit()
+        val username= applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF5, 0).getString("username","")
+//        val branchcode= applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF11, 0).getString("branchCode","")
+        val branchcodeSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF11, 0)
+        val branchcode = branchcodeSP.getString("branchCode", null)
+
+        var referenceNo=referenceNo
+        var TransMode=TransMode
+
+
+
+
+        //.................314400
+
+//.................314400
+        if (strModule == "SB") {
+            moduleFrom1 = "DDSB"
+        } else if (strModule == "GL") {
+            moduleFrom1 = "GL"
+        } else if (strModule == "ML") {
+            moduleFrom1 = "TLML"
+        } else if (strModule == "RD") {
+            moduleFrom1 = "PDRD"
+        } else if (strModule == "OD") {
+            moduleFrom1 = "TLOD"
+        } else if (strModule == "GD") {
+            moduleFrom1 = "ODGD"
+        } else if (strModule == "DD") {
+            moduleFrom1 = "PDDD"
+        } else if (strModule == "CA") {                      //..............<..........
+            moduleFrom1 = "DDCA"
+        } else if (strModule == "JL") {                      //..............<..........
+            moduleFrom1 = "SLJL"
+        } else if (strModule == "HD") {                      //..............<..........
+            moduleFrom1 = "PDHD"
+        }
+
+
+        if (moduleFrom1 == "DDCA" || moduleFrom1 == "DDSB") {
+            AccountCodeFiledName = "FK_DemandDeposit"
+            TableName = "DemandDepositTransaction"
+            FieldName = "DdtrAmount"
+        } else if (moduleFrom1 == "SLJL") {
+            AccountCodeFiledName = "FK_SecuredLoan"
+            TableName = "SecuredLoanTransaction"
+            FieldName = "SltrPrincipalAmount"
+        } else if (moduleFrom1 == "TLGP" || moduleFrom1 == "TLML" || moduleFrom1 == "TLOD") {
+            AccountCodeFiledName = "FK_TermLoanApplication"
+            TableName = "TermLoanTransaction"
+            FieldName = "TltrPrincipalAmount"
+        } else if (moduleFrom1 == "ODGD") {
+            AccountCodeFiledName = "FK_GroupDepositSchemeSubscriber"
+            TableName = "GroupDepositSchemeRemittance"
+            FieldName = ""
+        } else if (moduleFrom1 == "PDDD" || moduleFrom1 == "PDHD" || moduleFrom1 == "PDRD") {
+            AccountCodeFiledName = "FK_PeriodicDeposit"
+            TableName = "PeriodicDepositRemittance"
+            FieldName = "PdrAmount"
+        }
+
+
+
+
+        val adapter
+                = ArrayAdapter(this,
+            android.R.layout.simple_list_item_1, resonListModel)
+        reasonSpinner.setAdapter(adapter)
+
+
+        reasonSpinner.setOnClickListener { v: View? -> reasonSpinner.showDropDown() }
+
+        reasonSpinner.onItemClickListener =
+            OnItemClickListener { parent: AdapterView<*>?, view: View?, position: Int, id: Long ->
+                for (i in resonListModel) {
+                    if (i.ReasonName
+                            .equals(reasonSpinner.text.toString().trim { it <= ' ' })
+                    ) {
+                        reasonId = i.ID_Reason
+                        break
+                    }
+                }
+                Log.i("responsekkkkkkkkkkk", "reasonId=$reasonId")
+            }
+
+//        builder.setNegativeButton(
+//            "Close"
+//        ) { dialog1: DialogInterface, which: Int -> dialog1.dismiss() }
+//        builder.setPositiveButton(
+//            "Delete"
+//        ) { dialog1: DialogInterface, which: Int -> dialog1.dismiss() }
+
+        builder.setView(view1)
+
+        dialog = builder.create()
+        val lp = WindowManager.LayoutParams()
+        lp.copyFrom(dialog.window!!.attributes)
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT
+        dialog.window!!.attributes = lp
+
+        dialog.setCanceledOnTouchOutside(false)
+        val DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails(this)
+        var Imei = DeviceAppDetails.imei
+        if (Imei != null && !Imei.isEmpty()) {
+        } else {
+            val DeviceAppDetails1 = BizcoreApplication.getInstance().getDeviceAppDetails1(this)
+            Imei = DeviceAppDetails1.imei
+        }
+        val msg0 :String = edt_acc_first!!.text.toString()
+        closeBtn.setOnClickListener(View.OnClickListener { dialog.dismiss() })
+        deleteBtn.setOnClickListener(View.OnClickListener {
+
+                var r=""
+
+            reason= reasonSpinner.text.toString().trim { it <= ' ' }
+            if (reason.isEmpty()) {
+                // Utils.shortToast(this, "Customer Name is empty");
+                Toast.makeText(this, "Please select reason", Toast.LENGTH_SHORT).show()
+                //   dialog.setCancelable(false);
+                // dialog.show();
+                return@OnClickListener
+            } else {
+
+
+
+                deleteTransaction(dialog,referenceNo,
+                    strfkaccount,reasonId,Date1,Imei,acc_number,amount,TransType,moduleFrom1,TransMode,username,branchcode,AccountCodeFiledName,TableName,FieldName
+                )
+            }
+
+            Log.i("responseDeletedData","\n"+"reference no="+referenceNo +"\n"
+                    +"fk="+strfkaccount+"\n"+"reason_id="+reasonId+"\n"+"acc_number="+acc_number
+                    +"\n"+"amount="+amount+"\n"+"TransType="+TransType+"\n"+"username="+username
+                    +"\n"+"TransMode="+TransMode+"\n"+"moduleFrom="+moduleFrom1+"\n"+"TransDate="+Date1
+                    +"\n"+"branchcode="+branchcode+"\n"+"bank key="+getResources().getString(R.string.BankKey)+"\n"+
+                    "Header="+getResources().getString(R.string.BankHeader)+"\n"+"MechineCode="+Imei+"\n"+
+                    "AccountCodeFiledName="+AccountCodeFiledName+"\n"+"TableName="+TableName+"\n"+"FieldName="+FieldName
+
+
+
+
+
+            )
+        })
+
+
+//        deleteBtn.setOnClickListener {
+//
+////            sumbitData(
+////                reasonSpinner,
+////                referenceNo,
+////                fk,
+////                reasonId,
+////                date,
+////                mAccNo,
+////                amounts,
+////                transtype,
+////                moduleFrom,
+////                username,
+////                TransMode,
+////                dialog,
+////                moduleFrom1,
+////                reasonNameList
+////            )
+//            //  dialog.dismiss();
+//        }
+
+        dialog.show()
+
+    }
+
+    private fun deleteTransaction(
+        dialog: androidx.appcompat.app.AlertDialog,
+        referenceno: String?,
+        strfkaccount: String?,
+        reasonId: String?,
+        transdate1: String,
+        imei: String?,
+        accNumber: String?,
+        amount: String,
+        transType: String,
+        moduleFrom1: String?,
+        transMode: String,
+        username: String?,
+        branchcode: String?,
+        accountCodeFiledName: String,
+        tableName: String,
+        fieldName: String
+    ) {
+
+        when(ConnectivityUtils.isConnected(this)) {
+            true -> {
+                progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
+                progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
+                progressDialog!!.setCancelable(false)
+                progressDialog!!.setIndeterminate(true)
+                progressDialog!!.setIndeterminateDrawable(this.resources.getDrawable(R.drawable.progress))
+                progressDialog!!.show()
+                try {
+                    val client1 = OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build()
+                    val gson1 = GsonBuilder()
+                        .setLenient()
+                        .create()
+                    val retrofit1 = Retrofit.Builder()
+                        .baseUrl(ApiService.BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson1))
+                        .client(client1)
+                        .build()
+                    val apiService1 = retrofit1.create(ApiInterface::class.java!!)
+                    val requestObject2 = JSONObject()
+                    try {
+                        requestObject2.put("ID_Transaction", BizcoreApplication.encryptMessage(referenceno))
+                        requestObject2.put("FK_Account", BizcoreApplication.encryptMessage(strfkaccount))
+                        requestObject2.put("ID_Reason", BizcoreApplication.encryptMessage(reasonId))
+                        requestObject2.put("TransDate", BizcoreApplication.encryptMessage(transdate1))
+                        requestObject2.put("MechineCode", BizcoreApplication.encryptMessage(imei))
+                        requestObject2.put("AccountNumber", BizcoreApplication.encryptMessage(accNumber))
+                        requestObject2.put("Amount", BizcoreApplication.encryptMessage(amount))
+                        requestObject2.put("TransType", BizcoreApplication.encryptMessage(transType))
+                        requestObject2.put("Module", BizcoreApplication.encryptMessage(moduleFrom1))
+                        requestObject2.put("TransMode", BizcoreApplication.encryptMessage(transMode))
+                        requestObject2.put("AgentUserName", BizcoreApplication.encryptMessage(username))
+                        requestObject2.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
+                        requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject2.put("BranchCode", BizcoreApplication.encryptMessage(branchcode))
+                        requestObject2.put( "AccountCodeFiledName", BizcoreApplication.encryptMessage(accountCodeFiledName) )
+                        requestObject2.put( "TableName", BizcoreApplication.encryptMessage(tableName) )
+                        requestObject2.put( "FieldName", BizcoreApplication.encryptMessage(fieldName) )
+
+
+
+
+                    }
+
+
+                    catch (e: Exception) {
+                        progressDialog!!.dismiss()
+                        e.printStackTrace()
+                        val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
+                            " Some technical issues.", Snackbar.LENGTH_SHORT
+                        )
+                        mySnackbar.show()
+                    }
+
+
+                    val body1 = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject2.toString())
+                    val call1 = apiService1.toDeleteTransaction(body1)
+                    call1.enqueue(object : retrofit2.Callback<String> {
+                        override fun onResponse(call: retrofit2.Call<String>, response1:
+                        Response<String>
+                        ) {
+                            try {
+                                progressDialog!!.dismiss()
+                                val jObject = JSONObject(response1.body())
+                                //                            Toast.makeText(context,jObject.getString("StatusCode"),Toast.LENGTH_SHORT).show();
+                                val jmember = jObject.getJSONObject("TransactionDeleteData")
+                                if (jObject.getString("StatusCode") == "0") {
+//resetRecycler();
+
+//
+                                    Log.i("responseDelete", "delete.............")
+                                 //   dialog.dismiss()
+                                    //  Toast.makeText(context,ii,Toast.LENGTH_SHORT).show();
+                                    //     setMessage(ii, dialog);
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Delete successfully",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    dialog.dismiss()
+                                    getTranshistory1()
+                                } else if (jObject.getString("StatusCode") == "-1") {
+
+
+
+                                    val dialogBuilder = AlertDialog.Builder(
+                                        this@CustomerSearchActivity,
+                                        R.style.MyDialogTheme
+                                    )
+                                    dialogBuilder.setMessage(jObject.getString("EXMessage"))
+                                        .setCancelable(false)
+                                        .setPositiveButton(
+                                            "OK",
+                                            DialogInterface.OnClickListener { dialog, id ->
+                                                dialog.dismiss()
+
+                                            })
+                                    val alert = dialogBuilder.create()
+                                    alert.show()
+                                    val pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE)
+                                    pbutton.setTextColor(Color.MAGENTA)
+
+                                    //  alertDialog.dismiss();
+
+                                    //  alertDialog.dismiss();
+                                    Log.i("response1111", "t1 else if -1")
+                                    val ii = jObject.getString("EXMessage")
+                                    //  Toast.makeText(context,ii,Toast.LENGTH_SHORT).show();
+                                    //  Toast.makeText(context,ii,Toast.LENGTH_SHORT).show();
+                                 //   setMessage(ii, dialog)
+                                } else {
+                                    Log.i("response1111", "else t2")
+                               //     setMessage(jObject.getString("EXMessage"), dialog)
+
+
+                                    val dialogBuilder = AlertDialog.Builder(
+                                        this@CustomerSearchActivity,
+                                        R.style.MyDialogTheme
+                                    )
+                                    dialogBuilder.setMessage(jObject.getString("EXMessage"))
+                                        .setCancelable(false)
+                                        .setPositiveButton(
+                                            "OK",
+                                            DialogInterface.OnClickListener { dialog, id ->
+                                                dialog.dismiss()
+
+                                            })
+                                    val alert = dialogBuilder.create()
+                                    alert.show()
+                                    val pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE)
+                                    pbutton.setTextColor(Color.MAGENTA)
+                                }
+
+
+
+
+                            } catch (e: Exception) {
+                                progressDialog!!.dismiss()
+                                e.printStackTrace()
+                            }
+                        }
+
+                        override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
+                            progressDialog!!.dismiss()
+                            val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
+                                " Some technical issues.", Snackbar.LENGTH_SHORT
+                            )
+                            mySnackbar.show()
+                        }
+                    })
+                } catch (e: Exception) {
+                    progressDialog!!.dismiss()
+                    e.printStackTrace()
+                    val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
+                        " Some technical issues.", Snackbar.LENGTH_SHORT
+                    )
+                    mySnackbar.show()
+                }
+            }
+            false -> {
+                val mySnackbar = Snackbar.make(findViewById(R.id.rl_main), "No Internet Connection!!", Snackbar.LENGTH_SHORT)
+                mySnackbar.show()
+            }
+        }
+
+
+    }
+
+    //    private void refreshdata() {
+    //           CustomerTransAdapter(List<CustomerTransDetails> dataList, Context context,String fk ) {
+    //            this.dataList = dataList;
+    //            this.context = context;
+    //            this.fk = fk;
+    //            this.dialogView = dialogView;
+    //        }
+    //
+    //    }
+    private fun setMessage(
+        authenticationErrorMessage: String,
+        dialog: androidx.appcompat.app.AlertDialog
+    ) {
+        val builder = AlertDialog.Builder(this)
+        builder.setCancelable(false)
+        //  builder.setTitle(title);
+        builder.setMessage(authenticationErrorMessage)
+        builder.setPositiveButton(
+            "OK"
+        ) { dialog, which -> dialog.dismiss() }
+        builder.show()
+    }
+
+
 
     private fun getDateTime(): String? {
         val dateFormat: DateFormat = SimpleDateFormat("dd-MM-yyyy")

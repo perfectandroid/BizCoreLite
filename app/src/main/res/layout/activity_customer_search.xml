@@ -55,6 +55,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="5dp"
                 android:background="@color/grey">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -306,7 +307,7 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginBottom="60dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:cardCornerRadius="4dp"
                         app:cardElevation="4dp"
                         tools:ignore="MissingConstraints">
@@ -332,7 +333,7 @@
                                     android:layout_gravity="center"
                                     android:gravity="center"
                                     android:orientation="vertical"
-                                    android:visibility="visible">
+                                    android:visibility="gone">
 
                                     <LinearLayout
                                         android:layout_width="match_parent"
@@ -391,17 +392,16 @@
                                         android:id="@+id/tv_available_amount"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
                                         android:layout_marginLeft="20dp"
                                         android:layout_marginRight="20dp"
-                                        android:padding="1dp"
-                                        android:layout_gravity="center"
                                         android:gravity="left|center"
+                                        android:padding="1dp"
                                         android:text=""
                                         android:textColor="@color/red"
                                         android:textSize="15dp"
                                         android:textStyle="bold" />
                                 </LinearLayout>
-
 
 
                                 <LinearLayout
@@ -448,8 +448,8 @@
                                     android:id="@+id/ll_trxn_history"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="30dp"
-                                    android:layout_marginRight="30dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginRight="10dp"
                                     android:orientation="vertical"
                                     android:visibility="gone">
 
@@ -471,6 +471,7 @@
                                         android:textStyle="bold" />
 
                                     <LinearLayout
+                                        android:visibility="gone"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:background="@color/grey"
@@ -481,7 +482,7 @@
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:layout_weight="1.4"
+                                            android:layout_weight="1.5"
                                             android:gravity="center"
                                             android:paddingTop="2dp"
                                             android:paddingBottom="2dp"
@@ -494,7 +495,7 @@
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:layout_weight="1.3"
+                                            android:layout_weight="1.4"
                                             android:gravity="center"
                                             android:paddingTop="2dp"
                                             android:paddingBottom="2dp"
@@ -507,7 +508,7 @@
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:layout_weight="1.2"
+                                            android:layout_weight="1.4"
                                             android:gravity="center"
                                             android:paddingTop="2dp"
                                             android:paddingBottom="2dp"
@@ -532,7 +533,7 @@
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:layout_weight="1.3"
+                                            android:layout_weight="1.4"
                                             android:gravity="center"
                                             android:paddingTop="2dp"
                                             android:paddingBottom="2dp"
@@ -549,6 +550,19 @@
                                             android:paddingTop="2dp"
                                             android:paddingBottom="2dp"
                                             android:text="Print"
+                                            android:textColor="@color/black"
+                                            android:textSize="13dp"
+                                            android:textStyle="normal"
+                                            android:visibility="visible" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1.5"
+                                            android:gravity="center"
+                                            android:paddingTop="2dp"
+                                            android:paddingBottom="2dp"
+                                            android:text="Delete"
                                             android:textColor="@color/black"
                                             android:textSize="13dp"
                                             android:textStyle="normal"
@@ -578,8 +592,8 @@
                                         android:layout_height="wrap_content"
                                         android:background="@drawable/edttxtbg"
                                         android:drawableLeft="@drawable/rupeeindian"
-                                        android:drawableTint="@color/black"
                                         android:drawablePadding="10dp"
+                                        android:drawableTint="@color/black"
                                         android:hint="Amount"
                                         android:inputType="numberDecimal"
                                         android:padding="10dp"

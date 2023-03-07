@@ -18,6 +18,7 @@ object CustomStringCutter {
         val lineSeperator = message.split("\\|".toRegex()).toTypedArray()
         val stringBuilder = StringBuilder()
         for (data in lineSeperator) {
+            Log.v("dsfsdfdd",""+data)
             stringBuilder.append(lineAlign(data))
         }
         return stringBuilder.toString()

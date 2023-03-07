@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@color/colorPrimary"
+   >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_margin="20dp"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true">
+
+
+
+        <TextView
+            android:id="@+id/txtHead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/idImgV1"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            android:text="Please Enter Common App Code"
+            android:textColor="#F2F4F6"
+            android:textSize="14sp" />
+
+
+
+
+
+
+
+        <Button
+            android:id="@+id/btn_resend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btn_submit"
+            android:background="@null"
+            android:layout_centerHorizontal="true"
+            android:text="Resend"
+            android:textAllCaps="false"
+            android:textColor="#297cca"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:visibility="gone"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btn_resend"
+            android:orientation="vertical"
+            android:paddingLeft="80dp"
+            android:paddingRight="80dp">
+            <EditText
+                android:id="@+id/etxt_nidhicode"
+                android:textSize="14sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:maxLength="6"
+                android:hint="Enter Code"
+                android:textColorHint="@color/light_grey"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:inputType="numberPassword" />
+
+        </LinearLayout>
+
+        <Button
+
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="85dp"
+            android:layout_marginRight="85dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="@drawable/btnbg"
+            android:textColor="@color/white"
+            android:text="Confirm" />
+    </LinearLayout>
+
+
+</RelativeLayout>

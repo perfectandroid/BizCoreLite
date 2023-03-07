@@ -1,13 +1,9 @@
 package com.perfect.bizcorelite.bottombar.home
 
 import android.app.Dialog
-import android.app.ProgressDialog
-import android.content.Context.MODE_PRIVATE
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
-import android.preference.PreferenceManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -37,9 +33,7 @@ import com.perfect.bizcorelite.Offline.Activity.NewCollectionActivity
 import com.perfect.bizcorelite.Offline.Model.ArchiveModel
 import com.perfect.bizcorelite.Offline.Model.TransactionModel
 import com.perfect.bizcorelite.R
-import kotlinx.android.synthetic.main.activity_customer_search.*
 import me.relex.circleindicator.CircleIndicator
-import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import org.json.JSONArray
@@ -60,7 +54,6 @@ import java.security.cert.X509Certificate
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.net.ssl.*
-import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment(), View.OnClickListener {
@@ -84,6 +77,9 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private val XMEN                    = arrayOf<Int>(R.drawable.ban1, R.drawable.ban2, R.drawable.ban3, R.drawable.ban4)
     private val XMENArray               = ArrayList<Int>()
     internal var transactionlist        = ArrayList<TransactionModel>()
+
+    private var branchcode: String? = null
+    private var reason: String? = null
 
     override fun onClick(v: View) {
         when(v.id){
@@ -247,11 +243,13 @@ class HomeFragment : Fragment(), View.OnClickListener {
                         requestObject1.put("Token", BizcoreApplication.encryptMessage(hashToken))
                         requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
+                        requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
-                        requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
+                      //  requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
                   } catch (e: Exception) {
                         e.printStackTrace()
                     }
+                    Log.i("responseBranch","code="+requestObject1)
                     val body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString())
                     val call = apiService.getGetUserBranchCode(body)
                     call.enqueue(object : retrofit2.Callback<String> {
@@ -262,12 +260,35 @@ class HomeFragment : Fragment(), View.OnClickListener {
                                 val jObject = JSONObject(response.body())
                                 if (jObject.getString("StatusCode") == "0") {
                                     val jmember = jObject.getJSONObject("UserBranchCode")
+                                    Log.i("responseBranch22eeeee","code=="+jmember.getString("BranchCode"))
+                                    branchcode = jmember.getString("BranchCode")
+                                    if (branchcode!!.length == 0) {
+                                        branchcode = "000"
+                                    }
+                                    if (branchcode!!.length == 1) {
+                                        branchcode = "00$branchcode"
+                                    } else if (branchcode!!.length == 2) {
+                                        branchcode = "0$branchcode"
+                                    } else if (branchcode!!.length == 3) {
+                                        branchcode = branchcode
+                                    }
+
+
+
+
 
                                     val branchCodeSP = context!!.applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF11, 0)
                                     val branchCodeEditor = branchCodeSP.edit()
-                                    branchCodeEditor.putString("branchCode", jmember.getString("BranchCode"))
+                                  //  branchCodeEditor.putString("branchCode", jmember.getString("BranchCode"))
+                                    branchCodeEditor.putString("branchCode", branchcode)
                                     branchCodeEditor.commit()
 
+                                    Log.i("responseBranch22","code=="+jmember.getString("BranchCode"))
+
+                                }
+                                else
+                                {
+                                    Log.i("responseBranch22","status code==="+jObject.getString("StatusCode"))
                                 }
                             } catch (e: Exception) {
                                 e.printStackTrace()

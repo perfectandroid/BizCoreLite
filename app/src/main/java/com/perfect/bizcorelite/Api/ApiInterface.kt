@@ -55,6 +55,10 @@ interface ApiInterface {
     @POST("DefaultModule")
     fun getDefaultModule(@Body body: RequestBody): Call<String>
 
+    //...........314400
+    @POST("TransactionDetailsDelete")
+    fun toDeleteTransaction(@Body body: RequestBody): Call<String>
+
     @POST("BalanceScreenshowingStatus")
     fun getBalanceScreenshowingStatus(@Body body: RequestBody): Call<String>
 

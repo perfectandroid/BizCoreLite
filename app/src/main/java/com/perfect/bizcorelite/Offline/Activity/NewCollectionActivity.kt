@@ -98,15 +98,15 @@ class NewCollectionActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
-    override fun onStart() {
-        super.onStart()
-        palmtecandro.jnidevOpen(115200)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        palmtecandro.jnidevClose()
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        palmtecandro.jnidevOpen(115200)
+//    }
+//
+//    override fun onStop() {
+//        super.onStop()
+//        palmtecandro.jnidevClose()
+//    }
 
     override fun onUserInteraction() {
         // TODO Auto-generated method stub

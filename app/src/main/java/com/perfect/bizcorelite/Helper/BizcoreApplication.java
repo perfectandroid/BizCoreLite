@@ -54,6 +54,7 @@ public class BizcoreApplication extends Application {
     public static final String SHARED_PREF9 = "mpin";
     public static final String SHARED_PREF10 = "isAccess";
     public static final String SHARED_PREF11 = "branchCode";
+    public static final String SHARED_PREF12 = "common_appcode";
 
 
 

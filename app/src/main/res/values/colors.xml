@@ -18,6 +18,8 @@
     <color name="light_green">#16a453</color>
     <color name="transparent">#00ffffff</color>
     <color name="black">#000</color>
+    <color name="light_grey1">#E4E0E0</color>
+    <color name="black1">#6D6B6B</color>
     <color name="ligt_dark">#5eeae9e9</color>
     <color name="light_blue">#398ff7</color>
     <color name="white_transparent">#9ee7e5e5</color>
@@ -25,10 +27,10 @@
     <color name="text_secondary">#999999</color>
     <color name="color_activity_transparent">#00000000</color>
     <color name="light_black">#566573</color>
-
+    <color name="light_grey">#B3B3B3</color>
     <color name="mtrl_textinput_default_box_stroke_color">#fff</color>
 
-
+    <color name="greydark1">#B8B7B7</color>
     <!-- Screens background color-->
     <color name="bg_screen1">#f64c73</color>
     <color name="bg_screen2">#20d2bb</color>
