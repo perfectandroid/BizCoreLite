@@ -6,6 +6,9 @@ object ApiService {
     val BASE_URL = "https://202.164.150.65:14004/Bizcore/api/Bizcore/"
     val CERT_NAME = "sqlserver.pem"
 
+//    val BASE_URL = "https://202.164.150.222:8000/Bizcore/api/Bizcore/"
+//    val CERT_NAME = "sqlserver.pem"
+
 //    Kazhakuttom Scb
 //    val BASE_URL = "https://59.92.70.139:14050/bizcore/api/Bizcore/"
 //    val CERT_NAME = "kazhakuttom.pem"

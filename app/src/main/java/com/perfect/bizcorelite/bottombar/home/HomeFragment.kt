@@ -199,6 +199,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private fun syncBranchCode(){
         when(ConnectivityUtils.isConnected(context!!)) {
             true -> {
+                val ID_CommonApp =
+                    context!!.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 try {
                     val client = OkHttpClient.Builder()
                             .sslSocketFactory(getSSLSocketFactory())
@@ -242,9 +246,9 @@ class HomeFragment : Fragment(), View.OnClickListener {
                         val hashToken = "06" + hashString/*+token*/
                         requestObject1.put("Token", BizcoreApplication.encryptMessage(hashToken))
                         requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
                         requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                       //  requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
                   } catch (e: Exception) {
                         e.printStackTrace()
@@ -309,6 +313,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private fun syncData(){
         when(ConnectivityUtils.isConnected(context!!)) {
             true -> {
+                val ID_CommonApp =
+                    context!!.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 try {
                     val client = OkHttpClient.Builder()
                             .sslSocketFactory(getSSLSocketFactory())
@@ -357,8 +365,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
                         requestObject1.put(BizcoreApplication.SYSTEM_TRACE_AUDIT_NO, BizcoreApplication.encryptMessage(randomNumber))
                         requestObject1.put(BizcoreApplication.CURRENT_DATE, BizcoreApplication.encryptMessage(dateTime))
                         requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
                         val jsonArray = JSONArray()
                         val db = DBHandler(context!!)

@@ -30,6 +30,7 @@ import com.perfect.bizcorelite.Offline.Model.TransactionModel
 import com.perfect.bizcorelite.R
 import com.perfect.bizcorelite.launchingscreens.Login.LoginActivity
 import com.perfect.bizcorelite.launchingscreens.MainHome.HomeActivity
+import com.perfect.bizcorelite.launchingscreens.Splash.SplashActivity
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import org.json.JSONArray
@@ -130,6 +131,10 @@ class LogoutFragment : Fragment(), View.OnClickListener {
     private fun syncData(){
         when(ConnectivityUtils.isConnected(context!!)) {
             true -> {
+                val ID_CommonApp =
+                    context!!.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 try{
                     progressDialog = ProgressDialog(context, R.style.Progress)
                     progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
@@ -187,11 +192,8 @@ class LogoutFragment : Fragment(), View.OnClickListener {
                         requestObject1.put( BizcoreApplication.SYSTEM_TRACE_AUDIT_NO, BizcoreApplication.encryptMessage(randomNumber))
                         requestObject1.put( BizcoreApplication.CURRENT_DATE, BizcoreApplication.encryptMessage(dateTime))
                         requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
-                        requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
 
 
@@ -475,11 +477,25 @@ class LogoutFragment : Fragment(), View.OnClickListener {
             val loginTimeEditer = loginTimeSP.edit()
             loginTimeEditer.putString("logintime", "")
             loginTimeEditer.commit()
+
+            val common_appcodeSP = context!!.applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+            val appcodeEditer = common_appcodeSP.edit()
+            appcodeEditer.putString("bank_code", "")
+            appcodeEditer.commit()
+
+            val appHeaderEditer = common_appcodeSP.edit()
+            appHeaderEditer.putString("bank_header", "")
+            appHeaderEditer.commit()
+
+            val common_appcode_checkEditer = common_appcodeSP.edit()
+            common_appcode_checkEditer.putString("common_appcode_check", "")
+            common_appcode_checkEditer.commit()
+
             dbHelper = DBHandler(context!! )
             dbHelper.deleteallAccount()
             dbHelper.deleteallTransaction()
             dbHelper.deleteAllArchieve()
-            var intent = Intent(context, LoginActivity::class.java)
+            var intent = Intent(context, SplashActivity::class.java)
             startActivity(intent)
             activity?.finish()
         } catch (e: Exception) {

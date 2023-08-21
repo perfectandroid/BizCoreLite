@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_activity_transparent"
+    android:layout_margin="1dp"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_activity_transparent"
+        android:gravity="center"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/llnewcollection"
+                android:layout_width="150dp"
+                android:layout_height="180dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shadow_back"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/new_collection"
+                    android:tint="@color/colorAccentDark" />
+
+                <TextView
+                    android:id="@+id/tvyes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:drawablePadding="10dp"
+                    android:text="New Collection"
+                    android:textColor="@color/colorAccentDark"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llcollectiondetails"
+                android:layout_width="150dp"
+                android:layout_height="180dp"
+                android:background="@drawable/shadow_back"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/collection_details"
+                    android:tint="@color/colorAccentDark" />
+
+                <TextView
+                    android:id="@+id/tvno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:text="Collection Details"
+                    android:textColor="@color/colorAccentDark"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
+

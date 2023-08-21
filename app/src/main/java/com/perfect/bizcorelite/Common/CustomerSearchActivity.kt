@@ -37,6 +37,7 @@ import com.perfect.bizcorelite.R
 import com.perfect.bizcorelite.launchingscreens.Login.LoginActivity
 import com.perfect.bizcorelite.launchingscreens.MainHome.HomeActivity
 import kotlinx.android.synthetic.main.activity_customer_search.*
+import ninja.saad.wizardoflocale.util.LocaleHelper
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import org.json.JSONObject
@@ -209,6 +210,11 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         llcust!!.visibility=View.GONE
     }
 
+    override fun attachBaseContext(newBase: Context) {
+        LocaleHelper().setLocale(newBase, LocaleHelper().getLanguage(newBase))
+        super.attachBaseContext(LocaleHelper().onAttach(newBase))
+    }
+
     private fun setAccounts() {
         val acctyp = resources.getStringArray(R.array.array_accounts).get(1)
         edt_txt_module.setText("" + acctyp)
@@ -221,6 +227,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     private fun setAccType() {
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -265,8 +275,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         val agentId = AgentIdSP.getString("Agent_ID", null)
                         requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
                         requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")
                         requestObject1.put("Mode", BizcoreApplication.encryptMessage("32"))
 
@@ -392,6 +402,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
     private fun balanceAccess() {
 
+        val ID_CommonApp =
+            applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var bank_key = ID_CommonApp.getString("bank_code", "")
+        var bank_header = ID_CommonApp.getString("bank_header", "")
         Log.i("responseBalance ","Balance access");
 //        when(ConnectivityUtils.isConnected(this)) {
 //            true -> {
@@ -442,8 +456,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         val agentId = AgentIdSP.getString("Agent_ID", null)
                         requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
                         requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")
                         requestObject1.put("Mode", BizcoreApplication.encryptMessage("33"))
                         requestObject1.put("Module", BizcoreApplication.encryptMessage(comparevalue))
@@ -969,6 +983,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         Log.i("responsedosearch","insisde do search")
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -1017,8 +1035,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
 //                        requestObject1.put("CustomerId", BizcoreApplication.encryptMessage("0"))
                         requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")
                         requestObject1.put("Module", BizcoreApplication.encryptMessage(comparevalue))
                         if (buttonNameSelected == 1) {
@@ -1412,7 +1430,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
-
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
 //                progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
 //                progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
 //                progressDialog!!.setCancelable(false)
@@ -1462,8 +1483,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject1.put("Module", BizcoreApplication.encryptMessage(comparevalue))
                         requestObject1.put("AccountNumber", BizcoreApplication.encryptMessage(accountNo))
                         requestObject1.put("ActionType", BizcoreApplication.encryptMessage("2"))
-                        requestObject1.put(BizcoreApplication.BANKKEY, BizcoreApplication.encryptMessage(resources.getString(R.string.BankKey)))
-                        requestObject1.put(BizcoreApplication.BANKHeader, BizcoreApplication.encryptMessage(resources.getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
 
                     } catch (e: Exception) {
 //                        progressDialog!!.dismiss()
@@ -1518,7 +1539,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
-
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
 //                progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
 //                progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
 //                progressDialog!!.setCancelable(false)
@@ -1567,8 +1591,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject1.put(BizcoreApplication.CARD_ACCEPTOR_TERMINAL_CODE, BizcoreApplication.encryptMessage(Imei))
                         requestObject1.put("Module", BizcoreApplication.encryptMessage(comparevalue))
                         requestObject1.put("FK_Account", BizcoreApplication.encryptMessage(str_fkaccount))
-                        requestObject1.put(BizcoreApplication.BANKKEY, BizcoreApplication.encryptMessage(resources.getString(R.string.BankKey)))
-                        requestObject1.put(BizcoreApplication.BANKHeader, BizcoreApplication.encryptMessage(resources.getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
 
                     } catch (e: Exception) {
 //                        progressDialog!!.dismiss()
@@ -1640,7 +1664,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
-
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -1690,8 +1717,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject1.put("Module", BizcoreApplication.encryptMessage(comparevalue))
                         requestObject1.put("FK_Account", BizcoreApplication.encryptMessage(strfkaccount))
                         requestObject1.put("LoginMode", BizcoreApplication.encryptMessage("2"))
-                        requestObject1.put(BizcoreApplication.BANKKEY, BizcoreApplication.encryptMessage(resources.getString(R.string.BankKey)))
-                        requestObject1.put(BizcoreApplication.BANKHeader, BizcoreApplication.encryptMessage(resources.getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
 
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
@@ -1769,7 +1796,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
-
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -1819,8 +1849,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject1.put("Module", BizcoreApplication.encryptMessage(comparevalue))
                         requestObject1.put("FK_Account", BizcoreApplication.encryptMessage(strfkaccount))
                         requestObject1.put("LoginMode", BizcoreApplication.encryptMessage("2"))
-                        requestObject1.put(BizcoreApplication.BANKKEY, BizcoreApplication.encryptMessage(resources.getString(R.string.BankKey)))
-                        requestObject1.put(BizcoreApplication.BANKHeader, BizcoreApplication.encryptMessage(resources.getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
 
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
@@ -2127,6 +2157,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -2161,8 +2195,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject2.put("Module", BizcoreApplication.encryptMessage(moduleFrom1))
                         requestObject2.put("TransMode", BizcoreApplication.encryptMessage(transMode))
                         requestObject2.put("AgentUserName", BizcoreApplication.encryptMessage(username))
-                        requestObject2.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject2.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject2.put("BranchCode", BizcoreApplication.encryptMessage(branchcode))
                         requestObject2.put( "AccountCodeFiledName", BizcoreApplication.encryptMessage(accountCodeFiledName) )
                         requestObject2.put( "TableName", BizcoreApplication.encryptMessage(tableName) )
@@ -2331,6 +2365,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     private fun accountFetchingRequestOtp() {
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -2397,8 +2435,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject2.put("Amount", BizcoreApplication.encryptMessage("0"))
                         requestObject2.put("CurrentDate", BizcoreApplication.encryptMessage(dateTime))
                         requestObject2.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject2.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject2.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject2.put("SubMode", BizcoreApplication.encryptMessage("1"))
                         requestObject2.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
 
@@ -2545,6 +2583,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     private fun sendPinForAccountFetching(otp: String?, varOtp: String) {
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -2614,8 +2656,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject2.put("TranstypeIndicator", BizcoreApplication.encryptMessage("R"))
                         requestObject2.put("CurrentDate", BizcoreApplication.encryptMessage(dateTime))
                         requestObject2.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject2.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject2.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject2.put("SubMode", BizcoreApplication.encryptMessage("0"))
                         requestObject2.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
                     } catch (e: Exception) {
@@ -2691,6 +2733,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     private fun withoutPinAccountFetching() {
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -2760,8 +2806,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject2.put("TranstypeIndicator", BizcoreApplication.encryptMessage("R"))
                         requestObject2.put("CurrentDate", BizcoreApplication.encryptMessage(dateTime))
                         requestObject2.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject2.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject2.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject2.put("SubMode", BizcoreApplication.encryptMessage("1"))
                         requestObject2.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
                     } catch (e: Exception) {
@@ -2914,6 +2960,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     private fun submitDeposit(strAmount: String?, strMsg: String?, strCustname: String?) {
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -3002,8 +3052,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject1.put("CurrentDate", BizcoreApplication.encryptMessage(dateTime))
                         requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
                         requestObject1.put("LastTransactionId", BizcoreApplication.encryptMessage(LastTransactionId))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
 
                     } catch (e: Exception) {
@@ -3654,6 +3704,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     private fun getAccountDetails(accvalue: String, authid: String) {
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -3725,8 +3779,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject2.put("CurrentDate", BizcoreApplication.encryptMessage(dateTime))
                         requestObject2.put("Auth_ID", BizcoreApplication.encryptMessage(authid))
                         requestObject2.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject2.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject2.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject2.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
@@ -3918,7 +3972,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     private fun getbalanceenqsplit() {
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
-
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -3966,8 +4023,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject1.put(BizcoreApplication.CARD_ACCEPTOR_TERMINAL_CODE, BizcoreApplication.encryptMessage(Imei))
                         requestObject1.put("Module", BizcoreApplication.encryptMessage(comparevalue))
                         requestObject1.put("FK_Account", BizcoreApplication.encryptMessage(fk_acc_ind))
-                        requestObject1.put(BizcoreApplication.BANKKEY, BizcoreApplication.encryptMessage(resources.getString(R.string.BankKey)))
-                        requestObject1.put(BizcoreApplication.BANKHeader, BizcoreApplication.encryptMessage(resources.getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
 
 
                     } catch (e: Exception) {

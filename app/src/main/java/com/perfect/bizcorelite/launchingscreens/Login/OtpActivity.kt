@@ -2,6 +2,7 @@ package com.perfect.bizcorelite.launchingscreens.Login
 
 import android.app.Dialog
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -28,6 +29,7 @@ import com.perfect.bizcorelite.Offline.Model.AccountModel
 import com.perfect.bizcorelite.R
 import com.perfect.bizcorelite.launchingscreens.MainHome.HomeActivity
 import kotlinx.android.synthetic.main.activity_otp.*
+import ninja.saad.wizardoflocale.util.LocaleHelper
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import org.json.JSONObject
@@ -93,8 +95,26 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun nextPageIntent() {
+        val sharedPreferences=
+            applicationContext.getSharedPreferences(
+                BizcoreApplication.SHARED_PREF12,
+                0
+            )
+        var bank_code = sharedPreferences.getString("bank_code", " ")
+        Log.v("asdasdasd33ds", "bank_code2 =" + bank_code)
+        val editor2 = sharedPreferences.edit()
+        editor2.putString(
+            BizcoreApplication.COMMON_APP_CHECK,
+            bank_code
+        )
+        editor2.apply()
         val intent= Intent(this, HomeActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        LocaleHelper().setLocale(newBase, LocaleHelper().getLanguage(newBase))
+        super.attachBaseContext(LocaleHelper().onAttach(newBase))
     }
 
     fun alertMsg(message:String){
@@ -177,6 +197,10 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
     private fun verifyOTP(varOtp: String) {
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 progressDialog = ProgressDialog(this@OtpActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -239,8 +263,8 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
                         requestObject1.put("Version_code", BizcoreApplication.encryptMessage(Integer.toString(deviceAppDetails.appVersion)))
                         requestObject1.put("CurrentDate",  BizcoreApplication.encryptMessage(dateTime))
                         requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
 
                         }
@@ -418,6 +442,10 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
     private fun loadData(){
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 try{
                     val client = OkHttpClient.Builder()
                         .sslSocketFactory(getSSLSocketFactory())
@@ -467,8 +495,8 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
                         requestObject1.put( BizcoreApplication.SYSTEM_TRACE_AUDIT_NO, BizcoreApplication.encryptMessage(randomNumber))
                         requestObject1.put(  BizcoreApplication.CURRENT_DATE, BizcoreApplication.encryptMessage(dateTime))
                         requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
                     } catch (e: Exception) {e.printStackTrace() }
                     val body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString())

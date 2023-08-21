@@ -26,6 +26,14 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <style name="AppTheme2" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="fontFamily">@font/font</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
     <style name="CustomAlertDialogStyle">MyDialogTheme
         <item name="android:bottomBright">@color/color_activity_transparent</item>
         <item name="android:bottomDark">@color/color_activity_transparent</item>
@@ -108,5 +116,8 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
 
+    </style>
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="android:background">@android:color/transparent</item>
     </style>
 </resources>

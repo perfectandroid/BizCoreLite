@@ -36,8 +36,10 @@ import com.perfect.bizcorelite.Offline.Model.AccountModel
 import com.perfect.bizcorelite.R
 import com.perfect.bizcorelite.launchingscreens.Login.LoginActivity
 import com.perfect.bizcorelite.launchingscreens.MainHome.HomeActivity
+import com.perfect.bizcorelite.launchingscreens.Splash.SplashActivity
 import kotlinx.android.synthetic.main.activity_pin_login.*
 import kotlinx.android.synthetic.main.activity_pin_login1.tv_forget
+import ninja.saad.wizardoflocale.util.LocaleHelper
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import org.json.JSONObject
@@ -108,6 +110,11 @@ class MPINActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    override fun attachBaseContext(newBase: Context) {
+        LocaleHelper().setLocale(newBase, LocaleHelper().getLanguage(newBase))
+        super.attachBaseContext(LocaleHelper().onAttach(newBase))
+    }
+
     private fun nextPageIntent() {
         val intent= Intent(this, HomeActivity::class.java)
         startActivity(intent)
@@ -141,6 +148,10 @@ class MPINActivity : AppCompatActivity(), View.OnClickListener {
     private fun verifyOTP(varOtp: String) {
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 progressDialog = ProgressDialog(this@MPINActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -203,8 +214,8 @@ class MPINActivity : AppCompatActivity(), View.OnClickListener {
                         requestObject1.put("Version_code", BizcoreApplication.encryptMessage(Integer.toString(deviceAppDetails.appVersion)))
                         requestObject1.put("CurrentDate",  BizcoreApplication.encryptMessage(dateTime))
                         requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
 
                     }
@@ -514,12 +525,25 @@ class MPINActivity : AppCompatActivity(), View.OnClickListener {
             loginTimeEditer.putString("logintime", "")
             loginTimeEditer.commit()
 
+            val common_appcodeSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+            val appcodeEditer = common_appcodeSP.edit()
+            appcodeEditer.putString("bank_code", "")
+            appcodeEditer.commit()
+
+            val appHeaderEditer = common_appcodeSP.edit()
+            appHeaderEditer.putString("bank_header", "")
+            appHeaderEditer.commit()
+
+            val common_appcode_checkEditer = common_appcodeSP.edit()
+            common_appcode_checkEditer.putString("common_appcode_check", "")
+            common_appcode_checkEditer.commit()
+
             dbHelper = DBHandler(this)
             dbHelper.deleteallAccount()
             dbHelper.deleteallTransaction()
             dbHelper.deleteAllArchieve()
 
-            var intent = Intent(this, LoginActivity::class.java)
+            var intent = Intent(this, SplashActivity::class.java)
             startActivity(intent)
             finish()
         } catch (e: Exception) {
@@ -530,6 +554,10 @@ class MPINActivity : AppCompatActivity(), View.OnClickListener {
     private fun loadData(){
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 try{
                     val client = OkHttpClient.Builder()
                             .sslSocketFactory(getSSLSocketFactory())
@@ -581,8 +609,8 @@ class MPINActivity : AppCompatActivity(), View.OnClickListener {
                         requestObject1.put( BizcoreApplication.SYSTEM_TRACE_AUDIT_NO, BizcoreApplication.encryptMessage(randomNumber))
                         requestObject1.put(  BizcoreApplication.CURRENT_DATE, BizcoreApplication.encryptMessage(dateTime))
                         requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
                     } catch (e: Exception) {e.printStackTrace() }
                     val body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString())

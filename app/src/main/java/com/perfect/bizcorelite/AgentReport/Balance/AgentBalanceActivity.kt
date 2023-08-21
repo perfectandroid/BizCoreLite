@@ -1,6 +1,7 @@
 package com.perfect.bizcorelite.AgentReport.Balance
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,6 +19,7 @@ import com.perfect.bizcorelite.Helper.CryptoGraphy
 import com.perfect.bizcorelite.R
 import com.perfect.bizcorelite.launchingscreens.MPIN.MPINActivity
 import kotlinx.android.synthetic.main.activity_agent_balance.*
+import ninja.saad.wizardoflocale.util.LocaleHelper
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import org.json.JSONObject
@@ -83,6 +85,10 @@ class AgentBalanceActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    override fun attachBaseContext(newBase: Context) {
+        LocaleHelper().setLocale(newBase, LocaleHelper().getLanguage(newBase))
+        super.attachBaseContext(LocaleHelper().onAttach(newBase))
+    }
     private fun view(){
         val AgentName = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF2,0)
         tv_holder_name!!.text = AgentName.getString("Agent_Name", null)
@@ -98,6 +104,10 @@ class AgentBalanceActivity : AppCompatActivity(), View.OnClickListener {
     private fun loadBalance(){
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 progressDialog = ProgressDialog(this@AgentBalanceActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -151,8 +161,8 @@ class AgentBalanceActivity : AppCompatActivity(), View.OnClickListener {
                         requestObject1.put("CurrentDate", BizcoreApplication.encryptMessage(dateTime))
                         requestObject1.put("Token", BizcoreApplication.encryptMessage(hashString))
                         requestObject1.put("Card_Acceptor_Terminal_IDCode",BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()

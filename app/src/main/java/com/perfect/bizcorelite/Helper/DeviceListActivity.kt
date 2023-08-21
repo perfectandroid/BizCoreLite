@@ -13,6 +13,7 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.perfect.bizcorelite.R
+import ninja.saad.wizardoflocale.util.LocaleHelper
 
 class DeviceListActivity : AppCompatActivity() {
 
@@ -76,6 +77,11 @@ class DeviceListActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        LocaleHelper().setLocale(newBase, LocaleHelper().getLanguage(newBase))
+        super.attachBaseContext(LocaleHelper().onAttach(newBase))
     }
 
 

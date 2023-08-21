@@ -25,6 +25,7 @@ import com.perfect.bizcorelite.R
 import com.perfect.bizcorelite.launchingscreens.Login.LoginActivity
 import com.perfect.bizcorelite.launchingscreens.MPIN.MPINActivity
 import kotlinx.android.synthetic.main.activity_balance_enq.*
+import ninja.saad.wizardoflocale.util.LocaleHelper
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import org.json.JSONObject
@@ -142,6 +143,11 @@ class BalanceEnqActivity : AppCompatActivity(),View.OnClickListener{
          imback?.setOnClickListener(this)
      }
 
+    override fun attachBaseContext(newBase: Context) {
+        LocaleHelper().setLocale(newBase, LocaleHelper().getLanguage(newBase))
+        super.attachBaseContext(LocaleHelper().onAttach(newBase))
+    }
+
     override fun onClick(v: View) {
          when (v.id) {
              R.id.layt_selctacc -> {
@@ -197,6 +203,10 @@ class BalanceEnqActivity : AppCompatActivity(),View.OnClickListener{
     private fun getAccountDetails() {
      when(ConnectivityUtils.isConnected(this)) {
          true -> {
+             val ID_CommonApp =
+                 applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+             var bank_key = ID_CommonApp.getString("bank_code", "")
+             var bank_header = ID_CommonApp.getString("bank_header", "")
              progressDialog = ProgressDialog(this@BalanceEnqActivity, R.style.Progress)
              progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
              progressDialog!!.setCancelable(false)
@@ -269,8 +279,8 @@ class BalanceEnqActivity : AppCompatActivity(),View.OnClickListener{
                      requestObject2.put("CurrentDate", BizcoreApplication.encryptMessage(dateTime))
                      requestObject2.put("Auth_ID", BizcoreApplication.encryptMessage(authid))
                      requestObject2.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                     requestObject2.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                     requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                     requestObject2.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                     requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                      requestObject2.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
                  } catch (e: Exception) {
                      progressDialog!!.dismiss()

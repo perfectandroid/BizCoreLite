@@ -23,6 +23,7 @@ import com.perfect.bizcorelite.Helper.ConnectivityUtils
 import com.perfect.bizcorelite.R
 import kotlinx.android.synthetic.main.activity_agent_collection_list.*
 import kotlinx.android.synthetic.main.module_selection_layout.*
+import ninja.saad.wizardoflocale.util.LocaleHelper
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import org.json.JSONObject
@@ -102,6 +103,11 @@ class AgentCollectionReportActivity : AppCompatActivity(),
         mRcvAgentColectn = findViewById<View>(R.id.rcv_agent_colectn) as RecyclerView
         lnr_layout1 = findViewById<View>(R.id.lnr_layout1) as LinearLayout
         crdView1 = findViewById<View>(R.id.crdView1) as CardView
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        LocaleHelper().setLocale(newBase, LocaleHelper().getLanguage(newBase))
+        super.attachBaseContext(LocaleHelper().onAttach(newBase))
     }
 
     override fun onClick(v: View) {
@@ -192,6 +198,10 @@ class AgentCollectionReportActivity : AppCompatActivity(),
     private fun getAgentcollection( from1: String, s1: String?, s2: String?, s3: String?){
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 progressDialog = ProgressDialog(this@AgentCollectionReportActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -294,8 +304,8 @@ class AgentCollectionReportActivity : AppCompatActivity(),
                             requestObject1.put("MinAmount", BizcoreApplication.encryptMessage("0"))
                             requestObject1.put("MaxAmount", BizcoreApplication.encryptMessage("0"))
                         }
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()

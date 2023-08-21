@@ -1,6 +1,7 @@
 package com.perfect.bizcorelite.Helper
 
 import android.bluetooth.BluetoothAdapter
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.perfect.bizcorelite.Helper.BluetoothChatService1.BluetoothChatService1
 import com.perfect.bizcorelite.R
+import ninja.saad.wizardoflocale.util.LocaleHelper
 
 class BluetoothChat1 : AppCompatActivity() {
     val MESSAGE_TOAST = 5
@@ -125,7 +127,10 @@ class BluetoothChat1 : AppCompatActivity() {
 
 
 
-
+    override fun attachBaseContext(newBase: Context) {
+        LocaleHelper().setLocale(newBase, LocaleHelper().getLanguage(newBase))
+        super.attachBaseContext(LocaleHelper().onAttach(newBase))
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

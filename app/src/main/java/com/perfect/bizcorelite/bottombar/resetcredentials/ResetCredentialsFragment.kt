@@ -177,6 +177,10 @@ class ResetCredentialsFragment : Fragment(),View.OnClickListener  {
     private fun syncData(){
         when(ConnectivityUtils.isConnected(context!!)) {
             true -> {
+                val ID_CommonApp =
+                    context!!.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 try{
                     progressDialog = ProgressDialog(context, R.style.Progress)
                     progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
@@ -234,14 +238,9 @@ class ResetCredentialsFragment : Fragment(),View.OnClickListener  {
                         requestObject1.put( BizcoreApplication.SYSTEM_TRACE_AUDIT_NO, BizcoreApplication.encryptMessage(randomNumber))
                         requestObject1.put( BizcoreApplication.CURRENT_DATE, BizcoreApplication.encryptMessage(dateTime))
                         requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
-                        requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
-
-
                         val jsonArray = JSONArray()
                         val db = DBHandler(context!!)
 
@@ -410,6 +409,10 @@ class ResetCredentialsFragment : Fragment(),View.OnClickListener  {
     }
 
     private fun changeMPin(){
+        val ID_CommonApp =
+            context!!.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var bank_key = ID_CommonApp.getString("bank_code", "")
+        var bank_header = ID_CommonApp.getString("bank_header", "")
         input_user_mpin.setError(null)
         input_user_new_pin.setError(null)
         input_user_new_pin_confirm.setError(null)
@@ -488,8 +491,8 @@ class ResetCredentialsFragment : Fragment(),View.OnClickListener  {
                 requestObject1.put("MPIN",BizcoreApplication.encryptMessage(currPin))
                 requestObject1.put("Agent_ID",BizcoreApplication.encryptMessage(agentId))
                 requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                 requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
             }catch (e:Exception){
                 e.printStackTrace()
@@ -551,6 +554,10 @@ class ResetCredentialsFragment : Fragment(),View.OnClickListener  {
     }
 
     private fun changePassword() {
+        val ID_CommonApp =
+            context!!.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var bank_key = ID_CommonApp.getString("bank_code", "")
+        var bank_header = ID_CommonApp.getString("bank_header", "")
         val ReceiverName = tvReceiverName.text.toString()
         val password = tvPassword.text.toString()
         val newPassword = tvNewPassword.text.toString()
@@ -628,8 +635,8 @@ class ResetCredentialsFragment : Fragment(),View.OnClickListener  {
                 requestObject1.put("PasswordChange", BizcoreApplication.encryptMessage(confirmPassword))
                 requestObject1.put("CurrentDate", BizcoreApplication.encryptMessage(dateTime))
                 requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                 requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
             }catch (e:Exception){
                 e.printStackTrace()

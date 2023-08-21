@@ -43,6 +43,7 @@ import kotlinx.android.synthetic.main.activity_new_collection.input_msg
 import kotlinx.android.synthetic.main.activity_new_collection.tv_rupees
 import kotlinx.android.synthetic.main.activity_otp.*
 import kotlinx.android.synthetic.main.activity_select.*
+import ninja.saad.wizardoflocale.util.LocaleHelper
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -121,6 +122,11 @@ class NewCollectionActivity : AppCompatActivity(), View.OnClickListener {
 
     fun startHandler() {
         handler.postDelayed(r, 30 * 60 * 1000) //for 30 minutes
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        LocaleHelper().setLocale(newBase, LocaleHelper().getLanguage(newBase))
+        super.attachBaseContext(LocaleHelper().onAttach(newBase))
     }
 
     private fun getCustomer() {

@@ -219,6 +219,8 @@ public class BluetoothChat2 extends AppCompatActivity {
 
     }
 
+
+
     @Override
     public void onStart() {
         super.onStart();
@@ -248,6 +250,7 @@ public class BluetoothChat2 extends AppCompatActivity {
             }
         }
     }
+
 
 
     private void setupChat() {

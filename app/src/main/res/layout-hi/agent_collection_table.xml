@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/txtSlno"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1.2"
+                android:textColor="@color/colorPrimaryDark"
+                android:gravity="center_horizontal|center_vertical"
+                android:textStyle="bold|normal" />
+
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight=".9"
+                android:gravity="center_horizontal|center_vertical"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold|normal" />
+
+            <TextView
+                android:id="@+id/txtAmount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:textColor="@color/colorPrimaryDark"
+                android:gravity="center_vertical|right"
+                android:textStyle="bold|normal" />
+
+            <TextView
+                android:id="@+id/txtModule"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1.1"
+                android:gravity="center_horizontal|center_vertical"
+                android:textStyle="bold|normal" />
+
+            <TextView
+                android:id="@+id/txttym"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_weight="1.1"
+                android:gravity="center_horizontal|center_vertical"
+                android:textStyle="bold|normal" />
+
+            <TextView
+                android:id="@+id/txtType"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_weight="1.5"
+                android:gravity="center_horizontal|center_vertical"
+                android:textStyle="bold|normal"
+                android:visibility="gone" />
+        </LinearLayout>
+</RelativeLayout>

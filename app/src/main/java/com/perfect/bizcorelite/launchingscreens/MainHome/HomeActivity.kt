@@ -1,5 +1,6 @@
 package com.perfect.bizcorelite.launchingscreens.MainHome
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -48,6 +49,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.net.ssl.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import ninja.saad.wizardoflocale.util.LocaleHelper
 
 
 class HomeActivity : AppCompatActivity(), View.OnClickListener {
@@ -107,6 +109,12 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
 
 
     }
+
+    override fun attachBaseContext(newBase: Context) {
+        LocaleHelper().setLocale(newBase, LocaleHelper().getLanguage(newBase))
+        super.attachBaseContext(LocaleHelper().onAttach(newBase))
+    }
+
 
 
     override fun onClick(v: View) {
@@ -171,6 +179,10 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     private fun loadData(){
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 try {
                     val client = OkHttpClient.Builder()
                             .sslSocketFactory(getSSLSocketFactory())
@@ -220,8 +232,8 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                         requestObject1.put(BizcoreApplication.SYSTEM_TRACE_AUDIT_NO, BizcoreApplication.encryptMessage(randomNumber))
                         requestObject1.put(BizcoreApplication.CURRENT_DATE, BizcoreApplication.encryptMessage(dateTime))
                         requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
 
                         Log.e("","check  123 "+requestObject1)

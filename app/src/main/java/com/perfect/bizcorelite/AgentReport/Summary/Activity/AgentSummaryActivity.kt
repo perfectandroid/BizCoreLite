@@ -3,6 +3,7 @@ package com.perfect.bizcorelite.AgentReport.Summary.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
@@ -31,6 +32,7 @@ import com.perfect.bizcorelite.launchingscreens.MPIN.MPINActivity
 import kotlinx.android.synthetic.main.activity_agent_summary.*
 import kotlinx.android.synthetic.main.activity_agent_summary.tv_date
 import kotlinx.android.synthetic.main.activity_agent_summary.tv_holder_name
+import ninja.saad.wizardoflocale.util.LocaleHelper
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import org.json.JSONObject
@@ -109,6 +111,11 @@ class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
         handler.postDelayed(r, 30 * 60 * 1000) //for 30 minutes
     }
 
+    override fun attachBaseContext(newBase: Context) {
+        LocaleHelper().setLocale(newBase, LocaleHelper().getLanguage(newBase))
+        super.attachBaseContext(LocaleHelper().onAttach(newBase))
+    }
+
     private fun view(){
         val AgentName = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF2,0)
         val AgentPhoneNumber = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF3,0)
@@ -120,6 +127,10 @@ class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
     private fun getSummary(datetime: String) {
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 progressDialog = ProgressDialog(this@AgentSummaryActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -170,8 +181,8 @@ class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
                         requestObject1.put("CurrentDate", BizcoreApplication.encryptMessage(datetime))
                         requestObject1.put("Token", BizcoreApplication.encryptMessage(hashString))
                         requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()

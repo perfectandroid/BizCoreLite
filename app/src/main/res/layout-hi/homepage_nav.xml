@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+    <include
+        layout="@layout/fragment_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+          >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/bg">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@color/btn_bluelight"
+                    android:orientation="vertical"
+                    android:layout_height="180dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_centerVertical="true"
+
+                        >
+                        <ImageView
+                            android:id="@+id/image"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_marginBottom="25dp"
+                            android:layout_gravity="left"
+                           android:layout_marginLeft="10dp"
+                            android:padding="5dp"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/profile_dimandlist" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_toRightOf="@+id/image"
+                            android:layout_marginLeft="20dp"
+                            android:layout_centerVertical="true">
+                        <TextView
+                            android:id="@+id/tvuser"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="left"
+                            android:layout_marginLeft="5dp"
+                            android:textStyle="bold"
+                            android:textSize="18dp"
+                            android:textColor="@color/white"
+                            android:text="Alexa"/>
+                        <TextView
+                            android:id="@+id/tvgmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/image"
+                            android:layout_below="@+id/tvuser"
+                            android:layout_gravity="center"
+                            android:gravity="left"
+                            android:visibility="gone"
+                            android:layout_marginLeft="5dp"
+                            android:textStyle="bold"
+                            android:textSize="14dp"
+                            android:textColor="@color/cardview_shadow_end_color"
+                            android:text="alexa@gmail.com"/>
+
+                            <LinearLayout
+                                android:id="@+id/lnrMob"
+                                android:layout_gravity="left"
+                                android:layout_marginRight="20dp"
+                                android:orientation="horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:id="@+id/country_code_container"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="top"
+                                    android:layout_marginTop="5dp"
+                                    android:gravity="top"
+                                    android:padding="8dp"
+                                    android:background="@drawable/white_radius">
+
+                                    <ImageView
+                                        android:id="@+id/country_flag"
+                                        android:layout_width="30dp"
+                                        android:layout_height="18dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:src="@drawable/ic_next"/>
+
+                                    <TextView
+                                        android:id="@+id/txt_agent_mobile"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center_vertical"
+                                        android:minEms="2"
+                                        android:paddingEnd="8dp"
+                                        android:paddingLeft="8dp"
+                                        android:paddingStart="8dp"
+                                        android:textColor="@color/text_secondary"
+                                        android:textStyle="normal"/>
+
+                                </LinearLayout>
+
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/white"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"/>
+
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@color/colorPrimaryDark">
+
+                </LinearLayout>
+                <FullLenghtListview
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@color/white"
+                    android:dividerHeight="1dp"
+                    android:id="@+id/lvNavMenu">
+                </FullLenghtListview>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@color/colorPrimaryDark"></LinearLayout>
+            </LinearLayout>
+
+        </ScrollView>
+    </com.google.android.material.navigation.NavigationView>
+</androidx.drawerlayout.widget.DrawerLayout>
+
+
+    <!--
+    <?xml version="1.0" encoding="utf-8"?>
+    <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
+        <include
+            layout="@layout/activityhome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/colorPrimaryExtraDark"
+            android:fitsSystemWindows="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:layout_height="160dp">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="100dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_gravity="center"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_app_logo"/>
+                    <TextView
+                        android:id="@+id/tvuser"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="User"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/white"></LinearLayout>
+                <com.perfect.easyshopplus.Utility.FullLenghtListview
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@color/colorPrimary"
+                    android:dividerHeight="1dp"
+                    android:id="@+id/lvNavMenu">
+                </com.perfect.easyshopplus.Utility.FullLenghtListview>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary"></LinearLayout>
+            </LinearLayout>
+        </android.support.design.widget.NavigationView>
+    </android.support.v4.widget.DrawerLayout>
+    -->

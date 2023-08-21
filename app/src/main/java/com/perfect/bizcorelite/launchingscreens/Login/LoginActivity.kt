@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.AlertDialog
 import android.app.Dialog
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -28,6 +29,7 @@ import com.perfect.bizcorelite.Helper.ConnectivityUtils
 import com.perfect.bizcorelite.Helper.CryptoGraphy
 import com.perfect.bizcorelite.R
 import kotlinx.android.synthetic.main.activity_login.*
+import ninja.saad.wizardoflocale.util.LocaleHelper
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import org.json.JSONObject
@@ -96,9 +98,18 @@ class LoginActivity : AppCompatActivity() {
         handler.postDelayed(r, 30 * 60 * 1000) //for 30 minutes
     }
 
+    override fun attachBaseContext(newBase: Context) {
+        LocaleHelper().setLocale(newBase, LocaleHelper().getLanguage(newBase))
+        super.attachBaseContext(LocaleHelper().onAttach(newBase))
+    }
+
     private fun submit() {
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 progressDialog = ProgressDialog(this@LoginActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -156,11 +167,11 @@ class LoginActivity : AppCompatActivity() {
                         requestObject1.put("User_Name",BizcoreApplication.encryptMessage(user))
                         requestObject1.put("CurrentDate",BizcoreApplication.encryptMessage(dateTime))
                         requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")
 
-                        Log.e("requestObject1","requestObject1    155   "+requestObject1);
+                        Log.e("c","requestObject1    155   "+requestObject1);
 
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
@@ -181,6 +192,9 @@ class LoginActivity : AppCompatActivity() {
                                 val jObject = JSONObject(response.body())
                                 if (jObject.getString("StatusCode") == "0") {
                                     val jobjt = jObject.getJSONObject("LogInfo")
+
+//
+
                                     val UserName = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF5, 0)
                                     val UserNameEditor = UserName.edit()
                                     UserNameEditor.putString("username", user)
@@ -290,6 +304,10 @@ class LoginActivity : AppCompatActivity() {
     private fun getOtp(strotp: String) {
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
                 progressDialog = ProgressDialog(this@LoginActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -327,8 +345,8 @@ class LoginActivity : AppCompatActivity() {
                         requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
                         requestObject1.put("OTP", BizcoreApplication.encryptMessage(strotp))
                         requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
 
                     } catch (e: Exception) {
@@ -356,6 +374,18 @@ class LoginActivity : AppCompatActivity() {
                                         .setCancelable(false)
                                         .setPositiveButton("OK", DialogInterface.OnClickListener {
                                                 dialog, id -> dialog.dismiss()
+
+//                                            val sharedPreferences2 =
+//                                        applicationContext.getSharedPreferences(
+//                                            BizcoreApplication.SHARED_PREF12,
+//                                            0
+//                                        )
+//                                    val editor2 = sharedPreferences2.edit()
+//                                    editor2.putString(
+//                                        BizcoreApplication.COMMON_APP_CHECK,
+//                                        jObject["CommonCode"].toString()
+//                                    )
+//                                    editor2.apply()
 
                                         })
                                     val alert = dialogBuilder.create()

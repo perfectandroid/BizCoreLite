@@ -71,5 +71,11 @@ interface ApiInterface {
     @POST("LastTransActionIdDet")
     fun getLastTransActionIdDet(@Body body: RequestBody): Call<String>
 
+    @POST("CommonAppChecking")
+    fun getCommonAppChecking(@Body body: RequestBody): Call<String>
+
+    @POST("CommoncodeChecking")
+    fun getCommonCodeChecking(@Body body: RequestBody): Call<String>
+
 }
 

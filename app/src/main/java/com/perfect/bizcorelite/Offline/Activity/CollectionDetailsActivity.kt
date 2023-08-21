@@ -1,5 +1,6 @@
 package com.perfect.bizcorelite.Offline.Activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -14,6 +15,7 @@ import com.perfect.bizcorelite.Offline.Adapter.CollectionDetailsAdapter
 import com.perfect.bizcorelite.Offline.Model.TransactionModel
 import com.perfect.bizcorelite.R
 import com.perfect.bizcorelite.launchingscreens.MPIN.MPINActivity
+import ninja.saad.wizardoflocale.util.LocaleHelper
 import org.json.JSONArray
 import java.util.*
 
@@ -78,5 +80,10 @@ class CollectionDetailsActivity : AppCompatActivity() {
 
     fun startHandler() {
         handler.postDelayed(r, 30 * 60 * 1000) //for 30 minutes
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        LocaleHelper().setLocale(newBase, LocaleHelper().getLanguage(newBase))
+        super.attachBaseContext(LocaleHelper().onAttach(newBase))
     }
 }

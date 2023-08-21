@@ -98,6 +98,7 @@ public class DeviceListActivity2 extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

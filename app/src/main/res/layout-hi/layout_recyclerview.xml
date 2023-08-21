@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/nestedParent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white">
+            <TextView
+                android:text="CUSTOMERS"
+                android:textStyle="bold"
+                android:visibility="gone"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="3dp"
+                android:textColor="@color/light_black"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
+
+
+                <LinearLayout
+                    android:id="@+id/rltv_summary_main"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
+
+
+
+
+
+                    <LinearLayout
+                        android:id="@+id/lnr_layout1"
+                        android:background="@color/colorPrimary"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        android:visibility="visible"
+                        android:layout_marginLeft="11dp"
+                        android:layout_marginRight="11dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp">
+
+                        <TextView
+
+                            android:text="Slno"
+                            android:layout_weight="1.3"
+                            android:textColor="@color/white"
+                            android:textStyle="bold|normal"
+                            android:layout_marginLeft="1dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+
+                            android:text="Name"
+                            android:layout_weight="0.9"
+                            android:textColor="@color/white"
+                            android:textStyle="bold|normal"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+
+                            android:text="Address"
+                            android:layout_weight="1"
+                            android:textColor="@color/white"
+                            android:textStyle="bold|normal"
+                            android:visibility="gone"
+                            android:layout_marginLeft="5dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+
+
+                        <TextView
+
+                            android:text="A/C No."
+                            android:layout_weight="0.9"
+                            android:visibility="visible"
+                            android:textColor="@color/white"
+                            android:textStyle="bold|normal"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                        <TextView
+
+                            android:text="Mobile"
+                            android:layout_weight="0.9"
+                            android:visibility="gone"
+                            android:textColor="@color/white"
+                            android:textStyle="bold|normal"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/crdView1"
+                        android:layout_below="@+id/lnr_layout1"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_width="match_parent"
+                        android:minHeight="10dp"
+                        android:visibility="visible"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="5dp"
+                        android:background="@color/white">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"/>
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+
+                    <!--  <TextView
+                          android:text="@string/summary"
+                          android:textSize="20sp"
+                          android:textStyle="bold|normal"
+                          android:textColor="@color/black"
+                          android:layout_marginTop="10dp"
+                          android:gravity="center_horizontal"
+                          android:id="@+id/txtSummary"
+                          android:layout_below="@+id/crdView1"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content" />-->
+
+                    <androidx.cardview.widget.CardView
+                        app:cardCornerRadius="10dp"
+                        android:id="@+id/crdSummary"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_below="@+id/txtSummary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <!--<TableLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
+
+                         &lt;!&ndash;   <LinearLayout
+                                android:background="#607D8B"
+                                android:padding="5dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1" />
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    android:gravity="center_horizontal"
+                                    android:layout_weight="1"
+                                    android:text="@string/credit" />
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    android:gravity="center_horizontal"
+                                    android:layout_weight="1"
+                                    android:text="@string/debit" />
+                            </LinearLayout>&ndash;&gt;
+
+                           &lt;!&ndash; <TableRow
+                                android:background="#ECEFF1"
+                                android:padding="5dp">
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/opening"/>
+                                <TextView
+                                    android:id="@+id/txtOpeningCredit"
+                                    android:gravity="end"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:textColor="@color/green" />
+                                <TextView
+                                    android:id="@+id/txtOpeningDebit"
+                                    android:gravity="end"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:textColor="@color/red"/>
+                            </TableRow>&ndash;&gt;
+                          &lt;!&ndash;  <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginRight="15dp"
+                                android:background="@color/slate_custom" />
+
+                            <TableRow
+                                android:background="#ECEFF1"
+                                android:padding="5dp">
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/payment" />
+
+                                <TextView
+                                    android:id="@+id/txtPaymentCredit"
+                                    android:gravity="end"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:textColor="@color/green" />
+
+                                <TextView
+                                    android:id="@+id/txtPaymentDebit"
+                                    android:gravity="end"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:textColor="@color/red"/>
+                            </TableRow>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginRight="15dp"
+                                android:background="@color/slate_custom" />
+
+                            <TableRow
+                                android:background="#ECEFF1"
+                                android:padding="5dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/receipt" />
+
+                                <TextView
+                                    android:id="@+id/txtReceiptCredit"
+                                    android:gravity="end"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:textColor="@color/green"/>
+
+                                <TextView
+                                    android:id="@+id/txtReceiptDebit"
+                                    android:gravity="end"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:textColor="@color/red" />
+                            </TableRow>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginRight="15dp"
+                                android:background="@color/slate_custom" />
+
+                            <TableRow
+                                android:background="#ECEFF1"
+                                android:padding="5dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/avail_bal" />
+
+                                <TextView
+                                    android:id="@+id/txtBalanceCredit"
+                                    android:gravity="end"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:textColor="@color/green" />
+                                <TextView
+                                    android:id="@+id/txtBalanceDebit"
+                                    android:gravity="end"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:textColor="@color/red" />
+
+                            </TableRow>&ndash;&gt;
+
+                        </TableLayout>-->
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
