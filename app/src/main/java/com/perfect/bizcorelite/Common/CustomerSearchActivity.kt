@@ -5,16 +5,14 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.net.Uri
-import android.os.Bundle
-import android.os.Environment
-import android.os.Handler
-import android.os.StrictMode
+import android.os.*
 import android.os.StrictMode.VmPolicy
 import android.text.Editable
 import android.text.TextWatcher
@@ -24,12 +22,16 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import android.widget.AdapterView.OnItemClickListener
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.GsonBuilder
 import com.perfect.bizcorelite.Api.ApiInterface
 import com.perfect.bizcorelite.Api.ApiService
+import com.perfect.bizcorelite.BuildConfig
 import com.perfect.bizcorelite.DB.DBHandler
 import com.perfect.bizcorelite.Helper.*
 import com.perfect.bizcorelite.Offline.Activity.NewCollectionActivity
@@ -117,7 +119,9 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     private var deleteFlag               : String?               = null
     private var reasonId               : String?               = null
     private var moduleFrom1               : String?               = null
-
+    var bitmapt: Bitmap? = null
+    var uri: Uri? = null
+    lateinit var file: File
     private var AccountCodeFiledName = ""
     private var TableName = ""
     private var FieldName = ""
@@ -2994,6 +2998,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         val DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails(this)
                         var Imei = DeviceAppDetails.imei
                         if (Imei != null && !Imei.isEmpty()) {
+
                         } else {
                             val DeviceAppDetails1 = BizcoreApplication.getInstance().getDeviceAppDetails1(this)
                             Imei = DeviceAppDetails1.imei
@@ -3066,6 +3071,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         override fun onResponse(call: retrofit2.Call<String>, response:
                         Response<String>
                         ) {
+                            Log.v("dsfsdfsdfds","res "+response.body())
                             try {
                                 Log.e(TAG,"0000111   "+response.body())
                                 progressDialog!!.dismiss()
@@ -3189,91 +3195,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         val lnr_success= dialogView.findViewById(R.id.lnr_success) as LinearLayout
 
 
-        btnShare.setOnClickListener {
 
-
-            // fileName = successDisplayModel.getTitleLabel()+".png";
-            //  alertDialog.dismiss();
-            //  ScreenSh(dialogView);
-            //  Toast.makeText(getApplicationContext(),"TEST",Toast.LENGTH_LONG).show();
-            /* Bitmap bitmap = Bitmap.createBitmap(lnr_success.getWidth(),
-                        lnr_success.getHeight(), Bitmap.Config.ARGB_8888);
-                Canvas canvas = new Canvas(bitmap);
-                lnr_success.draw(canvas);*/
-
-            // fileName = successDisplayModel.getTitleLabel()+".png";
-            //  alertDialog.dismiss();
-            //  ScreenSh(dialogView);
-            //  Toast.makeText(getApplicationContext(),"TEST",Toast.LENGTH_LONG).show();
-            /* Bitmap bitmap = Bitmap.createBitmap(lnr_success.getWidth(),
-                        lnr_success.getHeight(), Bitmap.Config.ARGB_8888);
-                Canvas canvas = new Canvas(bitmap);
-                lnr_success.draw(canvas);*/
-            val bitmap = Bitmap.createBitmap(
-                lnr_success.width,
-                lnr_success.height, Bitmap.Config.ARGB_8888
-            )
-
-
-            val canvas = Canvas(bitmap)
-            canvas.drawColor(Color.WHITE)
-            lnr_success.draw(canvas)
-
-            //  alertDialog.dismiss();
-            //  ScreenSh(dialogView);
-         /*   val bitmap = Bitmap.createBitmap(dialogView.width,
-                    dialogView.height, Bitmap.Config.ARGB_8888)
-            val canvas = Canvas(bitmap)
-            dialogView.draw(canvas)*/
-
-            try {
-
-
-              /*  val bmpUri: Uri = getLocalBitmapUri(bitmap, "Deposit")
-                Log.e(TAG, "bmpUri   2496   "+bmpUri)*/
-
-                val file: File = saveBitmap(
-                    bitmap,
-                    "Deposit" + "_" + System.currentTimeMillis() + ".png"
-                )!!
-                Log.e("chase  2044   ", "filepath: " + file.absolutePath)
-                val bmpUri = Uri.fromFile(file)
-                Log.i("Uri", bmpUri.toString())
-
-
-                // Uri bmpUri = getLocalBitmapUri(bitmap);
-                val shareIntent = Intent()
-                shareIntent.action = Intent.ACTION_SEND
-                shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri)
-                shareIntent.type = "image/*"
-                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                //    shareIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                //    shareIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                startActivity(Intent.createChooser(shareIntent, "Share Opportunity"));
-
-
-
-
-
-
-            } catch (e: java.lang.Exception) {
-                e.printStackTrace()
-                Log.e(TAG, "Exception   2496   "+e.toString())
-            }
-
-
-//        val shareIntent = Intent()
-//        shareIntent.action = Intent.ACTION_SEND
-//        shareIntent.type = "text/plain"
-//        shareIntent.putExtra(Intent.EXTRA_TEXT, "Deposit "+deposit+" \n\n Reciever Name "+recName+"\n\n Reciever A/C "
-//        +recAc+"\n\n Orga Name : "+ orgName+"\n\n Date & Time : "+ datetime+"\n\n Opening Balance : "+"₹ "+opBal.toString()+"0Cr"
-//        +"\n\n Amount "+amount+"\n[ "+tv_rupees.text.toString()+" ]"+"\n\n Available Balance : "+"₹ "+BalAmount+"r"+
-//                "\n\n Reference No "+reffNo)
-//        startActivity(Intent.createChooser(shareIntent, "Share"))
-
-
-
-    }
         val txtDeposit = dialogView.findViewById(R.id.txtDeposit)as TextView
         txtDeposit.text = deposit
 
@@ -3316,7 +3238,69 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
         val txtRefferenceNo = dialogView.findViewById(R.id.txtRefferenceNo)as TextView
         txtRefferenceNo.text = reffNo
+        sharelayout(dialogView)
+        btnShare.setOnClickListener {
+            val sendIntent = Intent(Intent.ACTION_SEND)
+            sendIntent.type = "image/*"
+            sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            sendIntent.putExtra(
+                Intent.EXTRA_STREAM,
+                FileProvider.getUriForFile(
+                    this@CustomerSearchActivity,
+                    BuildConfig.APPLICATION_ID + ".fileprovider",
+                    file
+                )
+            )
+            startActivity(Intent.createChooser(sendIntent, "Share "))
 
+//            val bitmap = Bitmap.createBitmap(
+//                lnr_success.width,
+//                lnr_success.height, Bitmap.Config.ARGB_8888
+//            )
+//            val canvas = Canvas(bitmap)
+//            canvas.drawColor(Color.WHITE)
+//            lnr_success.draw(canvas)
+//            try {
+//                val file: File = saveBitmap(
+//                    bitmap,
+//                    "Deposit" + "_" + System.currentTimeMillis() + ".png"
+//                )!!
+//                Log.e("chase  2044   ", "filepath: " + file.absolutePath)
+//                val bmpUri = Uri.fromFile(file)
+//                Log.i("Uri", bmpUri.toString())
+//
+//
+//                // Uri bmpUri = getLocalBitmapUri(bitmap);
+//                val shareIntent = Intent()
+//                shareIntent.action = Intent.ACTION_SEND
+//                shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri)
+//                shareIntent.type = "image/*"
+//                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+//                startActivity(Intent.createChooser(shareIntent, "Share Opportunity"));
+
+
+
+
+
+
+//            } catch (e: java.lang.Exception) {
+//                e.printStackTrace()
+//                Log.e(TAG, "Exception   2496   "+e.toString())
+//            }
+
+
+//        val shareIntent = Intent()
+//        shareIntent.action = Intent.ACTION_SEND
+//        shareIntent.type = "text/plain"
+//        shareIntent.putExtra(Intent.EXTRA_TEXT, "Deposit "+deposit+" \n\n Reciever Name "+recName+"\n\n Reciever A/C "
+//        +recAc+"\n\n Orga Name : "+ orgName+"\n\n Date & Time : "+ datetime+"\n\n Opening Balance : "+"₹ "+opBal.toString()+"0Cr"
+//        +"\n\n Amount "+amount+"\n[ "+tv_rupees.text.toString()+" ]"+"\n\n Available Balance : "+"₹ "+BalAmount+"r"+
+//                "\n\n Reference No "+reffNo)
+//        startActivity(Intent.createChooser(shareIntent, "Share"))
+
+
+
+        }
         val okBtn = dialogView .findViewById(R.id.btnOK) as Button
         okBtn.setOnClickListener {
             //dialogView .dismiss()
@@ -3326,6 +3310,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
             doReset()
         }
         val printBtn = dialogView.findViewById(R.id.btnprint) as Button
+        //sharelayout(dialogView)
         printBtn.setOnClickListener{
 //            showPrintDialog()
 //            val agent_Name = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF2, 0)
@@ -3342,6 +3327,40 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         }
         val alertDialog = dialogBuilder.create()
         alertDialog .show()
+    }
+
+    private fun sharelayout(customLayout2: View) {
+        val view: LinearLayout
+        view = customLayout2.findViewById(R.id.lnr_success)
+        view.isDrawingCacheEnabled = true
+        view.measure(
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+        )
+        view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+        view.buildDrawingCache(true)
+        bitmapt = Bitmap.createBitmap(view.drawingCache)
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                file = File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "nnnmmmmnn.png")
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                Log.v(
+                    "fdsfsdfd",
+                    "directory  " + getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
+                )
+            }
+            val stream: FileOutputStream = FileOutputStream(file)
+            bitmapt!!.compress(
+                Bitmap.CompressFormat.PNG,
+                90,
+                stream
+            )
+            stream.close()
+            uri = Uri.fromFile(file)
+        } catch (e: IOException) {
+            Log.v("fdsfsdfd", "IOException while trying to write file for sharing: " + e.message)
+        }
     }
 
     private fun getLocalBitmapUri(bitmap: Bitmap?, deposit: String): Uri {

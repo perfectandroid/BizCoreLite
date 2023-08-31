@@ -28,6 +28,12 @@
                 android:background="@color/white"
                 android:layout_height="wrap_content">
 
+                <LinearLayout
+                    android:id="@+id/screen"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/overlapImage"
                     android:layout_width="90dp"
@@ -264,6 +270,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
+                </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -267,6 +267,7 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
 
+                        Log.v("Sdfsdfdsdd","otp requestObject2 "+requestObject1)
                         }
                     catch (e:Exception) {
                         e.printStackTrace()

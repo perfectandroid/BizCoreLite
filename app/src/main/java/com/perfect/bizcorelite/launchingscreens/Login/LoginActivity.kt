@@ -171,7 +171,7 @@ class LoginActivity : AppCompatActivity() {
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")
 
-                        Log.e("c","requestObject1    155   "+requestObject1);
+                        Log.v("Sdfsdfdsdd","requestObject1    155   "+requestObject1);
 
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
@@ -191,10 +191,8 @@ class LoginActivity : AppCompatActivity() {
                                 Log.e("response  ","response   172   "+response.body())
                                 val jObject = JSONObject(response.body())
                                 if (jObject.getString("StatusCode") == "0") {
+
                                     val jobjt = jObject.getJSONObject("LogInfo")
-
-//
-
                                     val UserName = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF5, 0)
                                     val UserNameEditor = UserName.edit()
                                     UserNameEditor.putString("username", user)
@@ -213,7 +211,6 @@ class LoginActivity : AppCompatActivity() {
                                     val isAccessSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF10, 0)
                                     val isAccessEditor = isAccessSP.edit()
                                     isAccessEditor.putString("isAccess", "false")
-//                                    isAccessEditor.putString("isAccess", jobjt.getString("isAccess"))
                                     isAccessEditor.commit()
 
                                     val CusMobileSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF3, 0)
@@ -348,6 +345,7 @@ class LoginActivity : AppCompatActivity() {
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
+                        Log.v("dfdsfsdfdsfdd","req  "+requestObject1);
 
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()

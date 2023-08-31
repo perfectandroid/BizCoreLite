@@ -38,6 +38,21 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:orientation="vertical">
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:src="@drawable/bank_icon" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:text="Bank Name"
+                    android:textColor="@color/colorAccentDark"
+                    android:textSize="15dp" />
                 <TextView
                     android:id="@+id/tv_otp2"
                     android:layout_width="match_parent"
