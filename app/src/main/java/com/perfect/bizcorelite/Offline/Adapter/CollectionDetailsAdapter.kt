@@ -10,7 +10,7 @@ import com.perfect.bizcorelite.Offline.Fragments.SyncPendingFragment
 
 class CollectionDetailsAdapter(private val myContext: Context, fm: FragmentManager, internal var totalTabs: Int) : FragmentPagerAdapter(fm) {
 
-    override fun getItem(position: Int): Fragment? {
+    override fun getItem(position: Int): Fragment {
         when (position) {
             1 -> {
                 return AchivesFragment()
@@ -18,7 +18,7 @@ class CollectionDetailsAdapter(private val myContext: Context, fm: FragmentManag
             0 -> {
                 return SyncPendingFragment()
             }
-            else -> return null
+            else -> return null!!
         }
     }
     override fun getCount(): Int {

@@ -18,18 +18,17 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.goodiebag.pinview.Pinview
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.GsonBuilder
 import com.perfect.bizcorelite.Api.ApiInterface
 import com.perfect.bizcorelite.Api.ApiService
 import com.perfect.bizcorelite.DB.DBHandler
-import com.perfect.bizcorelite.Helper.BizcoreApplication
-import com.perfect.bizcorelite.Helper.ConnectivityUtils
-import com.perfect.bizcorelite.Helper.CryptoGraphy
-import com.perfect.bizcorelite.Helper.DeviceAppDetails
+import com.perfect.bizcorelite.Helper.*
 import com.perfect.bizcorelite.Offline.Activity.CollectionDetailsActivity
 import com.perfect.bizcorelite.Offline.Activity.NewCollectionActivity
 import com.perfect.bizcorelite.Offline.Model.AccountModel
@@ -37,6 +36,7 @@ import com.perfect.bizcorelite.R
 import com.perfect.bizcorelite.launchingscreens.Login.LoginActivity
 import com.perfect.bizcorelite.launchingscreens.MainHome.HomeActivity
 import com.perfect.bizcorelite.launchingscreens.Splash.SplashActivity
+import kotlinx.android.synthetic.main.activity_about.*
 import kotlinx.android.synthetic.main.activity_pin_login.*
 import kotlinx.android.synthetic.main.activity_pin_login1.tv_forget
 import ninja.saad.wizardoflocale.util.LocaleHelper
@@ -74,11 +74,15 @@ class MPINActivity : AppCompatActivity(), View.OnClickListener {
     var Area: String = ""
     var Country: String = ""
     var PostalCode: String = ""
+    private var txt_bankname: TextView? = null
+    private var img_bank: ImageView? = null
+    private var img_partner: ImageView? = null
     internal var tv_cus_name: TextView? = null
     private var progressDialog: ProgressDialog? = null
     lateinit var dbHelper : DBHandler
     private var result:Boolean? = null
     private var hashString:String? = null
+
     private var otp:String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,6 +112,14 @@ class MPINActivity : AppCompatActivity(), View.OnClickListener {
             }
         })
 
+        val spReseller = this.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var bank_name = spReseller.getString("bank_name", "")
+        var bank_icon_url = ApiService.IMAGE_URL + spReseller.getString("bank_icon", "")
+        var partner_icon_url = ApiService.IMAGE_URL + spReseller.getString("partner_icon", "")
+
+        txt_bankname!!.text = bank_name
+        PicassoTrustAll.getInstance(this@MPINActivity)!!.load(bank_icon_url).error(android.R.color.transparent).into(img_bank!!)
+        PicassoTrustAll.getInstance(this@MPINActivity)!!.load(partner_icon_url).error(android.R.color.transparent).into(img_partner!!)
     }
 
     override fun attachBaseContext(newBase: Context) {
@@ -379,6 +391,9 @@ class MPINActivity : AppCompatActivity(), View.OnClickListener {
     private fun setRegViews() {
         /*  tv_resend.setOnClickListener(this)
           tv_back.setOnClickListener(this)*/
+        txt_bankname=findViewById<TextView>(R.id.txt_bankname);
+        img_bank=findViewById(R.id.img_bank);
+        img_partner=findViewById(R.id.img_partner);
         tv_cus_name = findViewById(R.id.tv_cus_name)
         tv_forget.setOnClickListener(this)
     }

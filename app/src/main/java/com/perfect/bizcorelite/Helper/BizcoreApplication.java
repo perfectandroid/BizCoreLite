@@ -55,10 +55,17 @@ public class BizcoreApplication extends Application {
     public static final String SHARED_PREF10 = "isAccess";
     public static final String SHARED_PREF11 = "branchCode";
     public static final String SHARED_PREF12 = "common_appcode";
+    public static final String SHARED_PREF26 = "SSL";
     public static final String BANK_CODE = "bank_code";
     public static final String BANK_HEADER = "bank_header";
     public static final String COMMON_APP_CHECK = "common_appcode_check";
     public static final String BIZ_OFFLINE = "biz_offline";
+    public static final String BANK_NAME = "bank_name";
+    public static final String BANK_ICON = "bank_icon";
+    public static final String ABOUT_BANK = "about_bank";
+    public static final String PARTNER_ICON = "partner_icon";
+
+
 
 
     private static final String PACKAGE = "package";

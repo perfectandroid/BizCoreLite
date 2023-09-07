@@ -4,6 +4,7 @@ object ApiService {
 
 ////demo
     val BASE_URL = "https://202.164.150.65:14004/Bizcore/api/Bizcore/"
+    val IMAGE_URL = "https://202.164.150.65:14004"
     val CERT_NAME = "sqlserver.pem"
 
 //    val BASE_URL = "https://202.164.150.222:8000/Bizcore/api/Bizcore/"

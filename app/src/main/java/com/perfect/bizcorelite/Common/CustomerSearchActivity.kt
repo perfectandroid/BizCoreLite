@@ -1055,7 +1055,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                             requestObject1.put("AccountNumber", null)
                         }
 
-
+                        Log.e("requestObject1","requestObject1 =="+requestObject1)
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
@@ -2445,6 +2445,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject2.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
 
                         Log.e(TAG, "requestObject2    " + requestObject2)
+                        Log.v("dsfdsfdddd","re  "+requestObject2.toString())
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
@@ -2460,6 +2461,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         Response<String>
                         ) {
                             try {
+                                Log.v("dsfdsfdddd","re  "+response1.body())
                                 progressDialog!!.dismiss()
                                 val jObject1 = JSONObject(response1.body())
                                 val jobjt = jObject1.getJSONObject("AccInfo")
@@ -2678,6 +2680,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         override fun onResponse(call: retrofit2.Call<String>, response1:
                         Response<String>
                         ) {
+                            Log.v("dsfdsfdddd","res "+response1.body())
                             try {
                                 progressDialog!!.dismiss()
                                 val jObject1 = JSONObject(response1.body())
@@ -2814,6 +2817,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject2.put("SubMode", BizcoreApplication.encryptMessage("1"))
                         requestObject2.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
+                        Log.e("dsfdsfdddd","requestObject2 "+requestObject2)
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
@@ -2828,6 +2832,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         override fun onResponse(call: retrofit2.Call<String>, response1:
                         Response<String>
                         ) {
+                            Log.e("dsfdsfdddd","res111 "+response1.body())
                             try {
                                 progressDialog!!.dismiss()
                                 val jObject1 = JSONObject(response1.body())

@@ -96,12 +96,20 @@
 
                         <ImageView
                             android:id="@+id/img_bank"
-
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:layout_gravity="center"
                             android:padding="10dp"
                             android:src="@drawable/bank_icon" />
+                        <TextView
+                            android:id="@+id/txt_bankname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Technology Partner"
+                            android:gravity="center"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="14dp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -109,7 +117,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="25dp"
                         android:layout_marginBottom="60dp"
                         android:layout_weight="1"
                         android:gravity="center"
@@ -121,7 +129,7 @@
                             android:layout_height="wrap_content"
                             android:text="Technology Partner"
                             android:textColor="@color/colorAccentDark"
-                            android:textSize="14dp"
+                            android:textSize="12dp"
                             android:textStyle="bold" />
 
                         <ImageView

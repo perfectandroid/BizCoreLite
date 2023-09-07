@@ -77,5 +77,8 @@ interface ApiInterface {
     @POST("CommoncodeChecking")
     fun getCommonCodeChecking(@Body body: RequestBody): Call<String>
 
+    @POST("ResellerDetails")
+    fun getReseller(@Body body: RequestBody): Call<String>
+
 }
 
