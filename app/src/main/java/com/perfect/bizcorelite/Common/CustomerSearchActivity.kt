@@ -332,6 +332,17 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                         //            strModuleValue = "23"
                                         //            comparevalue = "ODGD"
                                     }
+                                    if (module.equals("HD")) {
+                                        strModule = "HD"
+                                        strModuleValue = "24"
+                                        comparevalue = "PDHD"
+
+                                        val acctyp = resources.getStringArray(R.array.array_accounts).get(4)
+                                        edt_txt_module.setText("" + acctyp)
+                                        //            strModule = "GS"
+                                        //            strModuleValue = "23"
+                                        //            comparevalue = "ODGD"
+                                    }
                                     balanceAccess()
 
                                     if (type.length == 1) {
@@ -771,6 +782,12 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                     comparevalue = "PDGD"
 
                 }
+                if (position == 4) {
+                    strModule = "HD"
+                    strModuleValue = "24"
+                    comparevalue = "PDHD"
+
+                }
                 cv_balanceenq!!.visibility = View.GONE
                 cv_collection!!.visibility = View.GONE
                 ll_balnce!!.visibility  =View.GONE
@@ -930,6 +947,11 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 //            strModule = "GS"
 //            strModuleValue = "23"
 //            comparevalue = "ODGD"
+        }
+        if (modul.equals("Home Safe Deposite")){
+            strModule = "HD"
+            strModuleValue = "24"
+            comparevalue = "PDHD"
         }
 
         if (strModule.equals("")){
@@ -3005,6 +3027,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankKey)))
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
+                        Log.v("dsfsdfsdddd","req  "+requestObject1);
 
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
@@ -3017,6 +3040,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         Response<String>
                         ) {
                             try {
+                                Log.v("dsfsdfsdddd","req  "+response.body())
                                 Log.e(TAG,"0000111   "+response.body())
                                 progressDialog!!.dismiss()
                                 val jObject = JSONObject(response.body())
