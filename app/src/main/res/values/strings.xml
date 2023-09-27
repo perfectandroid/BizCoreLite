@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BizCoreLite</string>
+    <string name="app_name">BizCoreLite Offline</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="module">Module </string>
@@ -32,6 +32,7 @@
         <item>Daily Deposit</item>
         <item>Recurring Deposit</item>
         <item>Group Deposit Credit Scheme</item>
+        <item>Home Safe Deposite</item>
     </string-array>
 
     <!--&lt;!&ndash;        demo&ndash;&gt;-->
@@ -91,31 +92,20 @@
     <string name="BankHeader"></string>
     <string name="bank_name">Kunnamangalam Co-operative Rural Bank</string>&ndash;&gt;-->
 
+
+<!--    python-->
+    <string name="BankKey">12345</string>
+    <string name="BankHeader">PERFECT HEAD OFFICE</string>
+    <string name="bank_name">PERFECT HEAD OFFICE</string>
     <string name="BankVerified">0</string>
 
-    <string name="BankKey">d.22333</string>
-    <string name="BankHeader">PERFECT SCORE BANK HEAD OFFICE</string>
-    <string name="bank_name">PERFECT SCORE BANK HEAD OFFICE</string>
 
-    <!--    <string name="BankKey"></string>-->
-    <!--    <string name="BankHeader">The Kazhakuttom Service Co-operative Bank Ltd., No.1457 Head Office Cum Main Branch</string>-->
-    <!--    <string name="bank_name">Kazhakuttom Service Co-operative Bank Ltd</string>-->
+<!--    development-->
+<!--    <string name="BankVerified">0</string>-->
+<!--    <string name="BankKey">d.22333</string>-->
+<!--    <string name="BankHeader">PERFECT SCORE BANK HEAD OFFICE</string>-->
+<!--    <string name="bank_name">PERFECT SCORE BANK HEAD OFFICE</string>-->
 
-    <!--<string name="BankKey">D .3296</string>
-    <string name="BankHeader">Malabar Social Welfare Co-operative Society Ltd</string>
-    <string name="BankVerified">0</string>-->
-
-    <!--    <string name="bank_name">Perfect BcLite</string>-->
-    <!--    <string name="bank_name">Malabar Social Welfare Co-operative Society Ltd No.D.3296</string>-->
-
-    <!--    <string name="BankKey">No.9349</string>-->
-    <!--    <string name="BankHeader">The Edacheri Service Co-operative Bank Ltd., No.9349 HEAD OFFICE CUM MAIN BRANCH</string>-->
-    <!--    <string name="bank_name"> The Edacheri Service Co-operative Bank Ltd</string>&ndash;&gt;-->
-
-
-    <!--    <string name="BankKey">No.583</string>-->
-    <!--    <string name="BankHeader">Kothamangalam Service Co-operative Bank Ltd., No.583 HEAD OFFICE</string>-->
-    <!--    <string name="bank_name">Kothamangalam Service Co-operative Bank Ltd</string>&ndash;&gt;-->
 
 
 </resources>

@@ -32,6 +32,7 @@
         <item>Daily Deposit</item>
         <item>Recurring Deposit</item>
         <item>Group Deposit Credit Scheme</item>
+        <item>Home Safe Deposite</item>
     </string-array>
 
     <!--&lt;!&ndash;        demo&ndash;&gt;-->
@@ -91,10 +92,16 @@
     <string name="BankHeader"></string>
     <string name="bank_name">Kunnamangalam Co-operative Rural Bank</string>&ndash;&gt;-->
 
+<!--    <string name="BankVerified">0</string>-->
+<!--    <string name="BankKey">d.22333</string>-->
+<!--    <string name="BankHeader">PERFECT SCORE BANK HEAD OFFICE</string>-->
+<!--    <string name="bank_name">PERFECT SCORE BANK HEAD OFFICE</string>-->
+
+    <!--    python-->
+    <string name="BankKey">12345</string>
+    <string name="BankHeader">PERFECT HEAD OFFICE</string>
+    <string name="bank_name">PERFECT HEAD OFFICE</string>
     <string name="BankVerified">0</string>
-    <string name="BankKey">d.22333</string>
-    <string name="BankHeader">PERFECT SCORE BANK HEAD OFFICE</string>
-    <string name="bank_name">PERFECT SCORE BANK HEAD OFFICE</string>
 
     <!--    <string name="BankKey"></string>-->
     <!--    <string name="BankHeader">The Kazhakuttom Service Co-operative Bank Ltd., No.1457 Head Office Cum Main Branch</string>-->

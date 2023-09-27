@@ -136,7 +136,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="3dp"
-                                    android:text="User Name"
+                                    android:text="User Code"
                                     android:textColor="@color/text_secondary"
                                     android:textStyle="bold"
                                     android:textSize="12dp" />
@@ -145,7 +145,7 @@
                                     android:id="@+id/edtUser"
                                     android:layout_width="match_parent"
                                     android:layout_height="40dp"
-                                    android:hint="Enter Username"
+                                    android:hint="Enter User Code"
                                     android:background="@drawable/underline"
                                     android:inputType="textPersonName"
                                     android:fontFamily="@font/font"

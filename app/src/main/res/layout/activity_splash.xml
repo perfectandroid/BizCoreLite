@@ -50,7 +50,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginTop="16dp"
             android:gravity="center_horizontal"
-            android:text="Please Enter Common App Code"
+            android:text="Please Enter Organization Code"
             android:textColor="@color/colorAccentDark"
             android:textSize="14sp" />
 

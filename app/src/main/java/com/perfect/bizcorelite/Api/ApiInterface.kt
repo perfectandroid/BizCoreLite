@@ -3,7 +3,10 @@ package com.perfect.bizcorelite.Api
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.POST
+
 
 interface ApiInterface {
 
@@ -79,6 +82,13 @@ interface ApiInterface {
 
     @POST("ResellerDetails")
     fun getReseller(@Body body: RequestBody): Call<String>
+
+//    @GET("your/endpoint")
+//    @Headers(
+//        "Authorization: Bearer yourAccessToken",  // Example: "Bearer yourAccessToken"
+//        "Custom-Header: customValue" // Add any custom headers here
+//    )
+//    fun yourApiMethod(): Call<String>
 
 }
 

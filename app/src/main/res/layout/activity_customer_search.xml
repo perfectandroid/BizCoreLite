@@ -307,7 +307,7 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginBottom="60dp"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         app:cardCornerRadius="4dp"
                         app:cardElevation="4dp"
                         tools:ignore="MissingConstraints">
@@ -630,7 +630,8 @@
                                         android:drawablePadding="10dp"
                                         android:hint="Message"
                                         android:lines="1"
-                                        android:maxLines="8"
+                                        android:singleLine="true"
+                                        android:imeOptions="actionDone"
                                         android:minLines="1"
                                         android:padding="10dp"
                                         android:textColor="@color/black"

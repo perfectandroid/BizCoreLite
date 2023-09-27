@@ -236,7 +236,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
 
-                        Log.e("","check  123 "+requestObject1)
+                        Log.e("sdasdasdasdsad","check  123 "+requestObject1)
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
@@ -247,7 +247,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                         Response<String>
                         ) {
                             try {
-                                Log.e("","check  123 "+response.body())
+                                Log.e("sdasdasdasdsad","check  123 "+response.body())
                                 val jObject = JSONObject(response.body())
                                 if (jObject.getString("StatusCode") == "0") {
                                     dbHelper.deleteallAccount()

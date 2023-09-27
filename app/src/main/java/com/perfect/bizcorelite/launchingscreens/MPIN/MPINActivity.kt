@@ -12,6 +12,7 @@ import android.location.LocationManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
@@ -82,44 +83,50 @@ class MPINActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var dbHelper : DBHandler
     private var result:Boolean? = null
     private var hashString:String? = null
-
     private var otp:String? = null
+    private val handler = Handler()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // setContentView(R.layout.activity_pin_login)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_pin_login)
         setRegViews()
-        dbHelper = DBHandler(this)
-        val db = DBHandler(applicationContext!!)
-        val cursor = db.select("transactiontable")
-        if (cursor.count == 0){
-            loadData()
+
+        try {
+            sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE)
+            editor = sharedpreferences!!.edit()
+            editor!!.clear()
+            editor!!.commit()
+
+
+            pinview.setPinViewEventListener(object : Pinview.PinViewEventListener {
+                override fun onDataEntered(pinview: Pinview, fromUser: Boolean) {
+                    //Make api calls here or what not
+                    verifyOTP(pinview.value)
+
+    //                Toast.makeText(this@MainActivity, pinview.getValue(), Toast.LENGTH_SHORT).show()
+                }
+            })
+
+            val spReseller = this.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+            var bank_name = spReseller.getString("bank_name", "")
+            var bank_icon_url = ApiService.IMAGE_URL + spReseller.getString("bank_icon", "")
+            var partner_icon_url = ApiService.IMAGE_URL + spReseller.getString("partner_icon", "")
+
+            txt_bankname!!.text = bank_name
+            PicassoTrustAll.getInstance(this@MPINActivity)!!.load(bank_icon_url).error(android.R.color.transparent).into(img_bank!!)
+            PicassoTrustAll.getInstance(this@MPINActivity)!!.load(partner_icon_url).error(android.R.color.transparent).into(img_partner!!)
+//            handler.postDelayed({
+//                dbHelper = DBHandler(this)
+//                val db = DBHandler(applicationContext!!)
+//                val cursor = db.select("transactiontable")
+//                if (cursor.count == 0){
+//                  //  loadData()
+//                }
+//            }, 2000)
+        } catch (e: Exception) {
+
         }
-
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE)
-        editor = sharedpreferences!!.edit()
-        editor!!.clear()
-        editor!!.commit()
-
-
-        pinview.setPinViewEventListener(object : Pinview.PinViewEventListener {
-            override fun onDataEntered(pinview: Pinview, fromUser: Boolean) {
-                //Make api calls here or what not
-                verifyOTP(pinview.value)
-
-//                Toast.makeText(this@MainActivity, pinview.getValue(), Toast.LENGTH_SHORT).show()
-            }
-        })
-
-        val spReseller = this.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
-        var bank_name = spReseller.getString("bank_name", "")
-        var bank_icon_url = ApiService.IMAGE_URL + spReseller.getString("bank_icon", "")
-        var partner_icon_url = ApiService.IMAGE_URL + spReseller.getString("partner_icon", "")
-
-        txt_bankname!!.text = bank_name
-        PicassoTrustAll.getInstance(this@MPINActivity)!!.load(bank_icon_url).error(android.R.color.transparent).into(img_bank!!)
-        PicassoTrustAll.getInstance(this@MPINActivity)!!.load(partner_icon_url).error(android.R.color.transparent).into(img_partner!!)
     }
 
     override fun attachBaseContext(newBase: Context) {

@@ -57,7 +57,14 @@ class AgentCollectionReportActivity : AppCompatActivity(),
     private var progressDialog: ProgressDialog? = null
     var day = calendar[Calendar.DAY_OF_MONTH]
     var fromdate: String? = null
-    var arrayForSpinner = arrayOf<String?>("ALL", "DAILY DEPOSIT", "SAVINGS BANK", "RECURRING DEPOSIT", "GROUP DEPOSIT SCHEME")
+    var arrayForSpinner = arrayOf<String?>(
+        "ALL",
+        "DAILY DEPOSIT",
+        "SAVINGS BANK",
+        "RECURRING DEPOSIT",
+        "GROUP DEPOSIT SCHEME",
+        "HOME SAFE DEPOSITE"
+    )
     var module: ArrayAdapter<*>? = null
     var dateTime: String? = null
     var lnr_layout1: LinearLayout? = null
@@ -125,7 +132,7 @@ class AgentCollectionReportActivity : AppCompatActivity(),
             R.id.txtFrom -> {
                 dateSelector()
             }
-            R.id.layt_selctmdl ->{
+            R.id.layt_selctmdl -> {
                 getMdls()
             }
         }
@@ -136,16 +143,18 @@ class AgentCollectionReportActivity : AppCompatActivity(),
             year = calendar.get(Calendar.YEAR)
             month = calendar.get(Calendar.MONTH)
             day = calendar.get(Calendar.DAY_OF_MONTH)
-            val datePickerDialog = DatePickerDialog(this,
-                    DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                        fromdate = dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year
-                        dateForSearch = year.toString() + "-" + (monthOfYear + 1) + "-" + dayOfMonth.toString()
+            val datePickerDialog = DatePickerDialog(
+                this,
+                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                    fromdate = dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year
+                    dateForSearch =
+                        year.toString() + "-" + (monthOfYear + 1) + "-" + dayOfMonth.toString()
 
-                        txtFrom!!.text = fromdate
-                    },
-                    year,
-                    month,
-                    day
+                    txtFrom!!.text = fromdate
+                },
+                year,
+                month,
+                day
             )
             datePickerDialog.datePicker.maxDate = calendar.timeInMillis
             datePickerDialog.show()
@@ -162,32 +171,37 @@ class AgentCollectionReportActivity : AppCompatActivity(),
             val listView = layout.findViewById<ListView>(R.id.listViewmdl)
             builder.setView(layout)
             val alertDialog = builder.create()
-            val adapter = ArrayAdapter<String>(this, R.layout.list_account, R.id.tvtitle,
-                    arrayForSpinner!!
+            val adapter = ArrayAdapter<String>(
+                this, R.layout.list_account, R.id.tvtitle,
+                arrayForSpinner!!
             )
             listView.adapter = adapter
-            listView.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, position, l ->
-                        // TODO Auto-generated method stub
-                        val value = adapter.getItem(position)
-                        txtv_selecmdl.text = value
-                        if (position == 0) {
-                            modules = "A"
-                        }
-                        if (position == 1) {
-                            modules = "DD"
-                        }
-                        if (position == 2) {
-                            modules = "SB"
-                        }
-
-                        if (position == 3) {
-                            modules = "RD"
-                        }
-                        if (position == 4) {
-                            modules = "GD"
-                        }
-                        alertDialog.dismiss()
+            listView.onItemClickListener =
+                AdapterView.OnItemClickListener { adapterView, view, position, l ->
+                    // TODO Auto-generated method stub
+                    val value = adapter.getItem(position)
+                    txtv_selecmdl.text = value
+                    if (position == 0) {
+                        modules = "A"
                     }
+                    if (position == 1) {
+                        modules = "DD"
+                    }
+                    if (position == 2) {
+                        modules = "SB"
+                    }
+
+                    if (position == 3) {
+                        modules = "RD"
+                    }
+                    if (position == 4) {
+                        modules = "GD"
+                    }
+                    if (position == 5) {
+                        modules = "HD"
+                    }
+                    alertDialog.dismiss()
+                }
             alertDialog.show()
         } catch (e: Exception) {
             e.printStackTrace()
@@ -195,20 +209,21 @@ class AgentCollectionReportActivity : AppCompatActivity(),
     }
 
 
-    private fun getAgentcollection( from1: String, s1: String?, s2: String?, s3: String?){
-        when(ConnectivityUtils.isConnected(this)) {
+    private fun getAgentcollection(from1: String, s1: String?, s2: String?, s3: String?) {
+        when (ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
                     applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
                 var bank_key = ID_CommonApp.getString("bank_code", "")
                 var bank_header = ID_CommonApp.getString("bank_header", "")
-                progressDialog = ProgressDialog(this@AgentCollectionReportActivity, R.style.Progress)
+                progressDialog =
+                    ProgressDialog(this@AgentCollectionReportActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
                 progressDialog!!.setIndeterminate(true)
                 progressDialog!!.setIndeterminateDrawable(this.resources.getDrawable(R.drawable.progress))
                 progressDialog!!.show()
-                try{
+                try {
                     val client = OkHttpClient.Builder()
                         .sslSocketFactory(getSSLSocketFactory())
                         .hostnameVerifier(getHostnameVerifier())
@@ -226,16 +241,20 @@ class AgentCollectionReportActivity : AppCompatActivity(),
                     val apiService = retrofit.create(ApiInterface::class.java!!)
                     val requestObject1 = JSONObject()
                     try {
-                        val DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails(this)
+                        val DeviceAppDetails =
+                            BizcoreApplication.getInstance().getDeviceAppDetails(this)
                         var Imei = DeviceAppDetails.imei
                         if (Imei != null && !Imei.isEmpty()) {
-                        }
-                        else{
-                            val DeviceAppDetails1 = BizcoreApplication.getInstance().getDeviceAppDetails1(this)
+                        } else {
+                            val DeviceAppDetails1 =
+                                BizcoreApplication.getInstance().getDeviceAppDetails1(this)
                             Imei = DeviceAppDetails1.imei
                         }
 
-                        val AgentIdSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
+                        val AgentIdSP = applicationContext.getSharedPreferences(
+                            BizcoreApplication.SHARED_PREF1,
+                            0
+                        )
                         val agentId = AgentIdSP.getString("Agent_ID", null)
 //                        val from = simpleDateFormat.format(calendar.time)
 //
@@ -245,10 +264,19 @@ class AgentCollectionReportActivity : AppCompatActivity(),
 //                        val date = day.toString() + "-" + (month + 1) + "-" + year
 //                        val to = simpleDateFormat.format(calendar3.time)
                         requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
-                        requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
+                        requestObject1.put(
+                            "Card_Acceptor_Terminal_IDCode",
+                            BizcoreApplication.encryptMessage(Imei)
+                        )
                         requestObject1.put("Module", BizcoreApplication.encryptMessage(modules))
-                        requestObject1.put("FromDate", BizcoreApplication.encryptMessage(dateForSearch))
-                        requestObject1.put("ToDate", BizcoreApplication.encryptMessage(dateForSearch))
+                        requestObject1.put(
+                            "FromDate",
+                            BizcoreApplication.encryptMessage(dateForSearch)
+                        )
+                        requestObject1.put(
+                            "ToDate",
+                            BizcoreApplication.encryptMessage(dateForSearch)
+                        )
                         requestObject1.put("TransType", BizcoreApplication.encryptMessage("R"))
                         if (from1 == "sort") {
                             requestObject1.put("VoucherNumber", null)
@@ -256,48 +284,64 @@ class AgentCollectionReportActivity : AppCompatActivity(),
                             requestObject1.put("Name", null)
                             requestObject1.put("MinAmount", BizcoreApplication.encryptMessage(s1))
                             requestObject1.put("MaxAmount", BizcoreApplication.encryptMessage(s2))
-                        }
-                        else if (from1 == "filter") {
+                        } else if (from1 == "filter") {
                             if (s1 == "") {
                                 requestObject1.put("VoucherNumber", null)
-                                requestObject1.put("AccountNumber", BizcoreApplication.encryptMessage(s2))
+                                requestObject1.put(
+                                    "AccountNumber",
+                                    BizcoreApplication.encryptMessage(s2)
+                                )
                                 requestObject1.put("Name", BizcoreApplication.encryptMessage(s3))
-                            }
-                            else if (s2 == "") {
-                                requestObject1.put("VoucherNumber", BizcoreApplication.encryptMessage(s1))
+                            } else if (s2 == "") {
+                                requestObject1.put(
+                                    "VoucherNumber",
+                                    BizcoreApplication.encryptMessage(s1)
+                                )
                                 requestObject1.put("AccountNumber", null)
                                 requestObject1.put("Name", BizcoreApplication.encryptMessage(s3))
-                            }
-                            else if (s3 == "") {
-                                requestObject1.put("VoucherNumber", BizcoreApplication.encryptMessage(s1))
-                                requestObject1.put("AccountNumber", BizcoreApplication.encryptMessage(s2))
+                            } else if (s3 == "") {
+                                requestObject1.put(
+                                    "VoucherNumber",
+                                    BizcoreApplication.encryptMessage(s1)
+                                )
+                                requestObject1.put(
+                                    "AccountNumber",
+                                    BizcoreApplication.encryptMessage(s2)
+                                )
                                 requestObject1.put("Name", null)
-                            }
-                            else if (s1 == "" && s2 == "") {
+                            } else if (s1 == "" && s2 == "") {
                                 requestObject1.put("VoucherNumber", null)
                                 requestObject1.put("AccountNumber", null)
                                 requestObject1.put("Name", BizcoreApplication.encryptMessage(s3))
-                            }
-                            else if (s1 == "" && s3 == "") {
+                            } else if (s1 == "" && s3 == "") {
                                 requestObject1.put("VoucherNumber", null)
-                                requestObject1.put("AccountNumber", BizcoreApplication.encryptMessage(s2))
+                                requestObject1.put(
+                                    "AccountNumber",
+                                    BizcoreApplication.encryptMessage(s2)
+                                )
                                 requestObject1.put("Name", null)
-                            }
-                            else if (s2 == "" && s3 == "") {
-                                requestObject1.put("VoucherNumber", BizcoreApplication.encryptMessage(s1))
+                            } else if (s2 == "" && s3 == "") {
+                                requestObject1.put(
+                                    "VoucherNumber",
+                                    BizcoreApplication.encryptMessage(s1)
+                                )
                                 requestObject1.put("AccountNumber", null)
                                 requestObject1.put("Name", null)
-                            }
-                            else {
-                                requestObject1.put("VoucherNumber", BizcoreApplication.encryptMessage(s1))
-                                requestObject1.put("AccountNumber", BizcoreApplication.encryptMessage(s2))
+                            } else {
+                                requestObject1.put(
+                                    "VoucherNumber",
+                                    BizcoreApplication.encryptMessage(s1)
+                                )
+                                requestObject1.put(
+                                    "AccountNumber",
+                                    BizcoreApplication.encryptMessage(s2)
+                                )
                                 requestObject1.put("Name", BizcoreApplication.encryptMessage(s3))
                             }
 
                             requestObject1.put("MinAmount", BizcoreApplication.encryptMessage("0"))
                             requestObject1.put("MaxAmount", BizcoreApplication.encryptMessage("0"))
-                        }
-                        else if (from1 == "main") {
+                        } else if (from1 == "main") {
                             requestObject1.put("VoucherNumber", null)
                             requestObject1.put("AccountNumber", null)
                             requestObject1.put("Name", null)
@@ -305,16 +349,23 @@ class AgentCollectionReportActivity : AppCompatActivity(),
                             requestObject1.put("MaxAmount", BizcoreApplication.encryptMessage("0"))
                         }
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
+                        requestObject1.put(
+                            "BankHeader",
+                            BizcoreApplication.encryptMessage(bank_header)
+                        )
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
                     }
-                    val body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString())
+                    val body = RequestBody.create(
+                        okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                        requestObject1.toString()
+                    )
                     val call = apiService.getAgentCollectionList(body)
-                    call.enqueue(object: retrofit2.Callback<String> {
-                        override fun onResponse(call: retrofit2.Call<String>, response:
-                        Response<String>
+                    call.enqueue(object : retrofit2.Callback<String> {
+                        override fun onResponse(
+                            call: retrofit2.Call<String>, response:
+                            Response<String>
                         ) {
                             try {
                                 progressDialog!!.dismiss()
@@ -324,22 +375,26 @@ class AgentCollectionReportActivity : AppCompatActivity(),
 
                                 if (statuscode == "0") {
                                     val array = jmember.getJSONArray("AgentCollectionListDetails")
-                                    val lLayout = GridLayoutManager(this@AgentCollectionReportActivity, 1)
-                                    mRcvAgentColectn!!.layoutManager = lLayout as RecyclerView.LayoutManager?
+                                    val lLayout =
+                                        GridLayoutManager(this@AgentCollectionReportActivity, 1)
+                                    mRcvAgentColectn!!.layoutManager =
+                                        lLayout as RecyclerView.LayoutManager?
                                     mRcvAgentColectn!!.setHasFixedSize(true)
-                                    val adapter = AgentCollectionReportAdapter(this@AgentCollectionReportActivity, array)
+                                    val adapter = AgentCollectionReportAdapter(
+                                        this@AgentCollectionReportActivity,
+                                        array
+                                    )
                                     mRcvAgentColectn!!.adapter = adapter
 
 
                                     lnr_layout1!!.visibility = View.VISIBLE
                                     crdView1!!.visibility = View.VISIBLE
-                                }
-                                else {
+                                } else {
                                     lnr_layout1!!.visibility = View.GONE
                                     crdView1!!.visibility = View.GONE
                                     val mySnackbar = Snackbar.make(
                                         findViewById(R.id.rl_main),
-                                            jObject.getString("StatusMessage"), Snackbar.LENGTH_SHORT
+                                        jObject.getString("StatusMessage"), Snackbar.LENGTH_SHORT
                                     )
                                     mySnackbar.show()
                                 }
@@ -348,9 +403,11 @@ class AgentCollectionReportActivity : AppCompatActivity(),
                                 e.printStackTrace()
                             }
                         }
-                        override fun onFailure(call: retrofit2.Call<String>, t:Throwable) {
+
+                        override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
                             progressDialog!!.dismiss()
-                            val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
+                            val mySnackbar = Snackbar.make(
+                                findViewById(R.id.rl_main),
                                 " Some technical issues.", Snackbar.LENGTH_SHORT
                             )
                             mySnackbar.show()
@@ -359,14 +416,19 @@ class AgentCollectionReportActivity : AppCompatActivity(),
                 } catch (e: Exception) {
                     progressDialog!!.dismiss()
                     e.printStackTrace()
-                    val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
+                    val mySnackbar = Snackbar.make(
+                        findViewById(R.id.rl_main),
                         " Some technical issues.", Snackbar.LENGTH_SHORT
                     )
                     mySnackbar.show()
                 }
             }
             false -> {
-                val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),"No Internet Connection!!", Snackbar.LENGTH_SHORT)
+                val mySnackbar = Snackbar.make(
+                    findViewById(R.id.rl_main),
+                    "No Internet Connection!!",
+                    Snackbar.LENGTH_SHORT
+                )
                 mySnackbar.show()
             }
         }
@@ -383,6 +445,7 @@ class AgentCollectionReportActivity : AppCompatActivity(),
             override fun getAcceptedIssuers(): Array<X509Certificate> {
                 return originalTrustManager.acceptedIssuers
             }
+
             override fun checkClientTrusted(certs: Array<X509Certificate>?, authType: String) {
                 try {
                     if (certs != null && certs.size > 0) {
@@ -394,6 +457,7 @@ class AgentCollectionReportActivity : AppCompatActivity(),
                     Log.w("checkClientTrusted", e.toString())
                 }
             }
+
             override fun checkServerTrusted(certs: Array<X509Certificate>?, authType: String) {
                 try {
                     if (certs != null && certs.size > 0) {
@@ -407,6 +471,7 @@ class AgentCollectionReportActivity : AppCompatActivity(),
             }
         })
     }
+
     @Throws(
         CertificateException::class,
         KeyStoreException::class,
