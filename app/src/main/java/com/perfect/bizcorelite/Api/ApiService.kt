@@ -2,6 +2,11 @@ package com.perfect.bizcorelite.Api
 
 object ApiService {
 
+    ////python qa
+//    val BASE_URL = "http://202.164.150.222:8000/api/Bizcore/"
+//    val IMAGE_URL = "http://202.164.150.222:8000"
+//    val CERT_NAME = "bizcore.pem"
+
     ////python
     val BASE_URL = "http://202.164.150.65:8002/api/Bizcore/"
     val IMAGE_URL = "http://202.164.150.65:8002"

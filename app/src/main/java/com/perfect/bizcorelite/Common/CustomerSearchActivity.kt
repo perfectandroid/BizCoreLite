@@ -235,6 +235,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                     applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
                 var bank_key = ID_CommonApp.getString("bank_code", "")
                 var bank_header = ID_CommonApp.getString("bank_header", "")
+                var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+                var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
                 progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -283,6 +285,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")
                         requestObject1.put("Mode", BizcoreApplication.encryptMessage("32"))
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
 
 
                     } catch (e: Exception) {
@@ -421,6 +425,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
             applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
         var bank_key = ID_CommonApp.getString("bank_code", "")
         var bank_header = ID_CommonApp.getString("bank_header", "")
+        var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+        var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
         Log.i("responseBalance ","Balance access");
 //        when(ConnectivityUtils.isConnected(this)) {
 //            true -> {
@@ -476,6 +482,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")
                         requestObject1.put("Mode", BizcoreApplication.encryptMessage("33"))
                         requestObject1.put("Module", BizcoreApplication.encryptMessage(comparevalue))
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
 
                     } catch (e: Exception) {
 //                        progressDialog!!.dismiss()
@@ -1005,7 +1013,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     }
 
     private fun doCusSearch(layoutdialog: AlertDialog) {
-
+        val ID_CommonApp =
+            applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+        var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
         Log.i("responsedosearch","insisde do search")
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
@@ -1064,6 +1075,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
                         requestObject1.put("Module", BizcoreApplication.encryptMessage(comparevalue))
                         if (buttonNameSelected == 1) {
                             requestObject1.put("Name", BizcoreApplication.encryptMessage(edt_txt_name!!.text.toString()))
@@ -1460,6 +1473,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                     applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
                 var bank_key = ID_CommonApp.getString("bank_code", "")
                 var bank_header = ID_CommonApp.getString("bank_header", "")
+                var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+                var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
 //                progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
 //                progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
 //                progressDialog!!.setCancelable(false)
@@ -1511,6 +1526,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject1.put("ActionType", BizcoreApplication.encryptMessage("2"))
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
 
                     } catch (e: Exception) {
 //                        progressDialog!!.dismiss()
@@ -1569,6 +1586,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                     applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
                 var bank_key = ID_CommonApp.getString("bank_code", "")
                 var bank_header = ID_CommonApp.getString("bank_header", "")
+                var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+                var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
 //                progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
 //                progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
 //                progressDialog!!.setCancelable(false)
@@ -1619,6 +1638,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject1.put("FK_Account", BizcoreApplication.encryptMessage(str_fkaccount))
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
 
                     } catch (e: Exception) {
 //                        progressDialog!!.dismiss()
@@ -1687,13 +1708,14 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
     }
     private fun getTranshistory() {
-
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
                     applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
                 var bank_key = ID_CommonApp.getString("bank_code", "")
                 var bank_header = ID_CommonApp.getString("bank_header", "")
+                var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+                var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
                 progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -1745,6 +1767,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject1.put("LoginMode", BizcoreApplication.encryptMessage("2"))
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
 
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
@@ -1819,13 +1843,14 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     }
 
     private fun getTranshistory1() {
-
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
                     applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
                 var bank_key = ID_CommonApp.getString("bank_code", "")
                 var bank_header = ID_CommonApp.getString("bank_header", "")
+                var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+                var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
                 progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -1877,6 +1902,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject1.put("LoginMode", BizcoreApplication.encryptMessage("2"))
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
 
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
@@ -2187,6 +2214,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                     applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
                 var bank_key = ID_CommonApp.getString("bank_code", "")
                 var bank_header = ID_CommonApp.getString("bank_header", "")
+                var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+                var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
                 progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -2227,6 +2256,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject2.put( "AccountCodeFiledName", BizcoreApplication.encryptMessage(accountCodeFiledName) )
                         requestObject2.put( "TableName", BizcoreApplication.encryptMessage(tableName) )
                         requestObject2.put( "FieldName", BizcoreApplication.encryptMessage(fieldName) )
+                        requestObject2.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject2.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
 
 
 
@@ -2389,6 +2420,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     }
 
     private fun accountFetchingRequestOtp() {
+        val ID_CommonApp =
+            applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+        var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
@@ -2465,6 +2500,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject2.put("SubMode", BizcoreApplication.encryptMessage("1"))
                         requestObject2.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
+                        requestObject2.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject2.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
 
                         Log.e(TAG, "requestObject2    " + requestObject2)
                         Log.v("dsfdsfdddd","re  "+requestObject2.toString())
@@ -2609,6 +2646,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     }
 
     private fun sendPinForAccountFetching(otp: String?, varOtp: String) {
+        val ID_CommonApp =
+            applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+        var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
@@ -2688,6 +2729,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject2.put("SubMode", BizcoreApplication.encryptMessage("0"))
                         requestObject2.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
+                        requestObject2.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject2.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
@@ -2760,6 +2803,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     }
 
     private fun withoutPinAccountFetching() {
+        val ID_CommonApp =
+            applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+        var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
@@ -2839,6 +2886,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject2.put("SubMode", BizcoreApplication.encryptMessage("1"))
                         requestObject2.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
+                        requestObject2.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject2.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
                         Log.e("dsfdsfdddd","requestObject2 "+requestObject2)
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
@@ -2989,6 +3038,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     }
 
     private fun submitDeposit(strAmount: String?, strMsg: String?, strCustname: String?) {
+        val ID_CommonApp =
+            applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+        var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
@@ -3087,6 +3140,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
 
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
@@ -3754,6 +3809,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                     applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
                 var bank_key = ID_CommonApp.getString("bank_code", "")
                 var bank_header = ID_CommonApp.getString("bank_header", "")
+                var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+                var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
                 progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
                 progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
                 progressDialog!!.setCancelable(false)
@@ -3828,6 +3885,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject2.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
                         requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject2.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
+                        requestObject2.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject2.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
@@ -4016,6 +4075,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     }
 
     private fun getbalanceenqsplit() {
+        val ID_CommonApp =
+            applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+        var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
@@ -4071,8 +4134,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject1.put("FK_Account", BizcoreApplication.encryptMessage(fk_acc_ind))
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
-
-
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()

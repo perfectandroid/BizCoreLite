@@ -175,7 +175,11 @@ class ResetCredentialsFragment : Fragment(),View.OnClickListener  {
         }
     }
     private fun syncData(){
-        when(ConnectivityUtils.isConnected(context!!)) {
+        val ID_CommonApp =
+            requireContext().getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+        var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
+        when(ConnectivityUtils.isConnected(requireContext())) {
             true -> {
                 val ID_CommonApp =
                     context!!.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
@@ -241,8 +245,10 @@ class ResetCredentialsFragment : Fragment(),View.OnClickListener  {
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
                         val jsonArray = JSONArray()
-                        val db = DBHandler(context!!)
+                        val db = DBHandler(requireContext())
 
 
                         val cursor = db.select("transactiontable")
@@ -409,10 +415,13 @@ class ResetCredentialsFragment : Fragment(),View.OnClickListener  {
     }
 
     private fun changeMPin(){
+
         val ID_CommonApp =
-            context!!.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+            requireContext().getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
         var bank_key = ID_CommonApp.getString("bank_code", "")
         var bank_header = ID_CommonApp.getString("bank_header", "")
+        var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+        var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
         input_user_mpin.setError(null)
         input_user_new_pin.setError(null)
         input_user_new_pin_confirm.setError(null)
@@ -494,6 +503,8 @@ class ResetCredentialsFragment : Fragment(),View.OnClickListener  {
                 requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
                 requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                 requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
+                requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
             }catch (e:Exception){
                 e.printStackTrace()
             }
@@ -555,9 +566,11 @@ class ResetCredentialsFragment : Fragment(),View.OnClickListener  {
 
     private fun changePassword() {
         val ID_CommonApp =
-            context!!.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+            requireContext().getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
         var bank_key = ID_CommonApp.getString("bank_code", "")
         var bank_header = ID_CommonApp.getString("bank_header", "")
+        var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+        var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
         val ReceiverName = tvReceiverName.text.toString()
         val password = tvPassword.text.toString()
         val newPassword = tvNewPassword.text.toString()
@@ -638,6 +651,8 @@ class ResetCredentialsFragment : Fragment(),View.OnClickListener  {
                 requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
                 requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                 requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
+                requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
             }catch (e:Exception){
                 e.printStackTrace()
             }

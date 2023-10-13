@@ -239,6 +239,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
                     context!!.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
                 var bank_key = ID_CommonApp.getString("bank_code", "")
                 var bank_header = ID_CommonApp.getString("bank_header", "")
+                var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+                var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
                 try {
                     val client = OkHttpClient.Builder()
                         .sslSocketFactory(getSSLSocketFactory())
@@ -293,6 +295,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
                         requestObject1.put("Token", BizcoreApplication.encryptMessage(hashToken))
                         requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
                         requestObject1.put(
                             "Card_Acceptor_Terminal_IDCode",
                             BizcoreApplication.encryptMessage(Imei)
@@ -375,7 +379,11 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 
     private fun syncData() {
-        when (ConnectivityUtils.isConnected(context!!)) {
+        val ID_CommonApp =
+            requireContext().getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+        var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
+        when (ConnectivityUtils.isConnected(requireContext())) {
             true -> {
                 val ID_CommonApp =
                     context!!.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
@@ -436,6 +444,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
                         requestObject1.put("Token", BizcoreApplication.encryptMessage(hashToken))
                         requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
                         requestObject1.put("From_Module", BizcoreApplication.encryptMessage("DD"))
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
                         requestObject1.put(
                             "Version_code",
                             BizcoreApplication.encryptMessage(Integer.toString(deviceAppDetails.getAppVersion()))

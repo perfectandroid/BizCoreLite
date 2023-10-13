@@ -104,6 +104,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun submit() {
+        val ID_CommonApp =
+            applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+        var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
@@ -170,6 +174,9 @@ class LoginActivity : AppCompatActivity() {
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL)
+                        )
 
                         Log.v("Sdfsdfdsdd","requestObject1    155   "+requestObject1);
 
@@ -299,6 +306,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun getOtp(strotp: String) {
+
+        val ID_CommonApp =
+            applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+        var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
@@ -345,6 +357,8 @@ class LoginActivity : AppCompatActivity() {
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
                         Log.v("dfdsfsdfdsfdd","req  "+requestObject1);
 
                     } catch (e: Exception) {

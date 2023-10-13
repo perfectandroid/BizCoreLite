@@ -35,62 +35,7 @@
         <item>Home Safe Deposite</item>
     </string-array>
 
-    <!--&lt;!&ndash;        demo&ndash;&gt;-->
-    <!--    <string name="BankKey"></string>
-       <string name="BankHeader"></string>
-       <string name="bank_name">Perfect BcLite</string>-->
 
-
-    <!--        Mananthavady-->
-    <!--    <string name="BankKey">W.221</string>
-        <string name="BankHeader">The Mananthavady Co-operative Urban Society Ltd.No.W.221 HEAD OFFICE CUM MAIN BRANCH</string>
-        <string name="bank_name">MCUS</string>-->
-
-
-    <!--&lt;!&ndash;        Cheekkilode&ndash;&gt;-->
-    <!--        <string name="BankKey">F.449</string>-->
-    <!--        <string name="BankHeader">Cheekkilode Service Co-operative Bank Ltd.No.F.449 HEAD OFFICE CUM MAIN BRANCH</string>-->
-    <!--        <string name="bank_name">Cheekkilode SCB</string>-->
-
-
-    <!--&lt;!&ndash;        Kottur&ndash;&gt;-->
-    <!--        <string name="BankKey">F.450</string>-->
-    <!--        <string name="BankHeader">The Kottur Service Co-operative Bank Ltd.No.F.450 HEAD OFFICE CUM MAIN BRANCH</string>-->
-    <!--        <string name="bank_name">Kottur SCB</string>tring>&ndash;&gt;-->
-
-
-    <!--&lt;!&ndash;        Koothattukulam &ndash;&gt;-->
-    <!--        <string name="BankKey"></string>-->
-    <!--        <string name="BankHeader"></string>-->
-    <!--        <string name="bank_name">Koothattukulam Farmers SCB</string>-->
-
-
-    <!--&lt;!&ndash;        HADCOS&ndash;&gt;-->
-    <!--        <string name="BankKey">No.2738</string>-->
-    <!--        <string name="BankHeader">Health Amenities Multi Purpose District Co-operative Society Ltd.No.2738 HEAD OFFICE CUM MAIN BRANCH</string>-->
-    <!--        <string name="bank_name">HADCOS</string>-->
-
-
-    <!--&lt;!&ndash;    Kuttikkattoor&ndash;&gt;-->
-    <!--    <string name="BankKey">D.2747</string>-->
-    <!--    <string name="BankHeader">Kuttikkattoor Co-operative Urban Society Ltd.D.2747 HEAD OFFICE CUM MAIN BRANCH</string>-->
-    <!--    <string name="bank_name">Kuttikkattoor Urban Society</string>-->
-
-
-    <!--&lt;!&ndash;    Thiruvambady&ndash;&gt;-->
-    <!--    <string name="BankKey">L.56</string>-->
-    <!--    <string name="BankHeader">The Thiruvambady Service Co-operative Bank Ltd., No.L.56 HEAD OFFICE</string>-->
-    <!--    <string name="bank_name">ThiruvambadySCB</string>-->
-
-
-    <!--Chathamangalam-->
-    <!--<string name="BankKey">F.1839</string>
-    <string name="BankHeader">The Chathamangalam Service Co-operative Bank Ltd.,No.F.1839 HO CUM MAIN BRANCH</string>
-    <string name="bank_name">Chathamangalam SCB</string>-->
-
-    <!-- <string name="BankKey"></string>
-    <string name="BankHeader"></string>
-    <string name="bank_name">Kunnamangalam Co-operative Rural Bank</string>&ndash;&gt;-->
 
 <!--    <string name="BankVerified">0</string>-->
 <!--    <string name="BankKey">d.22333</string>-->
@@ -103,25 +48,7 @@
     <string name="bank_name">PERFECT HEAD OFFICE</string>
     <string name="BankVerified">0</string>
 
-    <!--    <string name="BankKey"></string>-->
-    <!--    <string name="BankHeader">The Kazhakuttom Service Co-operative Bank Ltd., No.1457 Head Office Cum Main Branch</string>-->
-    <!--    <string name="bank_name">Kazhakuttom Service Co-operative Bank Ltd</string>-->
 
-    <!--<string name="BankKey">D .3296</string>
-    <string name="BankHeader">Malabar Social Welfare Co-operative Society Ltd</string>
-    <string name="BankVerified">0</string>-->
-
-    <!--    <string name="bank_name">Perfect BcLite</string>-->
-    <!--    <string name="bank_name">Malabar Social Welfare Co-operative Society Ltd No.D.3296</string>-->
-
-    <!--    <string name="BankKey">No.9349</string>-->
-    <!--    <string name="BankHeader">The Edacheri Service Co-operative Bank Ltd., No.9349 HEAD OFFICE CUM MAIN BRANCH</string>-->
-    <!--    <string name="bank_name"> The Edacheri Service Co-operative Bank Ltd</string>&ndash;&gt;-->
-
-
-    <!--    <string name="BankKey">No.583</string>-->
-    <!--    <string name="BankHeader">Kothamangalam Service Co-operative Bank Ltd., No.583 HEAD OFFICE</string>-->
-    <!--    <string name="bank_name">Kothamangalam Service Co-operative Bank Ltd</string>&ndash;&gt;-->
 
 
 </resources>

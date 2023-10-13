@@ -125,6 +125,10 @@ class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun getSummary(datetime: String) {
+        val ID_CommonApp =
+            applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+        var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
@@ -184,6 +188,8 @@ class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
@@ -194,6 +200,8 @@ class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
                         override fun onResponse(call: retrofit2.Call<String>, response:
                         Response<String>
                         ) {
+                            tv_receipt.text="₹ 0 Cr"
+                            Log.v("sdfsdfsdfsdf","response  "+response.body());
                             try {
                                 progressDialog!!.dismiss()
                                 val jObject = JSONObject(response.body())
@@ -223,6 +231,7 @@ class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
                                         }
                                         if(jsonObject.getString("TransType").equals("R")) {
                                             iAmount = iAmount!! + jsonObject.getInt("Amount")
+                                            Log.v("sdfsdfsdfsdf","sdsdss "+iAmount);
                                         }
                                         tv_receipt.text = "₹ " +iAmount.toString()+".00 Cr"
                                     }

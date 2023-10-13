@@ -129,10 +129,14 @@ class LogoutFragment : Fragment(), View.OnClickListener {
         }
     }
     private fun syncData(){
-        when(ConnectivityUtils.isConnected(context!!)) {
+        val ID_CommonApp =
+            requireContext().getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+        var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
+        when(ConnectivityUtils.isConnected(requireContext())) {
             true -> {
                 val ID_CommonApp =
-                    context!!.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                    requireContext().getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
                 var bank_key = ID_CommonApp.getString("bank_code", "")
                 var bank_header = ID_CommonApp.getString("bank_header", "")
                 try{
@@ -166,7 +170,7 @@ class LogoutFragment : Fragment(), View.OnClickListener {
                             val DeviceAppDetails1 = BizcoreApplication.getInstance().getDeviceAppDetails1(context)
                             Imei = DeviceAppDetails1.imei
                         }
-                        val AgentIdSP = context!!.applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
+                        val AgentIdSP = requireContext().applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
                         val  agentId = AgentIdSP.getString("Agent_ID", null)
                         var  deviceAppDetails : DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails( context )
                         val randomNumber = CryptoGraphy.getInstance().randomNumber(agentId)
@@ -180,7 +184,7 @@ class LogoutFragment : Fragment(), View.OnClickListener {
                         hashList.add(agentId!!)
 
                         hashString = CryptoGraphy.getInstance().hashing(hashList)
-                        val tokenSP = context!!.applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF4, 0)
+                        val tokenSP = requireContext().applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF4, 0)
                         val  token = tokenSP.getString("token", null)
                         hashString += token
                         val hashToken = "06"+hashString/*+token*/
@@ -195,6 +199,8 @@ class LogoutFragment : Fragment(), View.OnClickListener {
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
 
 
                         val jsonArray = JSONArray()
@@ -420,7 +426,7 @@ class LogoutFragment : Fragment(), View.OnClickListener {
         val cf = CertificateFactory.getInstance("X.509")
         //  InputStream caInput = getResources().openRawResource(Common.getCertificateAssetName());
         // File path: app\src\main\res\raw\your_cert.cer
-        val caInput =context!!.applicationContext.assets.open(ApiService.CERT_NAME)
+        val caInput =requireContext().applicationContext.assets.open(ApiService.CERT_NAME)
         val ca = cf.generateCertificate(caInput)
         caInput.close()
         val keyStore = KeyStore.getInstance("BKS")

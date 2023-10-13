@@ -210,6 +210,10 @@ class AgentCollectionReportActivity : AppCompatActivity(),
 
 
     private fun getAgentcollection(from1: String, s1: String?, s2: String?, s3: String?) {
+        val ID_CommonApp =
+            applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+        var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
         when (ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
@@ -353,6 +357,8 @@ class AgentCollectionReportActivity : AppCompatActivity(),
                             "BankHeader",
                             BizcoreApplication.encryptMessage(bank_header)
                         )
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()

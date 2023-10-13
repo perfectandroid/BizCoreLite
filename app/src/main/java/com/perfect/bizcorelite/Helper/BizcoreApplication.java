@@ -64,6 +64,8 @@ public class BizcoreApplication extends Application {
     public static final String BANK_ICON = "bank_icon";
     public static final String ABOUT_BANK = "about_bank";
     public static final String PARTNER_ICON = "partner_icon";
+    public static final String COMMON_API_URL = "CommonAPIURL";
+    public static final String COMMON_API = "CommonAPI";
 
 
 

@@ -267,6 +267,18 @@ class SplashActivity : AppCompatActivity() {
                                         jObject["BizOffline"] as Boolean
                                     )
                                     editor4.apply()
+                                    val editor5 = sharedPreferences.edit()
+                                    editor5.putString(
+                                        BizcoreApplication.COMMON_API_URL,
+                                        jObject["CommonAPIURL"].toString()
+                                    )
+                                    editor5.apply()
+                                    val editor6 = sharedPreferences.edit()
+                                    editor6.putString(
+                                        BizcoreApplication.COMMON_API,
+                                        jObject["CommonAPI"].toString()
+                                    )
+                                    editor6.apply()
                                     getReseller(
                                         jObject["CommonCode"].toString(),
                                         jObject["BankName"].toString()
@@ -358,9 +370,10 @@ class SplashActivity : AppCompatActivity() {
 
 
     private fun getReseller(bankCode: String, bankHeader: String) {
-        Log.v("dfsdfsdfdsfsddd", "get Reseller=")
-        Log.v("dfsdfsdfdsfsddd", "bankCode="+bankCode)
-        Log.v("dfsdfsdfdsfsddd", "bankHeader="+bankHeader)
+        val ID_CommonApp =
+            applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+        var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
         when (ConnectivityUtils.isConnected(this)) {
             true -> {
                 progressDialog = ProgressDialog(this@SplashActivity, R.style.Progress)
@@ -393,6 +406,8 @@ class SplashActivity : AppCompatActivity() {
                         requestObject1.put("Mode",BizcoreApplication.encryptMessage("41"))
                         requestObject1.put("BankKey",BizcoreApplication.encryptMessage(bankCode))
                         requestObject1.put("BankHeader",BizcoreApplication.encryptMessage(bankHeader))
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
@@ -577,8 +592,7 @@ class SplashActivity : AppCompatActivity() {
                         )
                         requestObject1.put(
                             "BankHeader",
-                            BizcoreApplication.encryptMessage(bank_header)
-                        )
+                            BizcoreApplication.encryptMessage(bank_header))
 
 
                     } catch (e: Exception) {
@@ -644,7 +658,7 @@ class SplashActivity : AppCompatActivity() {
                                             false
                                         )
                                         editor4.apply()
-                                        startApp()
+                                        getReseller(getResources().getString(R.string.BankKey),getResources().getString(R.string.BankHeader))
                                     }
 
                                 } else {
@@ -740,8 +754,6 @@ class SplashActivity : AppCompatActivity() {
             LocaleHelper().setLocale(this@SplashActivity, "en")
         }
         Log.v("asdasdasd33ds", "common_code2 =" + common_code)
-
-
         Log.i("response", "startAPP")
         Handler().postDelayed({
 //            val i = Intent(this@SplashActivity, WelcomeActivity::class.java)

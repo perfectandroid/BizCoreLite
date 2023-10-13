@@ -102,6 +102,10 @@ class AgentBalanceActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun loadBalance(){
+        val ID_CommonApp =
+            applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+        var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
@@ -164,6 +168,8 @@ class AgentBalanceActivity : AppCompatActivity(), View.OnClickListener {
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()

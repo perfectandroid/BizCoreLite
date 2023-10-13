@@ -165,6 +165,10 @@ class MPINActivity : AppCompatActivity(), View.OnClickListener {
 
 
     private fun verifyOTP(varOtp: String) {
+        val ID_CommonApp =
+        applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+        var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
@@ -236,6 +240,8 @@ class MPINActivity : AppCompatActivity(), View.OnClickListener {
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
 
                         Log.v("Sdfsdfdsdd","otp requestObject 3 "+requestObject1)
 
@@ -576,6 +582,10 @@ class MPINActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun loadData(){
+        val ID_CommonApp =
+            applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+        var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+        var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
@@ -636,6 +646,8 @@ class MPINActivity : AppCompatActivity(), View.OnClickListener {
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
                         requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
                         requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
+                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
                     } catch (e: Exception) {e.printStackTrace() }
                     val body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString())
                     val call = apiService.getOfflineAccounts(body)
