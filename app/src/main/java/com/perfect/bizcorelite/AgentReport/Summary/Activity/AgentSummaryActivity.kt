@@ -201,6 +201,7 @@ class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
                         Response<String>
                         ) {
                             tv_receipt.text="₹ 0 Cr"
+                            tv_payment_dr.text="₹ 0 Dr "
                             Log.v("sdfsdfsdfsdf","response  "+response.body());
                             try {
                                 progressDialog!!.dismiss()
@@ -236,6 +237,16 @@ class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
                                         tv_receipt.text = "₹ " +iAmount.toString()+".00 Cr"
                                     }
                                     tv_openbal.text="₹ " +jobjt.getString("OpBalance")
+                                    val ID_CommonApp =
+                                        applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                                    var bizcore_offline = ID_CommonApp.getBoolean("biz_offline", false)
+
+                                    try {
+                                        if (bizcore_offline) {
+                                            tv_payment_dr.text="₹ " +jobjt.getString("Payment")
+                                        }
+                                    } catch (e: Exception) {
+                                    }
                                     tv_curbal.text="₹ " +jobjt.getString("Closing")
                                     val lLayout = GridLayoutManager(this@AgentSummaryActivity, 1)
                                     rvsummmarymodule.layoutManager = lLayout as RecyclerView.LayoutManager?

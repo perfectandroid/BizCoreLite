@@ -263,6 +263,7 @@
                                         android:layout_height="match_parent"
                                         android:layout_weight="1"
                                         android:gravity="center"
+                                        android:visibility="invisible"
                                         android:text="CREDIT"
                                         android:textColor="@color/black"
                                         android:textSize="15sp"
@@ -322,13 +323,13 @@
                                     android:layout_height="wrap_content"
                                     android:orientation="horizontal"
                                     android:padding="8dp"
-                                    android:visibility="gone">
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:layout_weight="1"
-                                        android:background="@color/graph2"
+                                        android:background="@color/graph6"
                                         android:gravity="center"
                                         android:padding="10dp"
                                         android:text="Payment"
@@ -340,7 +341,7 @@
                                         android:id="@+id/tv_payment_cr"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:layout_weight="1"
+                                        android:layout_weight="1.8"
                                         android:gravity="center_vertical|left"
                                         android:paddingLeft="5dp"
                                         android:textColor="@color/red"
@@ -351,8 +352,9 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:layout_weight="1"
-                                        android:gravity="center_vertical|end"
-                                        android:textColor="@color/green"
+                                        android:visibility="visible"
+                                        android:gravity="center"
+                                        android:textColor="@color/colorPrimaryDark"
                                         android:textSize="15sp" />
                                 </LinearLayout>
 
