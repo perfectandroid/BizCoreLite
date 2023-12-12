@@ -54,7 +54,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="Version : 1.0.1"
                     android:textColor="@color/colorAccentDark"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -64,7 +63,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="@string/Aboutus"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="13dp" />
 
@@ -89,7 +87,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginRight="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="Licenced By :"
+                            android:text="Licenced By"
                             android:textColor="@color/colorAccentDark"
                             android:textSize="18dp"
                             android:textStyle="bold" />

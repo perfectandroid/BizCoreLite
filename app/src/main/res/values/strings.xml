@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BizCoreLite Dev</string>
+    <string name="app_name">Collectr</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="module">Module </string>
@@ -32,22 +32,22 @@
         <item>Daily Deposit</item>
         <item>Recurring Deposit</item>
         <item>Group Deposit Credit Scheme</item>
-        <item>Home Safe Deposite</item>
+        <item>Home Safe Deposit</item>
     </string-array>
 
 
-<!--    python-->
+
+<!--    <string name="BankVerified">0</string>-->
+<!--    <string name="BankKey">d.22333</string>-->
+<!--    <string name="BankHeader">PERFECT SCORE BANK HEAD OFFICE</string>-->
+<!--    <string name="bank_name">PERFECT SCORE BANK HEAD OFFICE</string>-->
+
+    <!--    python-->
     <string name="BankKey">12345</string>
     <string name="BankHeader">PERFECT HEAD OFFICE</string>
     <string name="bank_name">PERFECT HEAD OFFICE</string>
     <string name="BankVerified">0</string>
 
-
-<!--    development-->
-<!--    <string name="BankVerified">0</string>-->
-<!--    <string name="BankKey">d.22333</string>-->
-<!--    <string name="BankHeader">PERFECT SCORE BANK HEAD OFFICE</string>-->
-<!--    <string name="bank_name">PERFECT SCORE BANK HEAD OFFICE</string>-->
 
 
 

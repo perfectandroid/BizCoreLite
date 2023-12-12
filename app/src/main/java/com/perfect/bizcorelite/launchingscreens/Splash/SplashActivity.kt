@@ -749,7 +749,7 @@ class SplashActivity : AppCompatActivity() {
         var common_code = ID_CommonApp.getString("common_appcode_check", " ")
         var bizcore_offline = ID_CommonApp.getBoolean("biz_offline", false)
         if (bizcore_offline) {
-            LocaleHelper().setLocale(this@SplashActivity, "hi")
+            LocaleHelper().setLocale(this@SplashActivity, "en")
         } else {
             LocaleHelper().setLocale(this@SplashActivity, "en")
         }

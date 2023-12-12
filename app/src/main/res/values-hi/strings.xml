@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BizCoreLite</string>
+    <string name="app_name">Collectr</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="module">Module </string>
@@ -32,7 +32,7 @@
         <item>Daily Deposit</item>
         <item>Recurring Deposit</item>
         <item>Group Deposit Credit Scheme</item>
-        <item>Home Safe Deposite</item>
+        <item>Home Safe Deposit</item>
     </string-array>
 
 

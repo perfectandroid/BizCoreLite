@@ -1,5 +1,6 @@
 package com.perfect.bizcorelite.AgentCollectionReport
 
+import EnglishDatePickerDialog
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
@@ -22,6 +23,8 @@ import com.perfect.bizcorelite.Helper.BizcoreApplication
 import com.perfect.bizcorelite.Helper.ConnectivityUtils
 import com.perfect.bizcorelite.R
 import kotlinx.android.synthetic.main.activity_agent_collection_list.*
+import kotlinx.android.synthetic.main.activity_agent_collection_list.imback
+import kotlinx.android.synthetic.main.activity_agent_summary.*
 import kotlinx.android.synthetic.main.module_selection_layout.*
 import ninja.saad.wizardoflocale.util.LocaleHelper
 import okhttp3.OkHttpClient
@@ -138,26 +141,49 @@ class AgentCollectionReportActivity : AppCompatActivity(),
         }
     }
 
+//    fun dateSelector() {
+//        try {
+//            year = calendar.get(Calendar.YEAR)
+//            month = calendar.get(Calendar.MONTH)
+//            day = calendar.get(Calendar.DAY_OF_MONTH)
+//            val datePickerDialog = DatePickerDialog(
+//                this,
+//                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+//                    fromdate = dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year
+//                    dateForSearch =
+//                        year.toString() + "-" + (monthOfYear + 1) + "-" + dayOfMonth.toString()
+//
+//                    txtFrom!!.text = fromdate
+//                },
+//                year,
+//                month,
+//                day
+//            )
+//            datePickerDialog.datePicker.maxDate = calendar.timeInMillis
+//            datePickerDialog.show()
+//        } catch (e: ParseException) {
+//            e.printStackTrace()
+//        }
+//    }
+
     fun dateSelector() {
         try {
             year = calendar.get(Calendar.YEAR)
             month = calendar.get(Calendar.MONTH)
             day = calendar.get(Calendar.DAY_OF_MONTH)
-            val datePickerDialog = DatePickerDialog(
+            val dialog = EnglishDatePickerDialog(
                 this,
-                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                    fromdate = dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year
+                DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                    fromdate = dayOfMonth.toString() + "/" + (month + 1) + "/" + year
                     dateForSearch =
-                        year.toString() + "-" + (monthOfYear + 1) + "-" + dayOfMonth.toString()
+                        year.toString() + "-" + (month + 1) + "-" + dayOfMonth.toString()
 
                     txtFrom!!.text = fromdate
                 },
-                year,
-                month,
-                day
+                year, month, day
             )
-            datePickerDialog.datePicker.maxDate = calendar.timeInMillis
-            datePickerDialog.show()
+            dialog.show()
+
         } catch (e: ParseException) {
             e.printStackTrace()
         }

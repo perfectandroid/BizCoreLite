@@ -66,59 +66,60 @@ import java.util.*
 import javax.net.ssl.*
 
 
-class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
+class CustomerSearchActivity : AppCompatActivity(), View.OnClickListener {
 
-    var from                            = ""
-    var remark                          = 0
-    var fk_acc_ind                      = ""
-    var buttonNameSelected              = 1
-    var selectedData                    = 0
-    var thisView                        : View?                 = null
-    val TAG                             : String                = "CustomerSearchActivity"
-    var listItem                        : Array<String>?        = null
-    lateinit var dbHelper               : DBHandler
-    lateinit var handler                : Handler
-    lateinit var r                      : Runnable
-    val resonListModel=ArrayList<ResonListModel>()
-  //  private var reasonList              =ArrayList<ReasonLi>
-    private var array_sort1             = ArrayList<CustomerModel>()
+    var from = ""
+    var remark = 0
+    var fk_acc_ind = ""
+    var buttonNameSelected = 1
+    var selectedData = 0
+    var thisView: View? = null
+    val TAG: String = "CustomerSearchActivity"
+    var listItem: Array<String>? = null
+    lateinit var dbHelper: DBHandler
+    lateinit var handler: Handler
+    lateinit var r: Runnable
+    val resonListModel = ArrayList<ResonListModel>()
+
+    //  private var reasonList              =ArrayList<ReasonLi>
+    private var array_sort1 = ArrayList<CustomerModel>()
     private var searchCustomerArrayList = ArrayList<CustomerModel>()
-    private var textlength1             = 0
-    private var progressDialog          : ProgressDialog?       = null
-    private var sadapter1               : CustomerListAdapter?  = null
-    private var list_view1              : ListView?             = null
-    private var llcust                  : LinearLayout?         = null
-    private var llBal                   : LinearLayout?         = null
-    private var llTnx                   : LinearLayout?         = null
-    private var llsearch                : LinearLayout?         = null
-    private var rvTranscation           : RecyclerView?         = null
-    private var avlBal                  : Double?               = null
-    private var netAmt                  : Double?               = null
-    private var opBal                   : Double?               = null
-    private var etxtsearch1             : EditText?             = null
-    private var strOrgName              : String?               = ""
-    private var strCustName             : String?               = ""
-    private var strCusName              : String?               = ""
-    private var strSubModule            : String?               = ""
-    private var strfkaccount            : String?               = ""
-    private var reasondel            : String?               = ""
-    private var hashString              : String?               = null
-    private var strAmount               : String?               = null
-    private var strMsg                  : String?               = null
-    private var selectedPrinter         : String?               = null
-    private var strModule               : String?               = null
-    private var strModuleValue          : String?               = null
-    private var comparevalue            : String?               = null
-    private var otp                     : String?               = null
-    private var mob                     : String?               = null
-    private var mAccountNo1             : String?               = null
-    private var LastTransactionId       : String?               = null
-    private var printdata               : String?               = null
-    private var acc_no1               : String?               = null
-    private var acc_number               : String?               = null
-    private var deleteFlag               : String?               = null
-    private var reasonId               : String?               = null
-    private var moduleFrom1               : String?               = null
+    private var textlength1 = 0
+    private var progressDialog: ProgressDialog? = null
+    private var sadapter1: CustomerListAdapter? = null
+    private var list_view1: ListView? = null
+    private var llcust: LinearLayout? = null
+    private var llBal: LinearLayout? = null
+    private var llTnx: LinearLayout? = null
+    private var llsearch: LinearLayout? = null
+    private var rvTranscation: RecyclerView? = null
+    private var avlBal: Double? = null
+    private var netAmt: Double? = null
+    private var opBal: Double? = null
+    private var etxtsearch1: EditText? = null
+    private var strOrgName: String? = ""
+    private var strCustName: String? = ""
+    private var strCusName: String? = ""
+    private var strSubModule: String? = ""
+    private var strfkaccount: String? = ""
+    private var reasondel: String? = ""
+    private var hashString: String? = null
+    private var strAmount: String? = null
+    private var strMsg: String? = null
+    private var selectedPrinter: String? = null
+    private var strModule: String? = null
+    private var strModuleValue: String? = null
+    private var comparevalue: String? = null
+    private var otp: String? = null
+    private var mob: String? = null
+    private var mAccountNo1: String? = null
+    private var LastTransactionId: String? = null
+    private var printdata: String? = null
+    private var acc_no1: String? = null
+    private var acc_number: String? = null
+    private var deleteFlag: String? = null
+    private var reasonId: String? = null
+    private var moduleFrom1: String? = null
     var bitmapt: Bitmap? = null
     var uri: Uri? = null
     lateinit var file: File
@@ -128,13 +129,14 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     public var reason = ""
 
     private var printingMessage = ""
-//    private val mGoogleApiClient: GoogleApiClient? = null
+
+    //    private val mGoogleApiClient: GoogleApiClient? = null
     private var iPortOpen: Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-     //   setTheme(android.R.style.TextAppearance_DeviceDefault_Medium_Inverse);
+        //   setTheme(android.R.style.TextAppearance_DeviceDefault_Medium_Inverse);
         setContentView(R.layout.activity_customer_search)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         val builder = VmPolicy.Builder()
@@ -143,7 +145,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         setRegViews()
         val sdf = SimpleDateFormat("dd-MM-yyyy")
         val currentDate = sdf.format(Date())
-        tvTimeason!!.text="Due Amount As On "+currentDate
+        tvTimeason!!.text = "Due Amount As On " + currentDate
 
         setEdtTxtAmountCommaSeperator(input_amount!!, tv_rupees, true)
 
@@ -153,29 +155,29 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
              startActivity(intent)
              finish()*/
         }
-        var bundle:Bundle = intent.extras!!
+        var bundle: Bundle = intent.extras!!
         from = bundle.get("from").toString()
-        if (from!!.equals("Deposit")){
+        if (from!!.equals("Deposit")) {
             tv_header.text = "Deposit"
-        }
-        else if (from!!.equals("BalanceEnq")){
+        } else if (from!!.equals("BalanceEnq")) {
             tv_header.text = "Balance Enquiry"
         }
 //        setAccounts()
 
         setAccType()
 
-        val branchcodeSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF11, 0)
+        val branchcodeSP =
+            applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF11, 0)
         val branchcode = branchcodeSP.getString("branchCode", null)
 
 
-        if (branchcode?.length == 1){
+        if (branchcode?.length == 1) {
             edt_acc_first.setText("00" + branchcode)
         }
-        if (branchcode?.length == 2){
+        if (branchcode?.length == 2) {
             edt_acc_first.setText("0" + branchcode)
         }
-        if (branchcode?.length == 3){
+        if (branchcode?.length == 3) {
             edt_acc_first.setText(branchcode)
         }
     }
@@ -191,11 +193,11 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 //    }
 
     private fun initiateViews() {
-        llsearch =findViewById(R.id.llsearch)
-        rvTranscation =findViewById(R.id.rvTranscation)
-        llcust=findViewById(R.id.llcust)
-        llBal=findViewById(R.id.llBal)
-        llTnx=findViewById(R.id.llTnx)
+        llsearch = findViewById(R.id.llsearch)
+        rvTranscation = findViewById(R.id.rvTranscation)
+        llcust = findViewById(R.id.llcust)
+        llBal = findViewById(R.id.llBal)
+        llTnx = findViewById(R.id.llTnx)
     }
 
     private fun setRegViews() {
@@ -210,8 +212,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         btnIndivitualSearch!!.setOnClickListener(this)
         edt_txt_module!!.setOnClickListener(this)
         imback?.setOnClickListener(this)
-        edt_txt_module!!.keyListener=null
-        llcust!!.visibility=View.GONE
+        edt_txt_module!!.keyListener = null
+        llcust!!.visibility = View.GONE
     }
 
     override fun attachBaseContext(newBase: Context) {
@@ -229,7 +231,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     }
 
     private fun setAccType() {
-        when(ConnectivityUtils.isConnected(this)) {
+        when (ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
                     applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
@@ -245,18 +247,18 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                 progressDialog!!.show()
                 try {
                     val client = OkHttpClient.Builder()
-                            .sslSocketFactory(getSSLSocketFactory())
-                            .hostnameVerifier(getHostnameVerifier())
-                            .build()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build()
                     val gson = GsonBuilder()
-                            .setLenient()
-                            .create()
+                        .setLenient()
+                        .create()
                     val retrofit = Retrofit.Builder()
-                            .baseUrl(ApiService.BASE_URL)
-                            .addConverterFactory(ScalarsConverterFactory.create())
-                            .addConverterFactory(GsonConverterFactory.create(gson))
-                            .client(client)
-                            .build()
+                        .baseUrl(ApiService.BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build()
 
                     val apiService = retrofit.create(ApiInterface::class.java!!)
                     val requestObject1 = JSONObject()
@@ -264,48 +266,69 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
 
                         val DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails(
-                                this
+                            this
                         )
                         var Imei = DeviceAppDetails.imei
                         if (Imei != null && !Imei.isEmpty()) {
                         } else {
                             val DeviceAppDetails1 =
-                                    BizcoreApplication.getInstance().getDeviceAppDetails1(
-                                            this
-                                    )
+                                BizcoreApplication.getInstance().getDeviceAppDetails1(
+                                    this
+                                )
                             Imei = DeviceAppDetails1.imei
                         }
 
 
-                        val AgentIdSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
+                        val AgentIdSP = applicationContext.getSharedPreferences(
+                            BizcoreApplication.SHARED_PREF1,
+                            0
+                        )
                         val agentId = AgentIdSP.getString("Agent_ID", null)
                         requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
-                        requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
+                        requestObject1.put(
+                            "Card_Acceptor_Terminal_IDCode",
+                            BizcoreApplication.encryptMessage(Imei)
+                        )
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
-                        requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")
+                        requestObject1.put(
+                            "BankHeader",
+                            BizcoreApplication.encryptMessage(bank_header)
+                        )
+                        requestObject1.put(
+                            "BankVerified",
+                            "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg="
+                        )
                         requestObject1.put("Mode", BizcoreApplication.encryptMessage("32"))
-                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
-                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
+                        requestObject1.put(
+                            "CommonAPI",
+                            BizcoreApplication.encryptMessage(CommonAPI)
+                        )
+                        requestObject1.put(
+                            "CommonAPIURL",
+                            BizcoreApplication.encryptMessage(CommonAPIURL)
+                        )
 
 
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
                         val mySnackbar = Snackbar.make(
-                                findViewById(R.id.rl_main),
-                                " Some Technical Issues.", Snackbar.LENGTH_SHORT
+                            findViewById(R.id.rl_main),
+                            " Some Technical Issues.", Snackbar.LENGTH_SHORT
                         )
                         mySnackbar.show()
                     }
 
                     val body = RequestBody.create(
-                            okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                            requestObject1.toString()
+                        okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                        requestObject1.toString()
                     )
                     val call = apiService.getDefaultModule(body)
                     call.enqueue(object : retrofit2.Callback<String> {
-                        override fun onResponse(call: retrofit2.Call<String>, response: Response<String>) {
+                        override fun onResponse(
+                            call: retrofit2.Call<String>,
+                            response: Response<String>
+                        ) {
                             try {
                                 progressDialog!!.dismiss()
                                 val jObject = JSONObject(response.body())
@@ -319,7 +342,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                         strModuleValue = "10"
                                         comparevalue = "DDSB"
 
-                                        val acctyp = resources.getStringArray(R.array.array_accounts).get(0)
+                                        val acctyp =
+                                            resources.getStringArray(R.array.array_accounts).get(0)
                                         edt_txt_module.setText("" + acctyp)
 
                                     }
@@ -328,7 +352,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                         strModuleValue = "21"
                                         comparevalue = "PDDD"
 
-                                        val acctyp = resources.getStringArray(R.array.array_accounts).get(1)
+                                        val acctyp =
+                                            resources.getStringArray(R.array.array_accounts).get(1)
                                         edt_txt_module.setText("" + acctyp)
                                     }
                                     if (module.equals("RD")) {
@@ -336,7 +361,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                         strModuleValue = "22"
                                         comparevalue = "PDRD"
 
-                                        val acctyp = resources.getStringArray(R.array.array_accounts).get(2)
+                                        val acctyp =
+                                            resources.getStringArray(R.array.array_accounts).get(2)
                                         edt_txt_module.setText("" + acctyp)
                                     }
                                     if (module.equals("GS")) {
@@ -344,7 +370,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                         strModuleValue = "23"
                                         comparevalue = "PDGD"
 
-                                        val acctyp = resources.getStringArray(R.array.array_accounts).get(3)
+                                        val acctyp =
+                                            resources.getStringArray(R.array.array_accounts).get(3)
                                         edt_txt_module.setText("" + acctyp)
                                         //            strModule = "GS"
                                         //            strModuleValue = "23"
@@ -355,7 +382,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                         strModuleValue = "24"
                                         comparevalue = "PDHD"
 
-                                        val acctyp = resources.getStringArray(R.array.array_accounts).get(4)
+                                        val acctyp =
+                                            resources.getStringArray(R.array.array_accounts).get(4)
                                         edt_txt_module.setText("" + acctyp)
                                         //            strModule = "GS"
                                         //            strModuleValue = "23"
@@ -380,8 +408,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                             } catch (e: Exception) {
                                 progressDialog!!.dismiss()
                                 val mySnackbar = Snackbar.make(
-                                        findViewById(R.id.rl_main),
-                                        " Some technical issues.", Snackbar.LENGTH_SHORT
+                                    findViewById(R.id.rl_main),
+                                    " Some technical issues.", Snackbar.LENGTH_SHORT
                                 )
                                 mySnackbar.show()
                                 e.printStackTrace()
@@ -391,8 +419,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
                             progressDialog!!.dismiss()
                             val mySnackbar = Snackbar.make(
-                                    findViewById(R.id.rl_main),
-                                    " Some technical issues.", Snackbar.LENGTH_SHORT
+                                findViewById(R.id.rl_main),
+                                " Some technical issues.", Snackbar.LENGTH_SHORT
                             )
                             mySnackbar.show()
                         }
@@ -402,17 +430,17 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                     progressDialog!!.dismiss()
                     e.printStackTrace()
                     val mySnackbar = Snackbar.make(
-                            findViewById(R.id.rl_main),
-                            " Some technical issues.", Snackbar.LENGTH_SHORT
+                        findViewById(R.id.rl_main),
+                        " Some technical issues.", Snackbar.LENGTH_SHORT
                     )
                     mySnackbar.show()
                 }
             }
             false -> {
                 val mySnackbar = Snackbar.make(
-                        findViewById(R.id.rl_main),
-                        "No Internet Connection!!",
-                        Snackbar.LENGTH_SHORT
+                    findViewById(R.id.rl_main),
+                    "No Internet Connection!!",
+                    Snackbar.LENGTH_SHORT
                 )
                 mySnackbar.show()
             }
@@ -420,14 +448,14 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     }
 
     private fun balanceAccess() {
-
+        Log.v("sfsdfsdfdsf", "balance Access")
         val ID_CommonApp =
             applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
         var bank_key = ID_CommonApp.getString("bank_code", "")
         var bank_header = ID_CommonApp.getString("bank_header", "")
         var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
         var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
-        Log.i("responseBalance ","Balance access");
+        Log.i("responseBalance ", "Balance access");
 //        when(ConnectivityUtils.isConnected(this)) {
 //            true -> {
 //                progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
@@ -436,152 +464,162 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 //                progressDialog!!.setIndeterminate(true)
 //                progressDialog!!.setIndeterminateDrawable(this.resources.getDrawable(R.drawable.progress))
 //                progressDialog!!.show()
-                try {
-                    val client = OkHttpClient.Builder()
-                        .sslSocketFactory(getSSLSocketFactory())
-                        .hostnameVerifier(getHostnameVerifier())
-                        .build()
-                    val gson = GsonBuilder()
-                        .setLenient()
-                        .create()
-                    val retrofit = Retrofit.Builder()
-                        .baseUrl(ApiService.BASE_URL)
-                        .addConverterFactory(ScalarsConverterFactory.create())
-                        .addConverterFactory(GsonConverterFactory.create(gson))
-                        .client(client)
-                        .build()
+        try {
+            val client = OkHttpClient.Builder()
+                .sslSocketFactory(getSSLSocketFactory())
+                .hostnameVerifier(getHostnameVerifier())
+                .build()
+            val gson = GsonBuilder()
+                .setLenient()
+                .create()
+            val retrofit = Retrofit.Builder()
+                .baseUrl(ApiService.BASE_URL)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(client)
+                .build()
 
-                    val apiService = retrofit.create(ApiInterface::class.java!!)
-                    val requestObject1 = JSONObject()
-                    try {
+            val apiService = retrofit.create(ApiInterface::class.java!!)
+            val requestObject1 = JSONObject()
+            try {
 
 
-                        val DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails(
-                                this
+                val DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails(
+                    this
+                )
+                var Imei = DeviceAppDetails.imei
+                if (Imei != null && !Imei.isEmpty()) {
+                } else {
+                    val DeviceAppDetails1 =
+                        BizcoreApplication.getInstance().getDeviceAppDetails1(
+                            this
                         )
-                        var Imei = DeviceAppDetails.imei
-                        if (Imei != null && !Imei.isEmpty()) {
-                        } else {
-                            val DeviceAppDetails1 =
-                                BizcoreApplication.getInstance().getDeviceAppDetails1(
-                                        this
+                    Imei = DeviceAppDetails1.imei
+                }
+
+
+                val AgentIdSP = applicationContext.getSharedPreferences(
+                    BizcoreApplication.SHARED_PREF1,
+                    0
+                )
+                val agentId = AgentIdSP.getString("Agent_ID", null)
+                requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
+                requestObject1.put(
+                    "Card_Acceptor_Terminal_IDCode",
+                    BizcoreApplication.encryptMessage(Imei)
+                )
+                requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
+                requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")
+                requestObject1.put("Mode", BizcoreApplication.encryptMessage("33"))
+                requestObject1.put("Module", BizcoreApplication.encryptMessage(comparevalue))
+                requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
+                requestObject1.put("CommonAPIURL", BizcoreApplication.encryptMessage(CommonAPIURL))
+
+            } catch (e: Exception) {
+//                        progressDialog!!.dismiss()
+                e.printStackTrace()
+                val mySnackbar = Snackbar.make(
+                    findViewById(R.id.rl_main),
+                    " Some Technical Issues.", Snackbar.LENGTH_SHORT
+                )
+                mySnackbar.show()
+            }
+
+            val body = RequestBody.create(
+                okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                requestObject1.toString()
+            )
+            Log.i("response", "view balnce req=" + requestObject1)
+            val call = apiService.getBalanceScreenshowingStatus(body)
+            call.enqueue(object : retrofit2.Callback<String> {
+                override fun onResponse(call: retrofit2.Call<String>, response: Response<String>) {
+                    try {
+//                                progressDialog!!.dismiss() //314400
+                        val jObject = JSONObject(response.body())
+                        if (jObject.getString("StatusCode") == "0") {
+
+
+                            val jobjt = jObject.getJSONObject("BalanceScreenshowingStatus")
+                            deleteFlag = jobjt.getString("DeleteMode")
+                            Log.i("sfsdfsdfdsf", "DeleteMode=" + jobjt.getString("DeleteMode"))
+
+                            Log.i("response", "status=" + deleteFlag)
+
+
+                            val jsonOject12: JSONObject = jObject.getJSONObject("ReasonList")
+                            val array = jsonOject12.getJSONArray("ReasonListDetails")
+                            Log.i("response1212", "deleteFlag=" + deleteFlag)
+                            Log.i("response1212", "array=" + array.length())
+                            Log.i("response1212", "array=" + array.toString())
+                            Log.i("response1212", "array=" + array.toString(0))
+
+
+                            resonListModel.clear()
+                            for (i in 0 until array.length()) {
+                                val Jobject = array.getJSONObject(i)
+                                resonListModel.add(
+                                    ResonListModel(
+                                        Jobject.getString("ID_Reason"),
+                                        Jobject.getString("ReasonName")
+                                    )
                                 )
-                            Imei = DeviceAppDetails1.imei
+
+                            }
+
+                            Log.i("sfsdfsdfdsf", "IsShowing=" + jobjt.getString("IsShowing"))
+                            val isAccessSP = applicationContext.getSharedPreferences(
+                                BizcoreApplication.SHARED_PREF10,
+                                0
+                            )
+                            val isAccessEditor = isAccessSP.edit()
+                            isAccessEditor.putString("isAccess", jobjt.getString("IsShowing"))
+
+                            isAccessEditor.commit()
+
+                        } else {
+                            val isAccessSP = applicationContext.getSharedPreferences(
+                                BizcoreApplication.SHARED_PREF10,
+                                0
+                            )
+                            val isAccessEditor = isAccessSP.edit()
+                            isAccessEditor.putString("isAccess", "false")
+                            isAccessEditor.commit()
+
                         }
 
-
-                        val AgentIdSP = applicationContext.getSharedPreferences(
-                                BizcoreApplication.SHARED_PREF1,
-                                0
-                        )
-                        val agentId = AgentIdSP.getString("Agent_ID", null)
-                        requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
-                        requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
-                        requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")
-                        requestObject1.put("Mode", BizcoreApplication.encryptMessage("33"))
-                        requestObject1.put("Module", BizcoreApplication.encryptMessage(comparevalue))
-                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
-                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
+                        Log.i("responseresonListModel", "size=" + resonListModel.size)
 
                     } catch (e: Exception) {
-//                        progressDialog!!.dismiss()
-                        e.printStackTrace()
-                        val mySnackbar = Snackbar.make(
-                                findViewById(R.id.rl_main),
-                                " Some Technical Issues.", Snackbar.LENGTH_SHORT
-                        )
-                        mySnackbar.show()
-                    }
-
-                    val body = RequestBody.create(
-                            okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                            requestObject1.toString()
-                    )
-                    Log.i("response","view balnce req="+requestObject1)
-                    val call = apiService.getBalanceScreenshowingStatus(body)
-                    call.enqueue(object : retrofit2.Callback<String> {
-                        override fun onResponse(call: retrofit2.Call<String>, response: Response<String>) {
-                            try {
-//                                progressDialog!!.dismiss() //314400
-                                val jObject = JSONObject(response.body())
-                                if (jObject.getString("StatusCode") == "0") {
-
-
-                                    val jobjt = jObject.getJSONObject("BalanceScreenshowingStatus")
-                                    deleteFlag=jobjt.getString("DeleteMode")
-                                    Log.i("response","status="+jobjt.getString("DeleteMode"))
-                                    Log.i("response","status="+deleteFlag)
-
-
-                                    val jsonOject12: JSONObject = jObject.getJSONObject("ReasonList")
-                                    val array = jsonOject12.getJSONArray("ReasonListDetails")
-                                    Log.i("response1212","deleteFlag="+deleteFlag)
-                                    Log.i("response1212","array="+array.length())
-                                    Log.i("response1212","array="+array.toString())
-                                    Log.i("response1212","array="+array.toString(0))
-
-
-                                    resonListModel.clear()
-                                    for (i in 0 until array.length()) {
-                                        val Jobject = array.getJSONObject(i)
-                                        resonListModel.add(ResonListModel(Jobject.getString("ID_Reason"),Jobject.getString("ReasonName")))
-
-                                    }
-
-
-
-
-
-
-
-                                    val isAccessSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF10, 0)
-                                    val isAccessEditor = isAccessSP.edit()
-                                    isAccessEditor.putString("isAccess", jobjt.getString("IsShowing"))
-
-                                    isAccessEditor.commit()
-
-                                } else {
-                                    val isAccessSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF10, 0)
-                                    val isAccessEditor = isAccessSP.edit()
-                                    isAccessEditor.putString("isAccess", "false")
-                                    isAccessEditor.commit()
-
-                                }
-
-                                Log.i("responseresonListModel","size="+resonListModel.size)
-
-                            } catch (e: Exception) {
 //                                progressDialog!!.dismiss()
-                                val mySnackbar = Snackbar.make(
-                                        findViewById(R.id.rl_main),
-                                        " Some technical issues.", Snackbar.LENGTH_SHORT
-                                )
-                                mySnackbar.show()
-                                e.printStackTrace()
-                            }
-                        }
-
-                        override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
-//                            progressDialog!!.dismiss()
-                            val mySnackbar = Snackbar.make(
-                                    findViewById(R.id.rl_main),
-                                    " Some technical issues.", Snackbar.LENGTH_SHORT
-                            )
-                            mySnackbar.show()
-                        }
-                    })
-
-                } catch (e: Exception) {
-//                    progressDialog!!.dismiss()
-                    e.printStackTrace()
-                    val mySnackbar = Snackbar.make(
+                        val mySnackbar = Snackbar.make(
                             findViewById(R.id.rl_main),
                             " Some technical issues.", Snackbar.LENGTH_SHORT
+                        )
+                        mySnackbar.show()
+                        e.printStackTrace()
+                    }
+                }
+
+                override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
+//                            progressDialog!!.dismiss()
+                    val mySnackbar = Snackbar.make(
+                        findViewById(R.id.rl_main),
+                        " Some technical issues.", Snackbar.LENGTH_SHORT
                     )
                     mySnackbar.show()
                 }
+            })
+
+        } catch (e: Exception) {
+//                    progressDialog!!.dismiss()
+            e.printStackTrace()
+            val mySnackbar = Snackbar.make(
+                findViewById(R.id.rl_main),
+                " Some technical issues.", Snackbar.LENGTH_SHORT
+            )
+            mySnackbar.show()
+        }
 //            }
 //            false -> {
 //                val mySnackbar = Snackbar.make(
@@ -593,8 +631,6 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 //            }
 //        }
     }
-
-
 
 
     @SuppressLint("ResourceAsColor")
@@ -632,21 +668,39 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
                 thisView = v
 
-                if (edt_acc_first!!.text.toString()!!.equals("000") && edt_acc_second!!.text.toString()!!.equals("000") && edt_acc_third!!.text.toString()!!.equals("000000")) {
+                if (edt_acc_first!!.text.toString()!!
+                        .equals("000") && edt_acc_second!!.text.toString()!!
+                        .equals("000") && edt_acc_third!!.text.toString()!!.equals("000000")
+                ) {
                     edt_acc_first!!.setText("")
                     edt_acc_second!!.setText("")
                     edt_acc_third!!.setText("")
                 }
                 if (edt_txt_module!!.getText().toString().isEmpty()) {
-                    val toast = Toast.makeText(applicationContext, "Please Select Account Type", Toast.LENGTH_LONG)
+                    val toast = Toast.makeText(
+                        applicationContext,
+                        "Please Select Account Type",
+                        Toast.LENGTH_LONG
+                    )
                     toast.setGravity(Gravity.CENTER, 0, 0)
                     toast.show()
-                } else if (edt_txt_name!!.getText().toString().isEmpty() && edt_txt_mobile!!.getText().toString().isEmpty() && edt_acc_first!!.text.toString().isEmpty() && edt_acc_second!!.text.toString().isEmpty() && edt_acc_third!!.text.toString().isEmpty()) {
+                } else if (edt_txt_name!!.getText().toString()
+                        .isEmpty() && edt_txt_mobile!!.getText().toString()
+                        .isEmpty() && edt_acc_first!!.text.toString()
+                        .isEmpty() && edt_acc_second!!.text.toString()
+                        .isEmpty() && edt_acc_third!!.text.toString().isEmpty()
+                ) {
 
-                    val toast = Toast.makeText(applicationContext, "Please Enter Name, Phone Number Or Account Number", Toast.LENGTH_LONG)
+                    val toast = Toast.makeText(
+                        applicationContext,
+                        "Please Enter Name, Phone Number Or Account Number",
+                        Toast.LENGTH_LONG
+                    )
                     toast.setGravity(Gravity.CENTER, 0, 0)
                     toast.show()
-                } else if (buttonNameSelected == 1 && !edt_txt_name!!.getText().toString().isEmpty()) {
+                } else if (buttonNameSelected == 1 && !edt_txt_name!!.getText().toString()
+                        .isEmpty()
+                ) {
                     if (edt_txt_name!!.getText().toString().length >= 3) {
                         if (edt_acc_third!!.text.toString().length != 0) {
                             elsevalidation()
@@ -658,7 +712,11 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         if (edt_acc_third!!.text.toString().length != 0) {
                             elsevalidation()
                         } else {
-                            val toast = Toast.makeText(applicationContext, "Please Enter Min 3 Digit Of Name.", Toast.LENGTH_LONG)
+                            val toast = Toast.makeText(
+                                applicationContext,
+                                "Please Enter Min 3 Digit Of Name.",
+                                Toast.LENGTH_LONG
+                            )
                             toast.setGravity(Gravity.CENTER, 0, 0)
                             toast.show()
                             edt_txt_name!!.setText("")
@@ -667,7 +725,9 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                     }
 
 
-                } else if (buttonNameSelected == 0 && !edt_txt_mobile!!.getText().toString().isEmpty()) {
+                } else if (buttonNameSelected == 0 && !edt_txt_mobile!!.getText().toString()
+                        .isEmpty()
+                ) {
                     if (edt_txt_mobile!!.getText().toString().length >= 10) {
                         if (edt_acc_third!!.text.toString().length != 0) {
                             elsevalidation()
@@ -678,7 +738,11 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         if (edt_acc_third!!.text.toString().length != 0) {
                             elsevalidation()
                         } else {
-                            val toast = Toast.makeText(applicationContext, "Please Enter 10 Digit Mobile Number.", Toast.LENGTH_LONG)
+                            val toast = Toast.makeText(
+                                applicationContext,
+                                "Please Enter 10 Digit Mobile Number.",
+                                Toast.LENGTH_LONG
+                            )
                             toast.setGravity(Gravity.CENTER, 0, 0)
                             toast.show()
                             edt_txt_mobile!!.setText("")
@@ -776,57 +840,59 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
             builder.setView(layout)
             val alertDialog = builder.create()
             listItem = resources.getStringArray(R.array.array_accounts)
-            val adapter = ArrayAdapter<String>(this, R.layout.list_account, R.id.tvtitle,
-                    listItem!!
+            val adapter = ArrayAdapter<String>(
+                this, R.layout.list_account, R.id.tvtitle,
+                listItem!!
             )
             listView.adapter = adapter
-            listView.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, position, l ->
-                // TODO Auto-generated method stub
-                val value = adapter.getItem(position)
-                edt_txt_module.setText(value)
-                if (position == 0) {
-                    strModule = "SB"
-                    strModuleValue = "10"
-                    comparevalue = "DDSB"
+            listView.onItemClickListener =
+                AdapterView.OnItemClickListener { adapterView, view, position, l ->
+                    // TODO Auto-generated method stub
+                    val value = adapter.getItem(position)
+                    edt_txt_module.setText(value)
+                    if (position == 0) {
+                        strModule = "SB"
+                        strModuleValue = "10"
+                        comparevalue = "DDSB"
 
+                    }
+                    if (position == 1) {
+                        strModule = "DD"
+                        strModuleValue = "21"
+                        comparevalue = "PDDD"
+
+                    }
+                    if (position == 2) {
+                        strModule = "RD"
+                        strModuleValue = "22"
+                        comparevalue = "PDRD"
+
+                    }
+                    if (position == 3) {
+                        strModule = "GS"
+                        strModuleValue = "23"
+                        comparevalue = "PDGD"
+
+                    }
+                    if (position == 4) {
+                        strModule = "HD"
+                        strModuleValue = "24"
+                        comparevalue = "PDHD"
+
+                    }
+                    cv_balanceenq!!.visibility = View.GONE
+                    cv_collection!!.visibility = View.GONE
+                    ll_balnce!!.visibility = View.GONE
+                    ll_trxn_history!!.visibility = View.GONE
+
+                    tv_available_amount!!.text = ""
+                    edt_txt_name!!.text.clear()
+                    edt_acc_second!!.text.clear()
+                    edt_acc_third!!.text.clear()
+                    balanceAccess()
+
+                    alertDialog.dismiss()
                 }
-                if (position == 1) {
-                    strModule = "DD"
-                    strModuleValue = "21"
-                    comparevalue = "PDDD"
-
-                }
-                if (position == 2) {
-                    strModule = "RD"
-                    strModuleValue = "22"
-                    comparevalue = "PDRD"
-
-                }
-                if (position == 3) {
-                    strModule = "GS"
-                    strModuleValue = "23"
-                    comparevalue = "PDGD"
-
-                }
-                if (position == 4) {
-                    strModule = "HD"
-                    strModuleValue = "24"
-                    comparevalue = "PDHD"
-
-                }
-                cv_balanceenq!!.visibility = View.GONE
-                cv_collection!!.visibility = View.GONE
-                ll_balnce!!.visibility  =View.GONE
-                ll_trxn_history!!.visibility  =View.GONE
-
-                tv_available_amount!!.text = ""
-                edt_txt_name!!.text.clear()
-                edt_acc_second!!.text.clear()
-                edt_acc_third!!.text.clear()
-                balanceAccess()
-
-                alertDialog.dismiss()
-            }
             alertDialog.show()
         } catch (e: Exception) {
             e.printStackTrace()
@@ -834,106 +900,112 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     }
 
 
-
-    fun  elsevalidation(){
-        val msg0 :String = edt_acc_first!!.text.toString()
-        val msg1 :String = edt_acc_second!!.text.toString()
+    fun elsevalidation() {
+        val msg0: String = edt_acc_first!!.text.toString()
+        val msg1: String = edt_acc_second!!.text.toString()
         val msg: String = edt_acc_third!!.text.toString()
 
-        if (msg0.isEmpty() && msg1.isEmpty() && msg.isEmpty()){
+        if (msg0.isEmpty() && msg1.isEmpty() && msg.isEmpty()) {
             return
         }
 
-        if (msg0.length==1){
+        if (msg0.length == 1) {
             edt_acc_first!!.setText("00" + msg0)
             edt_acc_first!!.setSelection(edt_acc_first!!.getText().length)
         }
-        if (msg0.length==2){
+        if (msg0.length == 2) {
             edt_acc_first!!.setText("0" + msg0)
             edt_acc_first!!.setSelection(edt_acc_first!!.getText().length)
 
         }
-        if (msg0.length==3){
+        if (msg0.length == 3) {
             edt_acc_first!!.setText(msg0)
             edt_acc_first!!.setSelection(edt_acc_first!!.getText().length)
 
         }
-        if(msg0.length==0){
+        if (msg0.length == 0) {
             edt_acc_first!!.setText("000")
             edt_acc_first!!.setSelection(edt_acc_first!!.getText().length)
         }
 
-        if (msg1.length==1){
+        if (msg1.length == 1) {
             edt_acc_second!!.setText("00" + msg1)
             edt_acc_second!!.setSelection(edt_acc_second!!.getText().length)
         }
-        if (msg1.length==2){
+        if (msg1.length == 2) {
             edt_acc_second!!.setText("0" + msg1)
             edt_acc_second!!.setSelection(edt_acc_second!!.getText().length)
 
         }
-        if (msg1.length==3){
+        if (msg1.length == 3) {
             edt_acc_second!!.setText(msg1)
             edt_acc_second!!.setSelection(edt_acc_second!!.getText().length)
 
         }
-        if (msg1.length==0){
+        if (msg1.length == 0) {
             edt_acc_second!!.setText("000")
             edt_acc_second!!.setSelection(edt_acc_second!!.getText().length)
 
         }
 
-        if (msg.length==1){
+        if (msg.length == 1) {
             edt_acc_third!!.setText("00000" + msg)
             edt_acc_third!!.setSelection(edt_acc_third!!.getText().length)
         }
 
-        if (msg.length==2){
+        if (msg.length == 2) {
             edt_acc_third!!.setText("0000" + msg)
             edt_acc_third!!.setSelection(edt_acc_third!!.getText().length)
         }
 
-        if (msg.length==3){
+        if (msg.length == 3) {
             edt_acc_third!!.setText("000" + msg)
             edt_acc_third!!.setSelection(edt_acc_third!!.getText().length)
         }
 
-        if (msg.length==4){
+        if (msg.length == 4) {
             edt_acc_third!!.setText("00" + msg)
             edt_acc_third!!.setSelection(edt_acc_third!!.getText().length)
         }
 
-        if (msg.length==5){
+        if (msg.length == 5) {
             edt_acc_third!!.setText("0" + msg)
             edt_acc_third!!.setSelection(edt_acc_third!!.getText().length)
         }
 
-        if (msg.length==6){
+        if (msg.length == 6) {
             edt_acc_third!!.setText(msg)
             edt_acc_third!!.setSelection(edt_acc_third!!.getText().length)
         }
-        if (msg.length==0){
+        if (msg.length == 0) {
             edt_acc_third!!.setText("000000")
             edt_acc_third!!.setSelection(edt_acc_third!!.getText().length)
         }
 
-        if (edt_acc_first!!.text.toString().equals("000")&&edt_acc_second!!.text.toString().equals("000")&&edt_acc_third!!.text.toString().equals("000000")){
-            val toast = Toast.makeText(applicationContext, "Please Enter Valid Account Number", Toast.LENGTH_LONG)
+        if (edt_acc_first!!.text.toString().equals("000") && edt_acc_second!!.text.toString()
+                .equals("000") && edt_acc_third!!.text.toString().equals("000000")
+        ) {
+            val toast = Toast.makeText(
+                applicationContext,
+                "Please Enter Valid Account Number",
+                Toast.LENGTH_LONG
+            )
             toast.setGravity(Gravity.CENTER, 0, 0)
             toast.show()
             return
         }
-        if (edt_acc_third!!.text.toString().equals("000000")){
+        if (edt_acc_third!!.text.toString().equals("000000")) {
 
-            val dialogBuilder = AlertDialog.Builder(this@CustomerSearchActivity, R.style.MyDialogTheme)
+            val dialogBuilder =
+                AlertDialog.Builder(this@CustomerSearchActivity, R.style.MyDialogTheme)
             dialogBuilder.setMessage("Please Enter Valid Account Number")
-                    .setCancelable(false)
-                    .setPositiveButton(
-                            "OK",
-                            DialogInterface.OnClickListener { dialog, id ->
-                                dialog.dismiss()
+                .setCancelable(false)
+                .setPositiveButton(
+                    "OK",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        dialog.dismiss()
 
-                            })
+                    })
             val alert = dialogBuilder.create()
             alert.show()
             val pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE)
@@ -946,27 +1018,27 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
     }
 
-    private fun fetchData(){
+    private fun fetchData() {
         val modul: String = edt_txt_module.getText().toString()
         strModule = ""
 
-        if (modul.equals("Savings Bank")){
+        if (modul.equals("Savings Bank")) {
             strModule = "SB"
             strModuleValue = "10"
             comparevalue = "DDSB"
 
         }
-        if (modul.equals("Daily Deposit")){
+        if (modul.equals("Daily Deposit")) {
             strModule = "DD"
             strModuleValue = "21"
             comparevalue = "PDDD"
         }
-        if (modul.equals("Recurring Deposit")){
+        if (modul.equals("Recurring Deposit")) {
             strModule = "RD"
             strModuleValue = "22"
             comparevalue = "PDRD"
         }
-        if (modul.equals("Group Deposit Credit Scheme")){
+        if (modul.equals("Group Deposit Credit Scheme")) {
             strModule = "GS"
             strModuleValue = "23"
             comparevalue = "PDGD"
@@ -974,24 +1046,20 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 //            strModuleValue = "23"
 //            comparevalue = "ODGD"
         }
-        if (modul.equals("Home Safe Deposite")){
+        if (modul.equals("Home Safe Deposite")) {
             strModule = "HD"
             strModuleValue = "24"
             comparevalue = "PDHD"
         }
 
-        if (strModule.equals("")){
+        if (strModule.equals("")) {
             Toast.makeText(applicationContext, "Select Account", Toast.LENGTH_SHORT).show()
-        }else{
+        } else {
             getCustomer()
         }
 
 
-
-
     }
-
-
 
 
     private fun getCustomer() {
@@ -1000,7 +1068,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
             val inflater1 = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val layout = inflater1.inflate(R.layout.customerlist_popup, null)
             list_view1 = layout.findViewById(R.id.list_view1)
-            etxtsearch1  = layout.findViewById(R.id.etsearch1)
+            etxtsearch1 = layout.findViewById(R.id.etsearch1)
             val tv_popuptitle1 = layout.findViewById(R.id.tv_popuptitle1) as TextView
             tv_popuptitle1.setText("Customer List")
             builder.setView(layout)
@@ -1017,8 +1085,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
             applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
         var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
         var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
-        Log.i("responsedosearch","insisde do search")
-        when(ConnectivityUtils.isConnected(this)) {
+        Log.i("responsedosearch", "insisde do search")
+        when (ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
                     applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
@@ -1032,18 +1100,18 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                 progressDialog!!.show()
                 try {
                     val client = OkHttpClient.Builder()
-                            .sslSocketFactory(getSSLSocketFactory())
-                            .hostnameVerifier(getHostnameVerifier())
-                            .build()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build()
                     val gson = GsonBuilder()
-                            .setLenient()
-                            .create()
+                        .setLenient()
+                        .create()
                     val retrofit = Retrofit.Builder()
-                            .baseUrl(ApiService.BASE_URL)
-                            .addConverterFactory(ScalarsConverterFactory.create())
-                            .addConverterFactory(GsonConverterFactory.create(gson))
-                            .client(client)
-                            .build()
+                        .baseUrl(ApiService.BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build()
 
                     val apiService = retrofit.create(ApiInterface::class.java!!)
                     val requestObject1 = JSONObject()
@@ -1051,66 +1119,93 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
 
                         val DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails(
-                                this
+                            this
                         )
                         var Imei = DeviceAppDetails.imei
                         if (Imei != null && !Imei.isEmpty()) {
                         } else {
                             val DeviceAppDetails1 =
-                                    BizcoreApplication.getInstance().getDeviceAppDetails1(
-                                            this
-                                    )
+                                BizcoreApplication.getInstance().getDeviceAppDetails1(
+                                    this
+                                )
                             Imei = DeviceAppDetails1.imei
                         }
 
 
                         val AgentIdSP = applicationContext.getSharedPreferences(
-                                BizcoreApplication.SHARED_PREF1,
-                                0
+                            BizcoreApplication.SHARED_PREF1,
+                            0
                         )
                         val agentId = AgentIdSP.getString("Agent_ID", null)
                         requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
 //                        requestObject1.put("CustomerId", BizcoreApplication.encryptMessage("0"))
-                        requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
+                        requestObject1.put(
+                            "Card_Acceptor_Terminal_IDCode",
+                            BizcoreApplication.encryptMessage(Imei)
+                        )
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
-                        requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")
-                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
-                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
-                        requestObject1.put("Module", BizcoreApplication.encryptMessage(comparevalue))
+                        requestObject1.put(
+                            "BankHeader",
+                            BizcoreApplication.encryptMessage(bank_header)
+                        )
+                        requestObject1.put(
+                            "BankVerified",
+                            "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg="
+                        )
+                        requestObject1.put(
+                            "CommonAPI",
+                            BizcoreApplication.encryptMessage(CommonAPI)
+                        )
+                        requestObject1.put(
+                            "CommonAPIURL",
+                            BizcoreApplication.encryptMessage(CommonAPIURL)
+                        )
+                        requestObject1.put(
+                            "Module",
+                            BizcoreApplication.encryptMessage(comparevalue)
+                        )
                         if (buttonNameSelected == 1) {
-                            requestObject1.put("Name", BizcoreApplication.encryptMessage(edt_txt_name!!.text.toString()))
+                            requestObject1.put(
+                                "Name",
+                                BizcoreApplication.encryptMessage(edt_txt_name!!.text.toString())
+                            )
                         } else {
-                            requestObject1.put("MobileNumber", BizcoreApplication.encryptMessage(edt_txt_mobile!!.text.toString()))
+                            requestObject1.put(
+                                "MobileNumber",
+                                BizcoreApplication.encryptMessage(edt_txt_mobile!!.text.toString())
+                            )
                         }
                         if ((edt_acc_first!!.text.toString() + edt_acc_second!!.text.toString() + edt_acc_third!!.text.toString()).length > 6) {
-                            requestObject1.put("AccountNumber", BizcoreApplication.encryptMessage(
-                                    edt_acc_first!!.text.toString() + edt_acc_second!!.text.toString() + edt_acc_third!!.text.toString()))
+                            requestObject1.put(
+                                "AccountNumber", BizcoreApplication.encryptMessage(
+                                    edt_acc_first!!.text.toString() + edt_acc_second!!.text.toString() + edt_acc_third!!.text.toString()
+                                )
+                            )
                         } else {
                             requestObject1.put("AccountNumber", null)
                         }
 
-                        Log.e("requestObject1","requestObject1 =="+requestObject1)
+                        Log.e("requestObject1", "requestObject1 ==" + requestObject1)
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
                         val mySnackbar = Snackbar.make(
-                                findViewById(R.id.rl_main),
-                                " Some Technical Issues.", Snackbar.LENGTH_SHORT
+                            findViewById(R.id.rl_main),
+                            " Some Technical Issues.", Snackbar.LENGTH_SHORT
                         )
                         mySnackbar.show()
                     }
 
                     val body = RequestBody.create(
-                            okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                            requestObject1.toString()
+                        okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                        requestObject1.toString()
                     )
-                    Log.i("response1212","cust request=="+requestObject1)
+                    Log.i("response1212", "cust request==" + requestObject1)
                     val call = apiService.getCustomersearchdetails(body)
                     call.enqueue(object : retrofit2.Callback<String> {
                         override fun onResponse(
-                                call: retrofit2.Call<String>, response:
-                                Response<String>
+                            call: retrofit2.Call<String>, response:
+                            Response<String>
                         ) {
                             try {
                                 progressDialog!!.dismiss()
@@ -1121,36 +1216,49 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                     val jobjt = jObject.getJSONObject("CustomerSerachDetails")
                                     if (jobjt.getString("CustomerSerachDetailsList") != "null") {
 
-                                        val isAccessSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF10, 0)
+                                        val isAccessSP = applicationContext.getSharedPreferences(
+                                            BizcoreApplication.SHARED_PREF10,
+                                            0
+                                        )
                                         val isAccess = isAccessSP.getString("isAccess", null)
 
                                         val jarray = jobjt.getJSONArray("CustomerSerachDetailsList")
                                         array_sort1 = java.util.ArrayList<CustomerModel>()
                                         searchCustomerArrayList = ArrayList<CustomerModel>()
 
-                                        Log.i("response123","jarray.length()=="+jarray.length())
+                                        Log.i("response123", "jarray.length()==" + jarray.length())
                                         if (jarray.length() == 1) {
 
-                                            fk_acc_ind = jarray.getJSONObject(0).getString("FK_Account")
+                                            fk_acc_ind =
+                                                jarray.getJSONObject(0).getString("FK_Account")
                                             jarray.getJSONObject(0).getString("Name")
-                                            strfkaccount = jarray.getJSONObject(0).getString("FK_Account")
-                                            strCustName = jarray.getJSONObject(0).getString("Name") + ", " + jarray.getJSONObject(0).getString("Address")
+                                            strfkaccount =
+                                                jarray.getJSONObject(0).getString("FK_Account")
+                                            strCustName = jarray.getJSONObject(0)
+                                                .getString("Name") + ", " + jarray.getJSONObject(0)
+                                                .getString("Address")
                                             strCusName = jarray.getJSONObject(0).getString("Name")
 
 
-                                            val accno = jarray.getJSONObject(0).getString("AccountNumber")
-                                            acc_no1 = jarray.getJSONObject(0).getString("AccountNumber")
-                                            acc_number=accno
-                                            Log.i("response112233","acc="+acc_no1)
-                                            val f1: String = accno!!.substring(0, accno!!.length / 4) // gives "How ar"
+                                            val accno =
+                                                jarray.getJSONObject(0).getString("AccountNumber")
+                                            acc_no1 =
+                                                jarray.getJSONObject(0).getString("AccountNumber")
+                                            acc_number = accno
+                                            Log.i("response112233", "acc=" + acc_no1)
+                                            val f1: String = accno!!.substring(
+                                                0,
+                                                accno!!.length / 4
+                                            ) // gives "How ar"
                                             val f2: String = accno!!.substring(accno!!.length / 2)
-                                            val f3: String = accno!!.substring(0, accno!!.length / 2)
+                                            val f3: String =
+                                                accno!!.substring(0, accno!!.length / 2)
                                             val f5 = f3.substring(f3.length / 2)
 
                                             edt_acc_first!!.setText(f1)
                                             edt_acc_second!!.setText(f5)
                                             edt_acc_third!!.setText(f2)
-                                           // acc_number=f1
+                                            // acc_number=f1
 
                                             if (from!!.equals("Deposit")) {
                                                 getLoanDepositBalance(fk_acc_ind)
@@ -1159,21 +1267,30 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                                 llcust!!.visibility = View.VISIBLE
                                                 input_amount!!.requestFocus()
                                                 if (isAccess == "true") {
-                                                    iv_viewBalance!!.visibility = View.INVISIBLE
+                                                    iv_viewBalance!!.visibility = View.VISIBLE
                                                 } else {
                                                     iv_viewBalance!!.visibility = View.INVISIBLE
                                                 }
                                                 getLastTransActionIdDet(accno)
-                                                txt_name!!.text = jarray.getJSONObject(0).getString("Name") + ", " + jarray.getJSONObject(0).getString("Address") + "\n" + "Ac/No :" + jarray.getJSONObject(0).getString("AccountNumber")
+                                                txt_name!!.text = jarray.getJSONObject(0)
+                                                    .getString("Name") + ", " + jarray.getJSONObject(
+                                                    0
+                                                )
+                                                    .getString("Address") + "\n" + "Ac/No :" + jarray.getJSONObject(
+                                                    0
+                                                ).getString("AccountNumber")
 
                                             }
                                             if (from!!.equals("BalanceEnq")) {
 
 
                                                 if (isAccess == "true") {
-                                                    txt_blnc_name!!.text = jarray.getJSONObject(0).getString("Name")
-                                                    txt_blnc_mob!!.text = jarray.getJSONObject(0).getString("MobileNumber")
-                                                    txt_blnc_acno!!.text = edt_acc_first.text.toString() + edt_acc_second.text.toString() + edt_acc_third.text.toString()
+                                                    txt_blnc_name!!.text =
+                                                        jarray.getJSONObject(0).getString("Name")
+                                                    txt_blnc_mob!!.text = jarray.getJSONObject(0)
+                                                        .getString("MobileNumber")
+                                                    txt_blnc_acno!!.text =
+                                                        edt_acc_first.text.toString() + edt_acc_second.text.toString() + edt_acc_third.text.toString()
 //                                                    getAccountDetails(edt_acc_first.text.toString() + edt_acc_second.text.toString() + edt_acc_third.text.toString(), jarray.getJSONObject(0).getString("Auth_ID"))
                                                     withoutPinAccountFetching()
                                                 } else {
@@ -1194,15 +1311,31 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                                     } else if (msg.length == 1 || msg.startsWith("00000")) {
                                                         edt_acc_third.setText("00000" + msg)
                                                         edt_acc_third.setSelection(edt_acc_third.getText().length)
-                                                        Toast.makeText(applicationContext, "Invalid Account Number ", Toast.LENGTH_LONG).show()
+                                                        Toast.makeText(
+                                                            applicationContext,
+                                                            "Invalid Account Number ",
+                                                            Toast.LENGTH_LONG
+                                                        ).show()
                                                     }
-                                                    if (msg.equals("") || msg.equals("0") || msg.equals("00") || msg.equals("000") || msg.equals("0000") || msg.equals("00000") || msg.equals("000000")) {
+                                                    if (msg.equals("") || msg.equals("0") || msg.equals(
+                                                            "00"
+                                                        ) || msg.equals("000") || msg.equals("0000") || msg.equals(
+                                                            "00000"
+                                                        ) || msg.equals("000000")
+                                                    ) {
                                                         edt_acc_first.setText("000")
                                                         edt_acc_second.setText("000")
                                                         edt_acc_third.setText("000000")
                                                         edt_acc_third.setSelection(edt_acc_third.getText().length)
-                                                        Toast.makeText(applicationContext, "Invalid Account Number", Toast.LENGTH_LONG).show()
-                                                    } else if (msg.length == 6 && (!"000000".equals(msg))) {
+                                                        Toast.makeText(
+                                                            applicationContext,
+                                                            "Invalid Account Number",
+                                                            Toast.LENGTH_LONG
+                                                        ).show()
+                                                    } else if (msg.length == 6 && (!"000000".equals(
+                                                            msg
+                                                        ))
+                                                    ) {
 
                                                         edt_acc_third.setText(msg)
                                                         edt_acc_third.setSelection(edt_acc_third.getText().length)
@@ -1220,57 +1353,109 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                                 val jsonObject = jarray.getJSONObject(k)
 
                                                 searchCustomerArrayList.add(
-                                                        CustomerModel(
-                                                                jsonObject.getString("Module"),
-                                                                jsonObject.getString("Name"),
-                                                                jsonObject.getString("CustomerId"),
-                                                                jsonObject.getString("FK_Account"),
-                                                                jsonObject.getString("AccountNumber"),
-                                                                jsonObject.getString("Address"),
-                                                                jsonObject.getString("MobileNumber"),
-                                                                jsonObject.getString("OrgName"))
+                                                    CustomerModel(
+                                                        jsonObject.getString("Module"),
+                                                        jsonObject.getString("Name"),
+                                                        jsonObject.getString("CustomerId"),
+                                                        jsonObject.getString("FK_Account"),
+                                                        jsonObject.getString("AccountNumber"),
+                                                        jsonObject.getString("Address"),
+                                                        jsonObject.getString("MobileNumber"),
+                                                        jsonObject.getString("OrgName")
+                                                    )
 //                                                    jsonObject.getString("LastTransactionId"))
                                                 )
 
                                                 array_sort1.add(
-                                                        CustomerModel(
-                                                                jsonObject.getString("Module"),
-                                                                jsonObject.getString("Name"),
-                                                                jsonObject.getString("CustomerId"),
-                                                                jsonObject.getString("FK_Account"),
-                                                                jsonObject.getString("AccountNumber"),
-                                                                jsonObject.getString("Address"),
-                                                                jsonObject.getString("MobileNumber"),
-                                                                jsonObject.getString("OrgName"))
+                                                    CustomerModel(
+                                                        jsonObject.getString("Module"),
+                                                        jsonObject.getString("Name"),
+                                                        jsonObject.getString("CustomerId"),
+                                                        jsonObject.getString("FK_Account"),
+                                                        jsonObject.getString("AccountNumber"),
+                                                        jsonObject.getString("Address"),
+                                                        jsonObject.getString("MobileNumber"),
+                                                        jsonObject.getString("OrgName")
+                                                    )
 //                                                    jsonObject.getString("LastTransactionId"))
                                                 )
                                             }
 
-                                            sadapter1 = CustomerListAdapter(this@CustomerSearchActivity, array_sort1)
+                                            sadapter1 = CustomerListAdapter(
+                                                this@CustomerSearchActivity,
+                                                array_sort1
+                                            )
                                             list_view1!!.setAdapter(sadapter1)
                                             list_view1!!.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
 
-                                                fk_acc_ind = (array_sort1.get(position).FK_Account).toString()
+                                                fk_acc_ind =
+                                                    (array_sort1.get(position).FK_Account).toString()
 
                                                 array_sort1.get(position).Name
                                                 strfkaccount = array_sort1.get(position).FK_Account
-                                                strCustName = array_sort1.get(position).Name + ", " + array_sort1.get(position).Address
+                                                strCustName =
+                                                    array_sort1.get(position).Name + ", " + array_sort1.get(
+                                                        position
+                                                    ).Address
                                                 strCusName = array_sort1.get(position).Name
                                                 strOrgName = array_sort1.get(position).OrgName
 
 
                                                 val accno = array_sort1.get(position).AccountNumber
-                                                val f1: String = accno!!.substring(0, accno!!.length / 4) // gives "How ar"
-                                                val f2: String = accno!!.substring(accno!!.length / 2)
-                                                val f3: String = accno!!.substring(0, accno!!.length / 2)
+                                                Log.i("sdsadsadsdbbb", "acc=" + accno + "_")
+                                                Log.i("sdsadsadsdbbb", "len=" + accno!!.length)
+                                                Log.i(
+                                                    "sdsadsadsdbbb",
+                                                    "accno!!.length / 4=" + accno!!.length / 4
+                                                )
+                                                Log.i(
+                                                    "sdsadsadsdbbb",
+                                                    "accno!!.length / 2=" + accno!!.length / 2
+                                                )
+                                                val f1: String = accno!!.substring(
+                                                    0,
+                                                    accno!!.length / 4
+                                                ) // gives "How ar"
+                                                val f2: String =
+                                                    accno!!.substring(accno!!.length / 2)
+                                                val f3: String =
+                                                    accno!!.substring(0, accno!!.length / 2)
                                                 val f5 = f3.substring(f3.length / 2)
-                                                acc_number=accno    //314400
-                                                Log.i("responseACC","acc="+accno)
-                                                Log.i("responseACC","1st="+accno!!.length/4)
+                                                Log.i("sdsadsadsdbbb", "f1=" + f1)
+                                                Log.i("sdsadsadsdbbb", "f2=" + f2)
+                                                Log.i("sdsadsadsdbbb", "f3=" + f3)
+                                                Log.i("sdsadsadsdbbb", "f5=" + f5)
+
+                                                var accno1 = "123456"
+                                                Log.i("sdsadsadsdbbb", "acc1=" + accno1)
+                                                Log.i(
+                                                    "sdsadsadsdbbb",
+                                                    "accno!!.length / 4=" + accno1!!.length / 4
+                                                )
+                                                Log.i(
+                                                    "sdsadsadsdbbb",
+                                                    "accno!!.length / 2=" + accno1!!.length / 2
+                                                )
+                                                val f11: String = accno1!!.substring(
+                                                    0,
+                                                    accno1!!.length / 4
+                                                ) // gives "How ar"
+                                                val f22: String =
+                                                    accno1!!.substring(accno1!!.length / 2)
+                                                val f33: String =
+                                                    accno1!!.substring(0, accno1!!.length / 2)
+                                                val f55 = f33.substring(f33.length / 2)
+                                                Log.i("sdsadsadsdbbb", "f11=" + f11)
+                                                Log.i("sdsadsadsdbbb", "f22=" + f22)
+                                                Log.i("sdsadsadsdbbb", "f33=" + f33)
+                                                Log.i("sdsadsadsdbbb", "f55=" + f55)
+
+                                                acc_number = accno    //314400
+                                                Log.i("responseACC", "acc=" + accno)
+                                                Log.i("responseACC", "1st=" + accno!!.length / 4)
                                                 edt_acc_first!!.setText(f1)
                                                 edt_acc_second!!.setText(f5)
                                                 edt_acc_third!!.setText(f2)
-
 
                                                 if (from!!.equals("Deposit")) {
                                                     getLoanDepositBalance(fk_acc_ind)
@@ -1281,32 +1466,52 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                                     input_amount!!.requestFocus()
 
                                                     if (isAccess == "true") {
-                                                        iv_viewBalance!!.visibility = View.INVISIBLE
+                                                        iv_viewBalance!!.visibility = View.VISIBLE
                                                     } else {
                                                         iv_viewBalance!!.visibility = View.INVISIBLE
                                                     }
                                                     getLastTransActionIdDet(accno)
-                                                    if (array_sort1.get(position).OrgName == ""){
-                                                        txt_name!!.text = array_sort1.get(position).Name + ", " + array_sort1.get(position).Address + "\n" + "Ac/No :" + array_sort1.get(position).AccountNumber
-                                                    }
-                                                    else{
-                                                        txt_name!!.text = array_sort1.get(position).Name + ", " + array_sort1.get(position).Address + "\n" + "Ac/No :" + array_sort1.get(position).AccountNumber + "\n" + "Org Name :" + array_sort1.get(position).OrgName
+                                                    if (array_sort1.get(position).OrgName == "") {
+                                                        txt_name!!.text =
+                                                            array_sort1.get(position).Name + ", " + array_sort1.get(
+                                                                position
+                                                            ).Address + "\n" + "Ac/No :" + array_sort1.get(
+                                                                position
+                                                            ).AccountNumber
+                                                    } else {
+                                                        txt_name!!.text =
+                                                            array_sort1.get(position).Name + ", " + array_sort1.get(
+                                                                position
+                                                            ).Address + "\n" + "Ac/No :" + array_sort1.get(
+                                                                position
+                                                            ).AccountNumber + "\n" + "Org Name :" + array_sort1.get(
+                                                                position
+                                                            ).OrgName
                                                     }
 
                                                 }
                                                 if (from!!.equals("BalanceEnq")) {
 
 
-                                                    val isAccessSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF10, 0)
-                                                    val isAccess = isAccessSP.getString("isAccess", null)
+                                                    val isAccessSP =
+                                                        applicationContext.getSharedPreferences(
+                                                            BizcoreApplication.SHARED_PREF10,
+                                                            0
+                                                        )
+                                                    val isAccess =
+                                                        isAccessSP.getString("isAccess", null)
                                                     if (isAccess == "true") {
-                                                        txt_blnc_name!!.text = array_sort1.get(position).Name
-                                                        txt_blnc_mob!!.text = array_sort1.get(position).MobileNumber
-                                                        txt_blnc_acno!!.text = edt_acc_first.text.toString() + edt_acc_second.text.toString() + edt_acc_third.text.toString()
+                                                        txt_blnc_name!!.text =
+                                                            array_sort1.get(position).Name
+                                                        txt_blnc_mob!!.text =
+                                                            array_sort1.get(position).MobileNumber
+                                                        txt_blnc_acno!!.text =
+                                                            edt_acc_first.text.toString() + edt_acc_second.text.toString() + edt_acc_third.text.toString()
 //                                                        getAccountDetails(edt_acc_first.text.toString() + edt_acc_second.text.toString() + edt_acc_third.text.toString(), jobjt.getString("Auth_ID"))
                                                         withoutPinAccountFetching()
                                                     } else {
-                                                        val msg: String = edt_acc_third.text.toString()
+                                                        val msg: String =
+                                                            edt_acc_third.text.toString()
                                                         if (msg.length == 4) {
                                                             edt_acc_third.setText("00" + msg)
                                                             edt_acc_third.setSelection(edt_acc_third.getText().length)
@@ -1314,24 +1519,49 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                                         } else if (msg.length == 5) {
                                                             edt_acc_third.setText("0" + msg)
                                                             edt_acc_third.setSelection(edt_acc_third.getText().length)
-                                                        } else if (msg.length == 3 || msg.startsWith("000")) {
+                                                        } else if (msg.length == 3 || msg.startsWith(
+                                                                "000"
+                                                            )
+                                                        ) {
                                                             edt_acc_third.setText("000" + msg)
                                                             edt_acc_third.setSelection(edt_acc_third.getText().length)
-                                                        } else if (msg.length == 2 || msg.startsWith("0000")) {
+                                                        } else if (msg.length == 2 || msg.startsWith(
+                                                                "0000"
+                                                            )
+                                                        ) {
                                                             edt_acc_third.setText("0000" + msg)
                                                             edt_acc_third.setSelection(edt_acc_third.getText().length)
-                                                        } else if (msg.length == 1 || msg.startsWith("00000")) {
+                                                        } else if (msg.length == 1 || msg.startsWith(
+                                                                "00000"
+                                                            )
+                                                        ) {
                                                             edt_acc_third.setText("00000" + msg)
                                                             edt_acc_third.setSelection(edt_acc_third.getText().length)
-                                                            Toast.makeText(applicationContext, "Invalid Account Number ", Toast.LENGTH_LONG).show()
+                                                            Toast.makeText(
+                                                                applicationContext,
+                                                                "Invalid Account Number ",
+                                                                Toast.LENGTH_LONG
+                                                            ).show()
                                                         }
-                                                        if (msg.equals("") || msg.equals("0") || msg.equals("00") || msg.equals("000") || msg.equals("0000") || msg.equals("00000") || msg.equals("000000")) {
+                                                        if (msg.equals("") || msg.equals("0") || msg.equals(
+                                                                "00"
+                                                            ) || msg.equals("000") || msg.equals("0000") || msg.equals(
+                                                                "00000"
+                                                            ) || msg.equals("000000")
+                                                        ) {
                                                             edt_acc_first.setText("000")
                                                             edt_acc_second.setText("000")
                                                             edt_acc_third.setText("000000")
                                                             edt_acc_third.setSelection(edt_acc_third.getText().length)
-                                                            Toast.makeText(applicationContext, "Invalid Account Number", Toast.LENGTH_LONG).show()
-                                                        } else if (msg.length == 6 && (!"000000".equals(msg))) {
+                                                            Toast.makeText(
+                                                                applicationContext,
+                                                                "Invalid Account Number",
+                                                                Toast.LENGTH_LONG
+                                                            ).show()
+                                                        } else if (msg.length == 6 && (!"000000".equals(
+                                                                msg
+                                                            ))
+                                                        ) {
 
                                                             edt_acc_third.setText(msg)
                                                             edt_acc_third.setSelection(edt_acc_third.getText().length)
@@ -1350,10 +1580,20 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                         override fun afterTextChanged(p0: Editable?) {
                                         }
 
-                                        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                                        override fun beforeTextChanged(
+                                            p0: CharSequence?,
+                                            p1: Int,
+                                            p2: Int,
+                                            p3: Int
+                                        ) {
                                         }
 
-                                        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                                        override fun onTextChanged(
+                                            p0: CharSequence?,
+                                            p1: Int,
+                                            p2: Int,
+                                            p3: Int
+                                        ) {
 
                                             list_view1!!.setVisibility(View.VISIBLE)
                                             textlength1 = etxtsearch1!!.text.length
@@ -1361,18 +1601,18 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                             for (i in searchCustomerArrayList.indices) {
                                                 if (textlength1 <= searchCustomerArrayList[i].Name!!.length) {
                                                     if (searchCustomerArrayList[i].Name!!.toLowerCase()
-                                                                    .trim().contains(
-                                                                            etxtsearch1!!.text.toString()
-                                                                                    .toLowerCase()
-                                                                                    .trim { it <= ' ' })
+                                                            .trim().contains(
+                                                                etxtsearch1!!.text.toString()
+                                                                    .toLowerCase()
+                                                                    .trim { it <= ' ' })
                                                     ) {
                                                         array_sort1.add(searchCustomerArrayList[i])
                                                     }
                                                 }
                                             }
                                             sadapter1 = CustomerListAdapter(
-                                                    this@CustomerSearchActivity,
-                                                    array_sort1
+                                                this@CustomerSearchActivity,
+                                                array_sort1
                                             )
                                             list_view1!!.adapter = sadapter1
                                         }
@@ -1387,47 +1627,49 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
                                         val jobjt = jObject.getJSONObject("CustomerSerachDetails")
                                         val dialogBuilder = AlertDialog.Builder(
-                                                this@CustomerSearchActivity,
-                                                R.style.MyDialogTheme
+                                            this@CustomerSearchActivity,
+                                            R.style.MyDialogTheme
                                         )
                                         dialogBuilder.setMessage(jobjt.getString("StatusMessage"))
-                                                .setCancelable(false)
-                                                .setPositiveButton(
-                                                        "OK",
-                                                        DialogInterface.OnClickListener { dialog, id ->
-                                                            dialog.dismiss()
+                                            .setCancelable(false)
+                                            .setPositiveButton(
+                                                "OK",
+                                                DialogInterface.OnClickListener { dialog, id ->
+                                                    dialog.dismiss()
 
-                                                        })
-                                                .setCancelable(false);
+                                                })
+                                            .setCancelable(false);
                                         val alert = dialogBuilder.create()
                                         alert.show()
-                                        val pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE)
+                                        val pbutton =
+                                            alert.getButton(DialogInterface.BUTTON_POSITIVE)
                                         pbutton.setTextColor(Color.MAGENTA)
                                     } else {
 
                                         val dialogBuilder = AlertDialog.Builder(
-                                                this@CustomerSearchActivity,
-                                                R.style.MyDialogTheme
+                                            this@CustomerSearchActivity,
+                                            R.style.MyDialogTheme
                                         )
                                         dialogBuilder.setMessage(jObject.getString("StatusMessage"))
-                                                .setCancelable(false)
-                                                .setPositiveButton(
-                                                        "OK",
-                                                        DialogInterface.OnClickListener { dialog, id ->
-                                                            dialog.dismiss()
+                                            .setCancelable(false)
+                                            .setPositiveButton(
+                                                "OK",
+                                                DialogInterface.OnClickListener { dialog, id ->
+                                                    dialog.dismiss()
 
-                                                        })
+                                                })
                                         val alert = dialogBuilder.create()
                                         alert.show()
-                                        val pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE)
+                                        val pbutton =
+                                            alert.getButton(DialogInterface.BUTTON_POSITIVE)
                                         pbutton.setTextColor(Color.MAGENTA)
                                     }
                                 }
                             } catch (e: Exception) {
                                 progressDialog!!.dismiss()
                                 val mySnackbar = Snackbar.make(
-                                        findViewById(R.id.rl_main),
-                                        " Some technical issues.", Snackbar.LENGTH_SHORT
+                                    findViewById(R.id.rl_main),
+                                    " Some technical issues.", Snackbar.LENGTH_SHORT
                                 )
                                 mySnackbar.show()
                                 e.printStackTrace()
@@ -1437,8 +1679,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
                             progressDialog!!.dismiss()
                             val mySnackbar = Snackbar.make(
-                                    findViewById(R.id.rl_main),
-                                    " Some technical issues.", Snackbar.LENGTH_SHORT
+                                findViewById(R.id.rl_main),
+                                " Some technical issues.", Snackbar.LENGTH_SHORT
                             )
                             mySnackbar.show()
                         }
@@ -1448,17 +1690,17 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                     progressDialog!!.dismiss()
                     e.printStackTrace()
                     val mySnackbar = Snackbar.make(
-                            findViewById(R.id.rl_main),
-                            " Some technical issues.", Snackbar.LENGTH_SHORT
+                        findViewById(R.id.rl_main),
+                        " Some technical issues.", Snackbar.LENGTH_SHORT
                     )
                     mySnackbar.show()
                 }
             }
             false -> {
                 val mySnackbar = Snackbar.make(
-                        findViewById(R.id.rl_main),
-                        "No Internet Connection!!",
-                        Snackbar.LENGTH_SHORT
+                    findViewById(R.id.rl_main),
+                    "No Internet Connection!!",
+                    Snackbar.LENGTH_SHORT
                 )
                 mySnackbar.show()
             }
@@ -1467,7 +1709,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
     private fun getLastTransActionIdDet(accountNo: String) {
 
-        when(ConnectivityUtils.isConnected(this)) {
+        when (ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
                     applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
@@ -1482,383 +1724,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 //                progressDialog!!.setIndeterminateDrawable(this.resources.getDrawable(R.drawable.progress))
 //                progressDialog!!.show()
 
-                val AgentIdSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
-                val agentId = AgentIdSP.getString("Agent_ID", null)
-
-                val calendar = Calendar.getInstance()
-                val simpleDateFormat = SimpleDateFormat(
-                        "yyyy-MM-dd HH:mm:ss.SSS",
-                        Locale.ENGLISH
-                )
-                val dateTime = simpleDateFormat.format(calendar.time)
-
-                val DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails(this)
-                var Imei = DeviceAppDetails.imei
-                if (Imei != null && !Imei.isEmpty()) {
-                } else {
-                    val DeviceAppDetails1 = BizcoreApplication.getInstance().getDeviceAppDetails1(this)
-                    Imei = DeviceAppDetails1.imei
-                }
-
-                try {
-
-                    val client1 = OkHttpClient.Builder()
-                            .sslSocketFactory(getSSLSocketFactory())
-                            .hostnameVerifier(getHostnameVerifier())
-                            .build()
-                    val gson1 = GsonBuilder()
-                            .setLenient()
-                            .create()
-                    val retrofit1 = Retrofit.Builder()
-                            .baseUrl(ApiService.BASE_URL)
-                            .addConverterFactory(ScalarsConverterFactory.create())
-                            .addConverterFactory(GsonConverterFactory.create(gson1))
-                            .client(client1)
-                            .build()
-                    val apiService1 = retrofit1.create(ApiInterface::class.java!!)
-                    val requestObject1 = JSONObject()
-                    try {
-
-                        requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
-                        requestObject1.put(BizcoreApplication.CARD_ACCEPTOR_TERMINAL_CODE, BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("Module", BizcoreApplication.encryptMessage(comparevalue))
-                        requestObject1.put("AccountNumber", BizcoreApplication.encryptMessage(accountNo))
-                        requestObject1.put("ActionType", BizcoreApplication.encryptMessage("2"))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
-                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
-                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
-
-                    } catch (e: Exception) {
-//                        progressDialog!!.dismiss()
-                        e.printStackTrace()
-                        val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                                " Some technical issues. ", Snackbar.LENGTH_SHORT
-                        )
-                        mySnackbar.show()
-                    }
-                    val body1 = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString())
-                    val call1 = apiService1.getLastTransActionIdDet(body1)
-                    call1.enqueue(object : retrofit2.Callback<String> {
-                        override fun onResponse(call: retrofit2.Call<String>, response1: Response<String>) {
-//                            progressDialog!!.dismiss()
-                            val jObject = JSONObject(response1.body())
-
-                            if (jObject.getString("StatusCode") == "0") {
-                                val jobjt = jObject.getJSONObject("LastTransActionIdDet")
-                                LastTransactionId = jobjt.getString("LastTransActionId")
-                            }
-
-
-                        }
-
-                        override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
-//                            progressDialog!!.dismiss()
-                            val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                                    " Some technical issues.", Snackbar.LENGTH_SHORT
-                            )
-                            mySnackbar.show()
-                        }
-                    })
-                } catch (e: Exception) {
-//                    progressDialog!!.dismiss()
-                    e.printStackTrace()
-                    val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                            " Some technical issues.", Snackbar.LENGTH_SHORT
-                    )
-                    mySnackbar.show()
-                }
-
-
-            }
-            false -> {
-                val mySnackbar = Snackbar.make(findViewById(R.id.rl_main), "No Internet Connection!!", Snackbar.LENGTH_SHORT)
-                mySnackbar.show()
-            }
-        }
-
-    }
-    private fun getLoanDepositBalance(str_fkaccount: String) {
-
-        when(ConnectivityUtils.isConnected(this)) {
-            true -> {
-                val ID_CommonApp =
-                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
-                var bank_key = ID_CommonApp.getString("bank_code", "")
-                var bank_header = ID_CommonApp.getString("bank_header", "")
-                var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
-                var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
-//                progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
-//                progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
-//                progressDialog!!.setCancelable(false)
-//                progressDialog!!.setIndeterminate(true)
-//                progressDialog!!.setIndeterminateDrawable(this.resources.getDrawable(R.drawable.progress))
-//                progressDialog!!.show()
-
-                val AgentIdSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
-                val agentId = AgentIdSP.getString("Agent_ID", null)
-
-                val calendar = Calendar.getInstance()
-                val simpleDateFormat = SimpleDateFormat(
-                        "yyyy-MM-dd HH:mm:ss.SSS",
-                        Locale.ENGLISH
-                )
-                val dateTime = simpleDateFormat.format(calendar.time)
-
-                val DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails(this)
-                var Imei = DeviceAppDetails.imei
-                if (Imei != null && !Imei.isEmpty()) {
-                } else {
-                    val DeviceAppDetails1 = BizcoreApplication.getInstance().getDeviceAppDetails1(this)
-                    Imei = DeviceAppDetails1.imei
-                }
-
-                try {
-
-                    val client1 = OkHttpClient.Builder()
-                            .sslSocketFactory(getSSLSocketFactory())
-                            .hostnameVerifier(getHostnameVerifier())
-                            .build()
-                    val gson1 = GsonBuilder()
-                            .setLenient()
-                            .create()
-                    val retrofit1 = Retrofit.Builder()
-                            .baseUrl(ApiService.BASE_URL)
-                            .addConverterFactory(ScalarsConverterFactory.create())
-                            .addConverterFactory(GsonConverterFactory.create(gson1))
-                            .client(client1)
-                            .build()
-                    val apiService1 = retrofit1.create(ApiInterface::class.java!!)
-                    val requestObject1 = JSONObject()
-                    try {
-
-                        requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
-                        requestObject1.put(BizcoreApplication.CARD_ACCEPTOR_TERMINAL_CODE, BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("Module", BizcoreApplication.encryptMessage(comparevalue))
-                        requestObject1.put("FK_Account", BizcoreApplication.encryptMessage(str_fkaccount))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
-                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
-                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
-
-                    } catch (e: Exception) {
-//                        progressDialog!!.dismiss()
-                        e.printStackTrace()
-                        val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                                " Some technical issues. ", Snackbar.LENGTH_SHORT
-                        )
-                        mySnackbar.show()
-                    }
-                    val body1 = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString())
-                    val call1 = apiService1.getLoanDepositBalance(body1)
-                    call1.enqueue(object : retrofit2.Callback<String> {
-                        override fun onResponse(call: retrofit2.Call<String>, response1: Response<String>) {
-//                            progressDialog!!.dismiss()
-                            val jObject = JSONObject(response1.body())
-                            Log.e(TAG,"52525  "+response1.body())
-
-                            if (jObject.getString("StatusCode") == "0") {
-                                val jobjt = jObject.getJSONObject("LoanDepositBalance")
-
-                                val isAccessSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF10, 0)
-                                val isAccess = isAccessSP.getString("isAccess", null)
-                                if (isAccess == "true") {
-                                    val formatter = DecimalFormat("#,##,##,##,###.##")
-                                    val yourFormattedAmount = formatter.format(jobjt.getDouble("Balance"))
-
-                                    if (strModule == "SB" || strModule == "DD") {
-                                        tv_available_amount!!.setText("Available Balance : ₹ " + yourFormattedAmount)
-                                    } else {
-                                        tv_available_amount!!.setText("Due Amount : ₹ " + yourFormattedAmount)
-                                    }
-                                } else {
-                                    tv_available_amount!!.visibility == View.GONE
-                                }
-
-
-                            }
-
-
-                        }
-
-                        override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
-//                            progressDialog!!.dismiss()
-                            val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                                    " Some technical issues.", Snackbar.LENGTH_SHORT
-                            )
-                            mySnackbar.show()
-                        }
-                    })
-                } catch (e: Exception) {
-//                    progressDialog!!.dismiss()
-                    e.printStackTrace()
-                    val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                            " Some technical issues.", Snackbar.LENGTH_SHORT
-                    )
-                    mySnackbar.show()
-                }
-
-
-            }
-            false -> {
-                val mySnackbar = Snackbar.make(findViewById(R.id.rl_main), "No Internet Connection!!", Snackbar.LENGTH_SHORT)
-                mySnackbar.show()
-            }
-        }
-
-    }
-    private fun getTranshistory() {
-        when(ConnectivityUtils.isConnected(this)) {
-            true -> {
-                val ID_CommonApp =
-                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
-                var bank_key = ID_CommonApp.getString("bank_code", "")
-                var bank_header = ID_CommonApp.getString("bank_header", "")
-                var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
-                var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
-                progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
-                progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
-                progressDialog!!.setCancelable(false)
-                progressDialog!!.setIndeterminate(true)
-                progressDialog!!.setIndeterminateDrawable(this.resources.getDrawable(R.drawable.progress))
-                progressDialog!!.show()
-
-                val AgentIdSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
-                val agentId = AgentIdSP.getString("Agent_ID", null)
-
-                val calendar = Calendar.getInstance()
-                val simpleDateFormat = SimpleDateFormat(
-                        "yyyy-MM-dd HH:mm:ss.SSS",
-                        Locale.ENGLISH
-                )
-                val dateTime = simpleDateFormat.format(calendar.time)
-
-                val DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails(this)
-                var Imei = DeviceAppDetails.imei
-                if (Imei != null && !Imei.isEmpty()) {
-                } else {
-                    val DeviceAppDetails1 = BizcoreApplication.getInstance().getDeviceAppDetails1(this)
-                    Imei = DeviceAppDetails1.imei
-                }
-
-                try {
-
-                    val client1 = OkHttpClient.Builder()
-                            .sslSocketFactory(getSSLSocketFactory())
-                            .hostnameVerifier(getHostnameVerifier())
-                            .build()
-                    val gson1 = GsonBuilder()
-                            .setLenient()
-                            .create()
-                    val retrofit1 = Retrofit.Builder()
-                            .baseUrl(ApiService.BASE_URL)
-                            .addConverterFactory(ScalarsConverterFactory.create())
-                            .addConverterFactory(GsonConverterFactory.create(gson1))
-                            .client(client1)
-                            .build()
-                    val apiService1 = retrofit1.create(ApiInterface::class.java!!)
-                    val requestObject1 = JSONObject()
-                    try {
-
-                        requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
-                        requestObject1.put(BizcoreApplication.CARD_ACCEPTOR_TERMINAL_CODE, BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("Module", BizcoreApplication.encryptMessage(comparevalue))
-                        requestObject1.put("FK_Account", BizcoreApplication.encryptMessage(strfkaccount))
-                        requestObject1.put("LoginMode", BizcoreApplication.encryptMessage("2"))
-                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
-                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
-                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
-
-                    } catch (e: Exception) {
-                        progressDialog!!.dismiss()
-                        e.printStackTrace()
-                        val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                                " Some technical issues. ", Snackbar.LENGTH_SHORT
-                        )
-                        mySnackbar.show()
-                    }
-                    val body1 = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString())
-                    val call1 = apiService1.getTransactionhistory(body1)
-                    call1.enqueue(object : retrofit2.Callback<String> {
-                        override fun onResponse(call: retrofit2.Call<String>, response1: Response<String>) {
-                            progressDialog!!.dismiss()
-                            val jObject = JSONObject(response1.body())
-
-                            if (jObject.getString("StatusCode") == "0") {
-                                ll_trxn_history!!.visibility = View.VISIBLE
-                                tv_asondate!!.text = "As On Date : " + getDateTime()
-                                val jobjt = jObject.getJSONObject("CustomerSearchTransactionDetails")
-                                val jarray = jobjt.getJSONArray("CustomerSearchTransactionDetailsList")
-//314400
-                                Log.i("response1234","jarray="+jarray)
-                                val lLayout = GridLayoutManager(this@CustomerSearchActivity, 1)
-                                rvtxnhistorymodule.layoutManager = lLayout as RecyclerView.LayoutManager?
-                                rvtxnhistorymodule.setHasFixedSize(true)
-                                val adapter = TransactionHistoryAdapter(this@CustomerSearchActivity, jarray,deleteFlag!!)
-                                rvtxnhistorymodule.adapter = adapter
-                            } else {
-                                val dialogBuilder = AlertDialog.Builder(this@CustomerSearchActivity, R.style.MyDialogTheme)
-                                dialogBuilder.setMessage(jObject.getString("StatusMessage"))
-                                        .setCancelable(false)
-                                        .setPositiveButton("OK", DialogInterface.OnClickListener { dialog, id ->
-                                            iv_txnHistory?.setBackgroundResource(R.drawable.ic_txn_history)
-                                        })
-                                val alert = dialogBuilder.create()
-                                alert.show()
-                                val pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE)
-                                pbutton.setTextColor(Color.MAGENTA)
-
-                                ll_trxn_history.visibility = View.GONE
-                            }
-
-
-                        }
-
-                        override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
-                            progressDialog!!.dismiss()
-                            val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                                    " Some technical issues.", Snackbar.LENGTH_SHORT
-                            )
-                            mySnackbar.show()
-                        }
-                    })
-                } catch (e: Exception) {
-                    progressDialog!!.dismiss()
-                    e.printStackTrace()
-                    val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                            " Some technical issues.", Snackbar.LENGTH_SHORT
-                    )
-                    mySnackbar.show()
-                }
-
-
-            }
-            false -> {
-                val mySnackbar = Snackbar.make(findViewById(R.id.rl_main), "No Internet Connection!!", Snackbar.LENGTH_SHORT)
-                mySnackbar.show()
-            }
-        }
-
-    }
-
-    private fun getTranshistory1() {
-        when(ConnectivityUtils.isConnected(this)) {
-            true -> {
-                val ID_CommonApp =
-                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
-                var bank_key = ID_CommonApp.getString("bank_code", "")
-                var bank_header = ID_CommonApp.getString("bank_header", "")
-                var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
-                var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
-                progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
-                progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
-                progressDialog!!.setCancelable(false)
-                progressDialog!!.setIndeterminate(true)
-                progressDialog!!.setIndeterminateDrawable(this.resources.getDrawable(R.drawable.progress))
-                progressDialog!!.show()
-
-                val AgentIdSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
+                val AgentIdSP =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
                 val agentId = AgentIdSP.getString("Agent_ID", null)
 
                 val calendar = Calendar.getInstance()
@@ -1872,7 +1739,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                 var Imei = DeviceAppDetails.imei
                 if (Imei != null && !Imei.isEmpty()) {
                 } else {
-                    val DeviceAppDetails1 = BizcoreApplication.getInstance().getDeviceAppDetails1(this)
+                    val DeviceAppDetails1 =
+                        BizcoreApplication.getInstance().getDeviceAppDetails1(this)
                     Imei = DeviceAppDetails1.imei
                 }
 
@@ -1896,41 +1764,566 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                     try {
 
                         requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
-                        requestObject1.put(BizcoreApplication.CARD_ACCEPTOR_TERMINAL_CODE, BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("Module", BizcoreApplication.encryptMessage(comparevalue))
-                        requestObject1.put("FK_Account", BizcoreApplication.encryptMessage(strfkaccount))
-                        requestObject1.put("LoginMode", BizcoreApplication.encryptMessage("2"))
+                        requestObject1.put(
+                            BizcoreApplication.CARD_ACCEPTOR_TERMINAL_CODE,
+                            BizcoreApplication.encryptMessage(Imei)
+                        )
+                        requestObject1.put(
+                            "Module",
+                            BizcoreApplication.encryptMessage(comparevalue)
+                        )
+                        requestObject1.put(
+                            "AccountNumber",
+                            BizcoreApplication.encryptMessage(accountNo)
+                        )
+                        requestObject1.put("ActionType", BizcoreApplication.encryptMessage("2"))
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
-                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
-                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
+                        requestObject1.put(
+                            "BankHeader",
+                            BizcoreApplication.encryptMessage(bank_header)
+                        )
+                        requestObject1.put(
+                            "CommonAPI",
+                            BizcoreApplication.encryptMessage(CommonAPI)
+                        )
+                        requestObject1.put(
+                            "CommonAPIURL",
+                            BizcoreApplication.encryptMessage(CommonAPIURL)
+                        )
 
                     } catch (e: Exception) {
-                        progressDialog!!.dismiss()
+//                        progressDialog!!.dismiss()
                         e.printStackTrace()
-                        val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
+                        val mySnackbar = Snackbar.make(
+                            findViewById(R.id.rl_main),
                             " Some technical issues. ", Snackbar.LENGTH_SHORT
                         )
                         mySnackbar.show()
                     }
-                    val body1 = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString())
+                    val body1 = RequestBody.create(
+                        okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                        requestObject1.toString()
+                    )
+                    val call1 = apiService1.getLastTransActionIdDet(body1)
+                    call1.enqueue(object : retrofit2.Callback<String> {
+                        override fun onResponse(
+                            call: retrofit2.Call<String>,
+                            response1: Response<String>
+                        ) {
+//                            progressDialog!!.dismiss()
+                            val jObject = JSONObject(response1.body())
+
+                            if (jObject.getString("StatusCode") == "0") {
+                                val jobjt = jObject.getJSONObject("LastTransActionIdDet")
+                                LastTransactionId = jobjt.getString("LastTransActionId")
+                            }
+
+
+                        }
+
+                        override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
+//                            progressDialog!!.dismiss()
+                            val mySnackbar = Snackbar.make(
+                                findViewById(R.id.rl_main),
+                                " Some technical issues.", Snackbar.LENGTH_SHORT
+                            )
+                            mySnackbar.show()
+                        }
+                    })
+                } catch (e: Exception) {
+//                    progressDialog!!.dismiss()
+                    e.printStackTrace()
+                    val mySnackbar = Snackbar.make(
+                        findViewById(R.id.rl_main),
+                        " Some technical issues.", Snackbar.LENGTH_SHORT
+                    )
+                    mySnackbar.show()
+                }
+
+
+            }
+            false -> {
+                val mySnackbar = Snackbar.make(
+                    findViewById(R.id.rl_main),
+                    "No Internet Connection!!",
+                    Snackbar.LENGTH_SHORT
+                )
+                mySnackbar.show()
+            }
+        }
+
+    }
+
+    private fun getLoanDepositBalance(str_fkaccount: String) {
+
+        when (ConnectivityUtils.isConnected(this)) {
+            true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
+                var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+                var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
+//                progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
+//                progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
+//                progressDialog!!.setCancelable(false)
+//                progressDialog!!.setIndeterminate(true)
+//                progressDialog!!.setIndeterminateDrawable(this.resources.getDrawable(R.drawable.progress))
+//                progressDialog!!.show()
+
+                val AgentIdSP =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
+                val agentId = AgentIdSP.getString("Agent_ID", null)
+
+                val calendar = Calendar.getInstance()
+                val simpleDateFormat = SimpleDateFormat(
+                    "yyyy-MM-dd HH:mm:ss.SSS",
+                    Locale.ENGLISH
+                )
+                val dateTime = simpleDateFormat.format(calendar.time)
+
+                val DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails(this)
+                var Imei = DeviceAppDetails.imei
+                if (Imei != null && !Imei.isEmpty()) {
+                } else {
+                    val DeviceAppDetails1 =
+                        BizcoreApplication.getInstance().getDeviceAppDetails1(this)
+                    Imei = DeviceAppDetails1.imei
+                }
+
+                try {
+
+                    val client1 = OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build()
+                    val gson1 = GsonBuilder()
+                        .setLenient()
+                        .create()
+                    val retrofit1 = Retrofit.Builder()
+                        .baseUrl(ApiService.BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson1))
+                        .client(client1)
+                        .build()
+                    val apiService1 = retrofit1.create(ApiInterface::class.java!!)
+                    val requestObject1 = JSONObject()
+                    try {
+
+                        requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
+                        requestObject1.put(
+                            BizcoreApplication.CARD_ACCEPTOR_TERMINAL_CODE,
+                            BizcoreApplication.encryptMessage(Imei)
+                        )
+                        requestObject1.put(
+                            "Module",
+                            BizcoreApplication.encryptMessage(comparevalue)
+                        )
+                        requestObject1.put(
+                            "FK_Account",
+                            BizcoreApplication.encryptMessage(str_fkaccount)
+                        )
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put(
+                            "BankHeader",
+                            BizcoreApplication.encryptMessage(bank_header)
+                        )
+                        requestObject1.put(
+                            "CommonAPI",
+                            BizcoreApplication.encryptMessage(CommonAPI)
+                        )
+                        requestObject1.put(
+                            "CommonAPIURL",
+                            BizcoreApplication.encryptMessage(CommonAPIURL)
+                        )
+
+                    } catch (e: Exception) {
+//                        progressDialog!!.dismiss()
+                        e.printStackTrace()
+                        val mySnackbar = Snackbar.make(
+                            findViewById(R.id.rl_main),
+                            " Some technical issues. ", Snackbar.LENGTH_SHORT
+                        )
+                        mySnackbar.show()
+                    }
+                    val body1 = RequestBody.create(
+                        okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                        requestObject1.toString()
+                    )
+                    val call1 = apiService1.getLoanDepositBalance(body1)
+                    call1.enqueue(object : retrofit2.Callback<String> {
+                        override fun onResponse(
+                            call: retrofit2.Call<String>,
+                            response1: Response<String>
+                        ) {
+//                            progressDialog!!.dismiss()
+                            val jObject = JSONObject(response1.body())
+                            Log.e(TAG, "52525  " + response1.body())
+
+                            if (jObject.getString("StatusCode") == "0") {
+                                val jobjt = jObject.getJSONObject("LoanDepositBalance")
+
+                                val isAccessSP = applicationContext.getSharedPreferences(
+                                    BizcoreApplication.SHARED_PREF10,
+                                    0
+                                )
+                                val isAccess = isAccessSP.getString("isAccess", null)
+                                if (isAccess == "true") {
+                                    val formatter = DecimalFormat("#,##,##,##,###.##")
+                                    val yourFormattedAmount =
+                                        formatter.format(jobjt.getDouble("Balance"))
+
+                                    if (strModule == "SB" || strModule == "DD") {
+                                        tv_available_amount!!.setText("Available Balance : ₹ " + yourFormattedAmount)
+                                    } else {
+                                        tv_available_amount!!.setText("Due Amount : ₹ " + yourFormattedAmount)
+                                    }
+                                } else {
+                                    tv_available_amount!!.visibility == View.GONE
+                                }
+
+
+                            }
+
+
+                        }
+
+                        override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
+//                            progressDialog!!.dismiss()
+                            val mySnackbar = Snackbar.make(
+                                findViewById(R.id.rl_main),
+                                " Some technical issues.", Snackbar.LENGTH_SHORT
+                            )
+                            mySnackbar.show()
+                        }
+                    })
+                } catch (e: Exception) {
+//                    progressDialog!!.dismiss()
+                    e.printStackTrace()
+                    val mySnackbar = Snackbar.make(
+                        findViewById(R.id.rl_main),
+                        " Some technical issues.", Snackbar.LENGTH_SHORT
+                    )
+                    mySnackbar.show()
+                }
+
+
+            }
+            false -> {
+                val mySnackbar = Snackbar.make(
+                    findViewById(R.id.rl_main),
+                    "No Internet Connection!!",
+                    Snackbar.LENGTH_SHORT
+                )
+                mySnackbar.show()
+            }
+        }
+
+    }
+
+    private fun getTranshistory() {
+        when (ConnectivityUtils.isConnected(this)) {
+            true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
+                var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+                var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
+                progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
+                progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
+                progressDialog!!.setCancelable(false)
+                progressDialog!!.setIndeterminate(true)
+                progressDialog!!.setIndeterminateDrawable(this.resources.getDrawable(R.drawable.progress))
+                progressDialog!!.show()
+
+                val AgentIdSP =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
+                val agentId = AgentIdSP.getString("Agent_ID", null)
+
+                val calendar = Calendar.getInstance()
+                val simpleDateFormat = SimpleDateFormat(
+                    "yyyy-MM-dd HH:mm:ss.SSS",
+                    Locale.ENGLISH
+                )
+                val dateTime = simpleDateFormat.format(calendar.time)
+
+                val DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails(this)
+                var Imei = DeviceAppDetails.imei
+                if (Imei != null && !Imei.isEmpty()) {
+                } else {
+                    val DeviceAppDetails1 =
+                        BizcoreApplication.getInstance().getDeviceAppDetails1(this)
+                    Imei = DeviceAppDetails1.imei
+                }
+
+                try {
+
+                    val client1 = OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build()
+                    val gson1 = GsonBuilder()
+                        .setLenient()
+                        .create()
+                    val retrofit1 = Retrofit.Builder()
+                        .baseUrl(ApiService.BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson1))
+                        .client(client1)
+                        .build()
+                    val apiService1 = retrofit1.create(ApiInterface::class.java!!)
+                    val requestObject1 = JSONObject()
+                    try {
+
+                        requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
+                        requestObject1.put(
+                            BizcoreApplication.CARD_ACCEPTOR_TERMINAL_CODE,
+                            BizcoreApplication.encryptMessage(Imei)
+                        )
+                        requestObject1.put(
+                            "Module",
+                            BizcoreApplication.encryptMessage(comparevalue)
+                        )
+                        requestObject1.put(
+                            "FK_Account",
+                            BizcoreApplication.encryptMessage(strfkaccount)
+                        )
+                        requestObject1.put("LoginMode", BizcoreApplication.encryptMessage("2"))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put(
+                            "BankHeader",
+                            BizcoreApplication.encryptMessage(bank_header)
+                        )
+                        requestObject1.put(
+                            "CommonAPI",
+                            BizcoreApplication.encryptMessage(CommonAPI)
+                        )
+                        requestObject1.put(
+                            "CommonAPIURL",
+                            BizcoreApplication.encryptMessage(CommonAPIURL)
+                        )
+
+                    } catch (e: Exception) {
+                        progressDialog!!.dismiss()
+                        e.printStackTrace()
+                        val mySnackbar = Snackbar.make(
+                            findViewById(R.id.rl_main),
+                            " Some technical issues. ", Snackbar.LENGTH_SHORT
+                        )
+                        mySnackbar.show()
+                    }
+                    val body1 = RequestBody.create(
+                        okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                        requestObject1.toString()
+                    )
                     val call1 = apiService1.getTransactionhistory(body1)
                     call1.enqueue(object : retrofit2.Callback<String> {
-                        override fun onResponse(call: retrofit2.Call<String>, response1: Response<String>) {
+                        override fun onResponse(
+                            call: retrofit2.Call<String>,
+                            response1: Response<String>
+                        ) {
                             progressDialog!!.dismiss()
                             val jObject = JSONObject(response1.body())
 
                             if (jObject.getString("StatusCode") == "0") {
                                 ll_trxn_history!!.visibility = View.VISIBLE
                                 tv_asondate!!.text = "As On Date : " + getDateTime()
-                                val jobjt = jObject.getJSONObject("CustomerSearchTransactionDetails")
-                                val jarray = jobjt.getJSONArray("CustomerSearchTransactionDetailsList")
+                                val jobjt =
+                                    jObject.getJSONObject("CustomerSearchTransactionDetails")
+                                val jarray =
+                                    jobjt.getJSONArray("CustomerSearchTransactionDetailsList")
 //314400
-                                Log.i("response1234","jarray="+jarray)
+                                Log.i("response1234", "jarray=" + jarray)
                                 val lLayout = GridLayoutManager(this@CustomerSearchActivity, 1)
-                                rvtxnhistorymodule.layoutManager = lLayout as RecyclerView.LayoutManager?
+                                rvtxnhistorymodule.layoutManager =
+                                    lLayout as RecyclerView.LayoutManager?
                                 rvtxnhistorymodule.setHasFixedSize(true)
-                                val adapter = TransactionHistoryAdapter(this@CustomerSearchActivity, jarray,deleteFlag!!)
+                                val adapter = TransactionHistoryAdapter(
+                                    this@CustomerSearchActivity,
+                                    jarray,
+                                    deleteFlag!!
+                                )
+                                rvtxnhistorymodule.adapter = adapter
+                            } else {
+                                val dialogBuilder = AlertDialog.Builder(
+                                    this@CustomerSearchActivity,
+                                    R.style.MyDialogTheme
+                                )
+                                dialogBuilder.setMessage(jObject.getString("StatusMessage"))
+                                    .setCancelable(false)
+                                    .setPositiveButton(
+                                        "OK",
+                                        DialogInterface.OnClickListener { dialog, id ->
+                                            iv_txnHistory?.setBackgroundResource(R.drawable.ic_txn_history)
+                                        })
+                                val alert = dialogBuilder.create()
+                                alert.show()
+                                val pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE)
+                                pbutton.setTextColor(Color.MAGENTA)
+
+                                ll_trxn_history.visibility = View.GONE
+                            }
+
+
+                        }
+
+                        override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
+                            progressDialog!!.dismiss()
+                            val mySnackbar = Snackbar.make(
+                                findViewById(R.id.rl_main),
+                                " Some technical issues.", Snackbar.LENGTH_SHORT
+                            )
+                            mySnackbar.show()
+                        }
+                    })
+                } catch (e: Exception) {
+                    progressDialog!!.dismiss()
+                    e.printStackTrace()
+                    val mySnackbar = Snackbar.make(
+                        findViewById(R.id.rl_main),
+                        " Some technical issues.", Snackbar.LENGTH_SHORT
+                    )
+                    mySnackbar.show()
+                }
+
+
+            }
+            false -> {
+                val mySnackbar = Snackbar.make(
+                    findViewById(R.id.rl_main),
+                    "No Internet Connection!!",
+                    Snackbar.LENGTH_SHORT
+                )
+                mySnackbar.show()
+            }
+        }
+
+    }
+
+    private fun getTranshistory1() {
+        when (ConnectivityUtils.isConnected(this)) {
+            true -> {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var bank_key = ID_CommonApp.getString("bank_code", "")
+                var bank_header = ID_CommonApp.getString("bank_header", "")
+                var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
+                var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
+                progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
+                progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
+                progressDialog!!.setCancelable(false)
+                progressDialog!!.setIndeterminate(true)
+                progressDialog!!.setIndeterminateDrawable(this.resources.getDrawable(R.drawable.progress))
+                progressDialog!!.show()
+
+                val AgentIdSP =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
+                val agentId = AgentIdSP.getString("Agent_ID", null)
+
+                val calendar = Calendar.getInstance()
+                val simpleDateFormat = SimpleDateFormat(
+                    "yyyy-MM-dd HH:mm:ss.SSS",
+                    Locale.ENGLISH
+                )
+                val dateTime = simpleDateFormat.format(calendar.time)
+
+                val DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails(this)
+                var Imei = DeviceAppDetails.imei
+                if (Imei != null && !Imei.isEmpty()) {
+                } else {
+                    val DeviceAppDetails1 =
+                        BizcoreApplication.getInstance().getDeviceAppDetails1(this)
+                    Imei = DeviceAppDetails1.imei
+                }
+
+                try {
+
+                    val client1 = OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build()
+                    val gson1 = GsonBuilder()
+                        .setLenient()
+                        .create()
+                    val retrofit1 = Retrofit.Builder()
+                        .baseUrl(ApiService.BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson1))
+                        .client(client1)
+                        .build()
+                    val apiService1 = retrofit1.create(ApiInterface::class.java!!)
+                    val requestObject1 = JSONObject()
+                    try {
+
+                        requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
+                        requestObject1.put(
+                            BizcoreApplication.CARD_ACCEPTOR_TERMINAL_CODE,
+                            BizcoreApplication.encryptMessage(Imei)
+                        )
+                        requestObject1.put(
+                            "Module",
+                            BizcoreApplication.encryptMessage(comparevalue)
+                        )
+                        requestObject1.put(
+                            "FK_Account",
+                            BizcoreApplication.encryptMessage(strfkaccount)
+                        )
+                        requestObject1.put("LoginMode", BizcoreApplication.encryptMessage("2"))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
+                        requestObject1.put(
+                            "BankHeader",
+                            BizcoreApplication.encryptMessage(bank_header)
+                        )
+                        requestObject1.put(
+                            "CommonAPI",
+                            BizcoreApplication.encryptMessage(CommonAPI)
+                        )
+                        requestObject1.put(
+                            "CommonAPIURL",
+                            BizcoreApplication.encryptMessage(CommonAPIURL)
+                        )
+
+                    } catch (e: Exception) {
+                        progressDialog!!.dismiss()
+                        e.printStackTrace()
+                        val mySnackbar = Snackbar.make(
+                            findViewById(R.id.rl_main),
+                            " Some technical issues. ", Snackbar.LENGTH_SHORT
+                        )
+                        mySnackbar.show()
+                    }
+                    val body1 = RequestBody.create(
+                        okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                        requestObject1.toString()
+                    )
+                    val call1 = apiService1.getTransactionhistory(body1)
+                    call1.enqueue(object : retrofit2.Callback<String> {
+                        override fun onResponse(
+                            call: retrofit2.Call<String>,
+                            response1: Response<String>
+                        ) {
+                            progressDialog!!.dismiss()
+                            val jObject = JSONObject(response1.body())
+
+                            if (jObject.getString("StatusCode") == "0") {
+                                ll_trxn_history!!.visibility = View.VISIBLE
+                                tv_asondate!!.text = "As On Date : " + getDateTime()
+                                val jobjt =
+                                    jObject.getJSONObject("CustomerSearchTransactionDetails")
+                                val jarray =
+                                    jobjt.getJSONArray("CustomerSearchTransactionDetailsList")
+//314400
+                                Log.i("response1234", "jarray=" + jarray)
+                                val lLayout = GridLayoutManager(this@CustomerSearchActivity, 1)
+                                rvtxnhistorymodule.layoutManager =
+                                    lLayout as RecyclerView.LayoutManager?
+                                rvtxnhistorymodule.setHasFixedSize(true)
+                                val adapter = TransactionHistoryAdapter(
+                                    this@CustomerSearchActivity,
+                                    jarray,
+                                    deleteFlag!!
+                                )
                                 rvtxnhistorymodule.adapter = adapter
                             } else {
 //                                val dialogBuilder = AlertDialog.Builder(this@CustomerSearchActivity, R.style.MyDialogTheme)
@@ -1943,7 +2336,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 //                                alert.show()
 //                                val pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE)
 //                                pbutton.setTextColor(Color.MAGENTA)
-                              //  selectedData = 1
+                                //  selectedData = 1
                                 iv_txnHistory?.setBackgroundResource(R.drawable.ic_txn_history)
                                 ll_trxn_history.visibility = View.GONE
                             }
@@ -1953,7 +2346,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
                         override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
                             progressDialog!!.dismiss()
-                            val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
+                            val mySnackbar = Snackbar.make(
+                                findViewById(R.id.rl_main),
                                 " Some technical issues.", Snackbar.LENGTH_SHORT
                             )
                             mySnackbar.show()
@@ -1962,7 +2356,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                 } catch (e: Exception) {
                     progressDialog!!.dismiss()
                     e.printStackTrace()
-                    val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
+                    val mySnackbar = Snackbar.make(
+                        findViewById(R.id.rl_main),
                         " Some technical issues.", Snackbar.LENGTH_SHORT
                     )
                     mySnackbar.show()
@@ -1971,7 +2366,11 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
             }
             false -> {
-                val mySnackbar = Snackbar.make(findViewById(R.id.rl_main), "No Internet Connection!!", Snackbar.LENGTH_SHORT)
+                val mySnackbar = Snackbar.make(
+                    findViewById(R.id.rl_main),
+                    "No Internet Connection!!",
+                    Snackbar.LENGTH_SHORT
+                )
                 mySnackbar.show()
             }
         }
@@ -1988,10 +2387,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         TransType: String,
         referenceNo: String,
         TransMode: String,
-        Date1:String
+        Date1: String
     ) {
 
-        Log.i("responseACC","acc="+acc_number)
+        Log.i("responseACC", "acc=" + acc_number)
         val dialog: androidx.appcompat.app.AlertDialog
         val builder = androidx.appcompat.app.AlertDialog.Builder(context)
         val view1: View = LayoutInflater.from(context).inflate(R.layout.pop_up_delete, null, false)
@@ -2007,7 +2406,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         val txt_type = view1.findViewById<TextView>(R.id.txt_type)
 //        reasonSpinner.setBackgroundColor(Color.WHITE);
 //        reasonSpinner.setDropDownBackgroundResource(R.color.slate_custom)
-     //  reasonSpinner.sette
+        //  reasonSpinner.sette
         txt_module.setText(strModule)
         txt_time.setText(time)
         txt_channel.setText(channel)
@@ -2019,15 +2418,15 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 //        val UserNameEditor = UserName.edit()
 //        UserNameEditor.putString("username", "")
 //        UserNameEditor.commit()
-        val username= applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF5, 0).getString("username","")
+        val username = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF5, 0)
+            .getString("username", "")
 //        val branchcode= applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF11, 0).getString("branchCode","")
-        val branchcodeSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF11, 0)
+        val branchcodeSP =
+            applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF11, 0)
         val branchcode = branchcodeSP.getString("branchCode", null)
 
-        var referenceNo=referenceNo
-        var TransMode=TransMode
-
-
+        var referenceNo = referenceNo
+        var TransMode = TransMode
 
 
         //.................314400
@@ -2079,11 +2478,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         }
 
 
-
-
-        val adapter
-                = ArrayAdapter(this,
-            android.R.layout.simple_list_item_1, resonListModel)
+        val adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_list_item_1, resonListModel
+        )
         reasonSpinner.setAdapter(adapter)
 
 
@@ -2126,13 +2524,13 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
             val DeviceAppDetails1 = BizcoreApplication.getInstance().getDeviceAppDetails1(this)
             Imei = DeviceAppDetails1.imei
         }
-        val msg0 :String = edt_acc_first!!.text.toString()
+        val msg0: String = edt_acc_first!!.text.toString()
         closeBtn.setOnClickListener(View.OnClickListener { dialog.dismiss() })
         deleteBtn.setOnClickListener(View.OnClickListener {
 
-                var r=""
+            var r = ""
 
-            reason= reasonSpinner.text.toString().trim { it <= ' ' }
+            reason = reasonSpinner.text.toString().trim { it <= ' ' }
             if (reason.isEmpty()) {
                 // Utils.shortToast(this, "Customer Name is empty");
                 Toast.makeText(this, "Please select reason", Toast.LENGTH_SHORT).show()
@@ -2142,22 +2540,36 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
             } else {
 
 
-
-                deleteTransaction(dialog,referenceNo,
-                    strfkaccount,reasonId,Date1,Imei,acc_number,amount,TransType,moduleFrom1,TransMode,username,branchcode,AccountCodeFiledName,TableName,FieldName
+                deleteTransaction(
+                    dialog,
+                    referenceNo,
+                    strfkaccount,
+                    reasonId,
+                    Date1,
+                    Imei,
+                    acc_number,
+                    amount,
+                    TransType,
+                    moduleFrom1,
+                    TransMode,
+                    username,
+                    branchcode,
+                    AccountCodeFiledName,
+                    TableName,
+                    FieldName
                 )
             }
 
-            Log.i("responseDeletedData","\n"+"reference no="+referenceNo +"\n"
-                    +"fk="+strfkaccount+"\n"+"reason_id="+reasonId+"\n"+"acc_number="+acc_number
-                    +"\n"+"amount="+amount+"\n"+"TransType="+TransType+"\n"+"username="+username
-                    +"\n"+"TransMode="+TransMode+"\n"+"moduleFrom="+moduleFrom1+"\n"+"TransDate="+Date1
-                    +"\n"+"branchcode="+branchcode+"\n"+"bank key="+getResources().getString(R.string.BankKey)+"\n"+
-                    "Header="+getResources().getString(R.string.BankHeader)+"\n"+"MechineCode="+Imei+"\n"+
-                    "AccountCodeFiledName="+AccountCodeFiledName+"\n"+"TableName="+TableName+"\n"+"FieldName="+FieldName
-
-
-
+            Log.i(
+                "responseDeletedData", "\n" + "reference no=" + referenceNo + "\n"
+                        + "fk=" + strfkaccount + "\n" + "reason_id=" + reasonId + "\n" + "acc_number=" + acc_number
+                        + "\n" + "amount=" + amount + "\n" + "TransType=" + TransType + "\n" + "username=" + username
+                        + "\n" + "TransMode=" + TransMode + "\n" + "moduleFrom=" + moduleFrom1 + "\n" + "TransDate=" + Date1
+                        + "\n" + "branchcode=" + branchcode + "\n" + "bank key=" + getResources().getString(
+                    R.string.BankKey
+                ) + "\n" +
+                        "Header=" + getResources().getString(R.string.BankHeader) + "\n" + "MechineCode=" + Imei + "\n" +
+                        "AccountCodeFiledName=" + AccountCodeFiledName + "\n" + "TableName=" + TableName + "\n" + "FieldName=" + FieldName
 
 
             )
@@ -2208,7 +2620,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         fieldName: String
     ) {
 
-        when(ConnectivityUtils.isConnected(this)) {
+        when (ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
                     applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
@@ -2239,47 +2651,89 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                     val apiService1 = retrofit1.create(ApiInterface::class.java!!)
                     val requestObject2 = JSONObject()
                     try {
-                        requestObject2.put("ID_Transaction", BizcoreApplication.encryptMessage(referenceno))
-                        requestObject2.put("FK_Account", BizcoreApplication.encryptMessage(strfkaccount))
+                        requestObject2.put(
+                            "ID_Transaction",
+                            BizcoreApplication.encryptMessage(referenceno)
+                        )
+                        requestObject2.put(
+                            "FK_Account",
+                            BizcoreApplication.encryptMessage(strfkaccount)
+                        )
                         requestObject2.put("ID_Reason", BizcoreApplication.encryptMessage(reasonId))
-                        requestObject2.put("TransDate", BizcoreApplication.encryptMessage(transdate1))
+                        requestObject2.put(
+                            "TransDate",
+                            BizcoreApplication.encryptMessage(transdate1)
+                        )
                         requestObject2.put("MechineCode", BizcoreApplication.encryptMessage(imei))
-                        requestObject2.put("AccountNumber", BizcoreApplication.encryptMessage(accNumber))
+                        requestObject2.put(
+                            "AccountNumber",
+                            BizcoreApplication.encryptMessage(accNumber)
+                        )
                         requestObject2.put("Amount", BizcoreApplication.encryptMessage(amount))
-                        requestObject2.put("TransType", BizcoreApplication.encryptMessage(transType))
+                        requestObject2.put(
+                            "TransType",
+                            BizcoreApplication.encryptMessage(transType)
+                        )
                         requestObject2.put("Module", BizcoreApplication.encryptMessage(moduleFrom1))
-                        requestObject2.put("TransMode", BizcoreApplication.encryptMessage(transMode))
-                        requestObject2.put("AgentUserName", BizcoreApplication.encryptMessage(username))
+                        requestObject2.put(
+                            "TransMode",
+                            BizcoreApplication.encryptMessage(transMode)
+                        )
+                        requestObject2.put(
+                            "AgentUserName",
+                            BizcoreApplication.encryptMessage(username)
+                        )
                         requestObject2.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
-                        requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
-                        requestObject2.put("BranchCode", BizcoreApplication.encryptMessage(branchcode))
-                        requestObject2.put( "AccountCodeFiledName", BizcoreApplication.encryptMessage(accountCodeFiledName) )
-                        requestObject2.put( "TableName", BizcoreApplication.encryptMessage(tableName) )
-                        requestObject2.put( "FieldName", BizcoreApplication.encryptMessage(fieldName) )
-                        requestObject2.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
-                        requestObject2.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
+                        requestObject2.put(
+                            "BankHeader",
+                            BizcoreApplication.encryptMessage(bank_header)
+                        )
+                        requestObject2.put(
+                            "BranchCode",
+                            BizcoreApplication.encryptMessage(branchcode)
+                        )
+                        requestObject2.put(
+                            "AccountCodeFiledName",
+                            BizcoreApplication.encryptMessage(accountCodeFiledName)
+                        )
+                        requestObject2.put(
+                            "TableName",
+                            BizcoreApplication.encryptMessage(tableName)
+                        )
+                        requestObject2.put(
+                            "FieldName",
+                            BizcoreApplication.encryptMessage(fieldName)
+                        )
+                        requestObject2.put(
+                            "CommonAPI",
+                            BizcoreApplication.encryptMessage(CommonAPI)
+                        )
+                        requestObject2.put(
+                            "CommonAPIURL",
+                            BizcoreApplication.encryptMessage(CommonAPIURL)
+                        )
 
 
-
-
-                    }
-
-
-                    catch (e: Exception) {
+                    } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
-                        val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
+                        val mySnackbar = Snackbar.make(
+                            findViewById(R.id.rl_main),
                             " Some technical issues.", Snackbar.LENGTH_SHORT
                         )
                         mySnackbar.show()
                     }
 
 
-                    val body1 = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject2.toString())
+                    val body1 = RequestBody.create(
+                        okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                        requestObject2.toString()
+                    )
                     val call1 = apiService1.toDeleteTransaction(body1)
                     call1.enqueue(object : retrofit2.Callback<String> {
-                        override fun onResponse(call: retrofit2.Call<String>, response1:
-                        Response<String>
+                        override fun onResponse(
+                            call: retrofit2.Call<String>, response1:
+                            Response<String>
                         ) {
                             try {
                                 progressDialog!!.dismiss()
@@ -2291,7 +2745,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
 //
                                     Log.i("responseDelete", "delete.............")
-                                 //   dialog.dismiss()
+                                    //   dialog.dismiss()
                                     //  Toast.makeText(context,ii,Toast.LENGTH_SHORT).show();
                                     //     setMessage(ii, dialog);
                                     Toast.makeText(
@@ -2302,7 +2756,6 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                     dialog.dismiss()
                                     getTranshistory1()
                                 } else if (jObject.getString("StatusCode") == "-1") {
-
 
 
                                     val dialogBuilder = AlertDialog.Builder(
@@ -2329,10 +2782,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                     val ii = jObject.getString("EXMessage")
                                     //  Toast.makeText(context,ii,Toast.LENGTH_SHORT).show();
                                     //  Toast.makeText(context,ii,Toast.LENGTH_SHORT).show();
-                                 //   setMessage(ii, dialog)
+                                    //   setMessage(ii, dialog)
                                 } else {
                                     Log.i("response1111", "else t2")
-                               //     setMessage(jObject.getString("EXMessage"), dialog)
+                                    //     setMessage(jObject.getString("EXMessage"), dialog)
 
 
                                     val dialogBuilder = AlertDialog.Builder(
@@ -2354,8 +2807,6 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                 }
 
 
-
-
                             } catch (e: Exception) {
                                 progressDialog!!.dismiss()
                                 e.printStackTrace()
@@ -2364,7 +2815,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
                         override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
                             progressDialog!!.dismiss()
-                            val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
+                            val mySnackbar = Snackbar.make(
+                                findViewById(R.id.rl_main),
                                 " Some technical issues.", Snackbar.LENGTH_SHORT
                             )
                             mySnackbar.show()
@@ -2373,14 +2825,19 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                 } catch (e: Exception) {
                     progressDialog!!.dismiss()
                     e.printStackTrace()
-                    val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
+                    val mySnackbar = Snackbar.make(
+                        findViewById(R.id.rl_main),
                         " Some technical issues.", Snackbar.LENGTH_SHORT
                     )
                     mySnackbar.show()
                 }
             }
             false -> {
-                val mySnackbar = Snackbar.make(findViewById(R.id.rl_main), "No Internet Connection!!", Snackbar.LENGTH_SHORT)
+                val mySnackbar = Snackbar.make(
+                    findViewById(R.id.rl_main),
+                    "No Internet Connection!!",
+                    Snackbar.LENGTH_SHORT
+                )
                 mySnackbar.show()
             }
         }
@@ -2412,7 +2869,6 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     }
 
 
-
     private fun getDateTime(): String? {
         val dateFormat: DateFormat = SimpleDateFormat("dd-MM-yyyy")
         val date = Date()
@@ -2424,7 +2880,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
             applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
         var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
         var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
-        when(ConnectivityUtils.isConnected(this)) {
+        when (ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
                     applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
@@ -2438,35 +2894,45 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                 progressDialog!!.show()
                 try {
                     val client1 = OkHttpClient.Builder()
-                            .sslSocketFactory(getSSLSocketFactory())
-                            .hostnameVerifier(getHostnameVerifier())
-                            .build()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build()
                     val gson1 = GsonBuilder()
-                            .setLenient()
-                            .create()
+                        .setLenient()
+                        .create()
                     val retrofit1 = Retrofit.Builder()
-                            .baseUrl(ApiService.BASE_URL)
-                            .addConverterFactory(ScalarsConverterFactory.create())
-                            .addConverterFactory(GsonConverterFactory.create(gson1))
-                            .client(client1)
-                            .build()
+                        .baseUrl(ApiService.BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson1))
+                        .client(client1)
+                        .build()
                     val apiService1 = retrofit1.create(ApiInterface::class.java!!)
                     val requestObject2 = JSONObject()
                     try {
-                        val AgentIdSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
+                        val AgentIdSP = applicationContext.getSharedPreferences(
+                            BizcoreApplication.SHARED_PREF1,
+                            0
+                        )
                         val agentId = AgentIdSP.getString("Agent_ID", null)
                         val randomNumber = CryptoGraphy.getInstance().randomNumber(agentId)
                         val calendar = Calendar.getInstance()
-                        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH)
+                        val simpleDateFormat =
+                            SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH)
                         val dateTime = simpleDateFormat.format(calendar.time)
-                        val mAccountNo1 = edt_acc_first.text.toString() + edt_acc_second.text.toString() + edt_acc_third.text.toString()
-                        val tokenSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF4, 0)
+                        val mAccountNo1 =
+                            edt_acc_first.text.toString() + edt_acc_second.text.toString() + edt_acc_third.text.toString()
+                        val tokenSP = applicationContext.getSharedPreferences(
+                            BizcoreApplication.SHARED_PREF4,
+                            0
+                        )
                         val token = tokenSP.getString("token", null)
-                        val DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails(this)
+                        val DeviceAppDetails =
+                            BizcoreApplication.getInstance().getDeviceAppDetails(this)
                         var Imei = DeviceAppDetails.imei
                         if (Imei != null && !Imei.isEmpty()) {
                         } else {
-                            val DeviceAppDetails1 = BizcoreApplication.getInstance().getDeviceAppDetails1(this)
+                            val DeviceAppDetails1 =
+                                BizcoreApplication.getInstance().getDeviceAppDetails1(this)
                             Imei = DeviceAppDetails1.imei
                         }
                         val cardNo = BizcoreApplication.TEMP_CARD_NO
@@ -2480,47 +2946,91 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         hashList.add(customNo)
                         hashList.add(mAccountNo1)
                         val hashString = "21" + CryptoGraphy.getInstance().hashing(hashList) + token
-                        requestObject2.put("Processing_Code", BizcoreApplication.encryptMessage("211011"))
-                        requestObject2.put("Extended_Primary_AccountNumber", BizcoreApplication.encryptMessage(cardNo))
-                        requestObject2.put("Customer_Number", BizcoreApplication.encryptMessage("000000000000"))
-                        requestObject2.put("AccountIdentification1", BizcoreApplication.encryptMessage(mAccountNo1))
+                        requestObject2.put(
+                            "Processing_Code",
+                            BizcoreApplication.encryptMessage("211011")
+                        )
+                        requestObject2.put(
+                            "Extended_Primary_AccountNumber",
+                            BizcoreApplication.encryptMessage(cardNo)
+                        )
+                        requestObject2.put(
+                            "Customer_Number",
+                            BizcoreApplication.encryptMessage("000000000000")
+                        )
+                        requestObject2.put(
+                            "AccountIdentification1",
+                            BizcoreApplication.encryptMessage(mAccountNo1)
+                        )
                         requestObject2.put("MultipleList", BizcoreApplication.encryptMessage("0"))
-                        requestObject2.put("From_Module", BizcoreApplication.encryptMessage(strModule))
-                        requestObject2.put("RequestMessage", BizcoreApplication.encryptMessage("hloooo"))
-                        requestObject2.put("SystemTrace_AuditNumber", BizcoreApplication.encryptMessage(randomNumber))
+                        requestObject2.put(
+                            "From_Module",
+                            BizcoreApplication.encryptMessage(strModule)
+                        )
+                        requestObject2.put(
+                            "RequestMessage",
+                            BizcoreApplication.encryptMessage("hloooo")
+                        )
+                        requestObject2.put(
+                            "SystemTrace_AuditNumber",
+                            BizcoreApplication.encryptMessage(randomNumber)
+                        )
                         requestObject2.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
                         requestObject2.put("ResponseType", BizcoreApplication.encryptMessage("1"))
                         requestObject2.put("Token", BizcoreApplication.encryptMessage(hashString))
                         requestObject2.put("CardLess", BizcoreApplication.encryptMessage("1"))
                         requestObject2.put("VerifyOTP", BizcoreApplication.encryptMessage("0"))
                         requestObject2.put("Amount", BizcoreApplication.encryptMessage("0"))
-                        requestObject2.put("CurrentDate", BizcoreApplication.encryptMessage(dateTime))
-                        requestObject2.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
+                        requestObject2.put(
+                            "CurrentDate",
+                            BizcoreApplication.encryptMessage(dateTime)
+                        )
+                        requestObject2.put(
+                            "Card_Acceptor_Terminal_IDCode",
+                            BizcoreApplication.encryptMessage(Imei)
+                        )
                         requestObject2.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
-                        requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
+                        requestObject2.put(
+                            "BankHeader",
+                            BizcoreApplication.encryptMessage(bank_header)
+                        )
                         requestObject2.put("SubMode", BizcoreApplication.encryptMessage("1"))
-                        requestObject2.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
-                        requestObject2.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
-                        requestObject2.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
+                        requestObject2.put(
+                            "BankVerified",
+                            "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg="
+                        )//encrypted value for zero
+                        requestObject2.put(
+                            "CommonAPI",
+                            BizcoreApplication.encryptMessage(CommonAPI)
+                        )
+                        requestObject2.put(
+                            "CommonAPIURL",
+                            BizcoreApplication.encryptMessage(CommonAPIURL)
+                        )
 
                         Log.e(TAG, "requestObject2    " + requestObject2)
-                        Log.v("dsfdsfdddd","re  "+requestObject2.toString())
+                        Log.v("dsfdsfdddd", "re  " + requestObject2.toString())
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
-                        val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                                " Some technical issues.", Snackbar.LENGTH_SHORT
+                        val mySnackbar = Snackbar.make(
+                            findViewById(R.id.rl_main),
+                            " Some technical issues.", Snackbar.LENGTH_SHORT
                         )
                         mySnackbar.show()
                     }
-                    val body1 = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject2.toString())
+                    val body1 = RequestBody.create(
+                        okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                        requestObject2.toString()
+                    )
                     val call1 = apiService1.getAccountfetch(body1)
                     call1.enqueue(object : retrofit2.Callback<String> {
-                        override fun onResponse(call: retrofit2.Call<String>, response1:
-                        Response<String>
+                        override fun onResponse(
+                            call: retrofit2.Call<String>, response1:
+                            Response<String>
                         ) {
                             try {
-                                Log.v("dsfdsfdddd","re  "+response1.body())
+                                Log.v("dsfdsfdddd", "re  " + response1.body())
                                 progressDialog!!.dismiss()
                                 val jObject1 = JSONObject(response1.body())
                                 val jobjt = jObject1.getJSONObject("AccInfo")
@@ -2529,7 +3039,11 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                     mob = jobjt.getString("CusMobile")
                                     otp = jobjt.getString("OTPRefNum")
                                     if (mob.isNullOrBlank()) {
-                                        Toast.makeText(applicationContext, jObject1.getString("StatusMessage"), Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(
+                                            applicationContext,
+                                            jObject1.getString("StatusMessage"),
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                     } else {
 //                                        layt_otp!!.visibility = View.VISIBLE
 //                                        otpClick()
@@ -2540,7 +3054,11 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                 } else if (jObject1.getString("StatusCode") == "1") {
                                     doLogout()
                                 } else {
-                                    Toast.makeText(applicationContext, jObject1.getString("StatusMessage"), Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        applicationContext,
+                                        jObject1.getString("StatusMessage"),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
 
                             } catch (e: Exception) {
@@ -2551,8 +3069,9 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
                         override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
                             progressDialog!!.dismiss()
-                            val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                                    " Some technical issues.", Snackbar.LENGTH_SHORT
+                            val mySnackbar = Snackbar.make(
+                                findViewById(R.id.rl_main),
+                                " Some technical issues.", Snackbar.LENGTH_SHORT
                             )
                             mySnackbar.show()
                         }
@@ -2560,14 +3079,19 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                 } catch (e: Exception) {
                     progressDialog!!.dismiss()
                     e.printStackTrace()
-                    val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                            " Some technical issues.", Snackbar.LENGTH_SHORT
+                    val mySnackbar = Snackbar.make(
+                        findViewById(R.id.rl_main),
+                        " Some technical issues.", Snackbar.LENGTH_SHORT
                     )
                     mySnackbar.show()
                 }
             }
             false -> {
-                val mySnackbar = Snackbar.make(findViewById(R.id.rl_main), "No Internet Connection!!", Snackbar.LENGTH_SHORT)
+                val mySnackbar = Snackbar.make(
+                    findViewById(R.id.rl_main),
+                    "No Internet Connection!!",
+                    Snackbar.LENGTH_SHORT
+                )
                 mySnackbar.show()
             }
         }
@@ -2577,16 +3101,16 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     private fun showOtpDialog() {
 
         val dialog = Dialog(this)
-        dialog .requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         //  dialog .setCancelable(false)
-        dialog .setContentView(R.layout.popup_otp)
+        dialog.setContentView(R.layout.popup_otp)
         dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
-        val et_otp1 = dialog.findViewById(R.id.et_otp1)as EditText
-        val et_otp2 = dialog.findViewById(R.id.et_otp2)as EditText
-        val et_otp3 = dialog.findViewById(R.id.et_otp3)as EditText
-        val et_otp4 = dialog.findViewById(R.id.et_otp4)as EditText
-        val et_otp5 = dialog.findViewById(R.id.et_otp5)as EditText
-        val et_otp6 = dialog.findViewById(R.id.et_otp6)as EditText
+        val et_otp1 = dialog.findViewById(R.id.et_otp1) as EditText
+        val et_otp2 = dialog.findViewById(R.id.et_otp2) as EditText
+        val et_otp3 = dialog.findViewById(R.id.et_otp3) as EditText
+        val et_otp4 = dialog.findViewById(R.id.et_otp4) as EditText
+        val et_otp5 = dialog.findViewById(R.id.et_otp5) as EditText
+        val et_otp6 = dialog.findViewById(R.id.et_otp6) as EditText
 
         et_otp1.requestFocus()
         et_otp1.addTextChangedListener(object : TextWatcher {
@@ -2631,7 +3155,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         })
         et_otp6.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                val varOtp = et_otp1.text.toString() + et_otp2.text.toString() + et_otp3.text.toString() + et_otp4.text.toString() + et_otp5.text.toString() + et_otp6.text.toString()
+                val varOtp =
+                    et_otp1.text.toString() + et_otp2.text.toString() + et_otp3.text.toString() + et_otp4.text.toString() + et_otp5.text.toString() + et_otp6.text.toString()
                 dialog.dismiss()
                 hideKeyboard(thisView!!)
                 sendPinForAccountFetching(otp, varOtp)
@@ -2642,7 +3167,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         })
 
 
-        dialog .show()
+        dialog.show()
     }
 
     private fun sendPinForAccountFetching(otp: String?, varOtp: String) {
@@ -2650,7 +3175,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
             applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
         var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
         var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
-        when(ConnectivityUtils.isConnected(this)) {
+        when (ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
                     applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
@@ -2664,35 +3189,45 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                 progressDialog!!.show()
                 try {
                     val client1 = OkHttpClient.Builder()
-                            .sslSocketFactory(getSSLSocketFactory())
-                            .hostnameVerifier(getHostnameVerifier())
-                            .build()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build()
                     val gson1 = GsonBuilder()
-                            .setLenient()
-                            .create()
+                        .setLenient()
+                        .create()
                     val retrofit1 = Retrofit.Builder()
-                            .baseUrl(ApiService.BASE_URL)
-                            .addConverterFactory(ScalarsConverterFactory.create())
-                            .addConverterFactory(GsonConverterFactory.create(gson1))
-                            .client(client1)
-                            .build()
+                        .baseUrl(ApiService.BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson1))
+                        .client(client1)
+                        .build()
                     val apiService1 = retrofit1.create(ApiInterface::class.java!!)
                     val requestObject2 = JSONObject()
                     try {
-                        val AgentIdSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
+                        val AgentIdSP = applicationContext.getSharedPreferences(
+                            BizcoreApplication.SHARED_PREF1,
+                            0
+                        )
                         val agentId = AgentIdSP.getString("Agent_ID", null)
                         val randomNumber = CryptoGraphy.getInstance().randomNumber(agentId)
                         val calendar = Calendar.getInstance()
-                        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH)
+                        val simpleDateFormat =
+                            SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH)
                         val dateTime = simpleDateFormat.format(calendar.time)
-                        mAccountNo1 = edt_acc_first.text.toString() + edt_acc_second.text.toString() + edt_acc_third.text.toString()
-                        val tokenSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF4, 0)
+                        mAccountNo1 =
+                            edt_acc_first.text.toString() + edt_acc_second.text.toString() + edt_acc_third.text.toString()
+                        val tokenSP = applicationContext.getSharedPreferences(
+                            BizcoreApplication.SHARED_PREF4,
+                            0
+                        )
                         val token = tokenSP.getString("token", null)
-                        val DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails(this)
+                        val DeviceAppDetails =
+                            BizcoreApplication.getInstance().getDeviceAppDetails(this)
                         var Imei = DeviceAppDetails.imei
                         if (Imei != null && !Imei.isEmpty()) {
                         } else {
-                            val DeviceAppDetails1 = BizcoreApplication.getInstance().getDeviceAppDetails1(this)
+                            val DeviceAppDetails1 =
+                                BizcoreApplication.getInstance().getDeviceAppDetails1(this)
                             Imei = DeviceAppDetails1.imei
                         }
                         val cardNo = BizcoreApplication.TEMP_CARD_NO
@@ -2706,14 +3241,35 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         hashList.add(customNo)
                         hashList.add(mAccountNo1!!)
                         val hashString = "21" + CryptoGraphy.getInstance().hashing(hashList) + token
-                        requestObject2.put("Processing_Code", BizcoreApplication.encryptMessage("211011"))
-                        requestObject2.put("Extended_Primary_AccountNumber", BizcoreApplication.encryptMessage(cardNo))
-                        requestObject2.put("Customer_Number", BizcoreApplication.encryptMessage(customNo))
-                        requestObject2.put("AccountIdentification1", BizcoreApplication.encryptMessage(mAccountNo1))
+                        requestObject2.put(
+                            "Processing_Code",
+                            BizcoreApplication.encryptMessage("211011")
+                        )
+                        requestObject2.put(
+                            "Extended_Primary_AccountNumber",
+                            BizcoreApplication.encryptMessage(cardNo)
+                        )
+                        requestObject2.put(
+                            "Customer_Number",
+                            BizcoreApplication.encryptMessage(customNo)
+                        )
+                        requestObject2.put(
+                            "AccountIdentification1",
+                            BizcoreApplication.encryptMessage(mAccountNo1)
+                        )
                         requestObject2.put("MultipleList", BizcoreApplication.encryptMessage("0"))
-                        requestObject2.put("From_Module", BizcoreApplication.encryptMessage(strModule))
-                        requestObject2.put("RequestMessage", BizcoreApplication.encryptMessage("hloooo"))
-                        requestObject2.put("SystemTrace_AuditNumber", BizcoreApplication.encryptMessage(randomNumber))
+                        requestObject2.put(
+                            "From_Module",
+                            BizcoreApplication.encryptMessage(strModule)
+                        )
+                        requestObject2.put(
+                            "RequestMessage",
+                            BizcoreApplication.encryptMessage("hloooo")
+                        )
+                        requestObject2.put(
+                            "SystemTrace_AuditNumber",
+                            BizcoreApplication.encryptMessage(randomNumber)
+                        )
                         requestObject2.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
                         requestObject2.put("ResponseType", BizcoreApplication.encryptMessage("0"))
                         requestObject2.put("Token", BizcoreApplication.encryptMessage(hashString))
@@ -2722,30 +3278,56 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject2.put("VerifyOTP", BizcoreApplication.encryptMessage("1"))
                         requestObject2.put("Amount", BizcoreApplication.encryptMessage("0"))
                         requestObject2.put("OTP", BizcoreApplication.encryptMessage(varOtp))
-                        requestObject2.put("TranstypeIndicator", BizcoreApplication.encryptMessage("R"))
-                        requestObject2.put("CurrentDate", BizcoreApplication.encryptMessage(dateTime))
-                        requestObject2.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
+                        requestObject2.put(
+                            "TranstypeIndicator",
+                            BizcoreApplication.encryptMessage("R")
+                        )
+                        requestObject2.put(
+                            "CurrentDate",
+                            BizcoreApplication.encryptMessage(dateTime)
+                        )
+                        requestObject2.put(
+                            "Card_Acceptor_Terminal_IDCode",
+                            BizcoreApplication.encryptMessage(Imei)
+                        )
                         requestObject2.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
-                        requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
+                        requestObject2.put(
+                            "BankHeader",
+                            BizcoreApplication.encryptMessage(bank_header)
+                        )
                         requestObject2.put("SubMode", BizcoreApplication.encryptMessage("0"))
-                        requestObject2.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
-                        requestObject2.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
-                        requestObject2.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
+                        requestObject2.put(
+                            "BankVerified",
+                            "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg="
+                        )//encrypted value for zero
+                        requestObject2.put(
+                            "CommonAPI",
+                            BizcoreApplication.encryptMessage(CommonAPI)
+                        )
+                        requestObject2.put(
+                            "CommonAPIURL",
+                            BizcoreApplication.encryptMessage(CommonAPIURL)
+                        )
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
-                        val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                                " Some technical issues.", Snackbar.LENGTH_SHORT
+                        val mySnackbar = Snackbar.make(
+                            findViewById(R.id.rl_main),
+                            " Some technical issues.", Snackbar.LENGTH_SHORT
                         )
                         mySnackbar.show()
                     }
-                    val body1 = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject2.toString())
+                    val body1 = RequestBody.create(
+                        okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                        requestObject2.toString()
+                    )
                     val call1 = apiService1.getAccountfetch(body1)
                     call1.enqueue(object : retrofit2.Callback<String> {
-                        override fun onResponse(call: retrofit2.Call<String>, response1:
-                        Response<String>
+                        override fun onResponse(
+                            call: retrofit2.Call<String>, response1:
+                            Response<String>
                         ) {
-                            Log.v("dsfdsfdddd","res "+response1.body())
+                            Log.v("dsfdsfdddd", "res " + response1.body())
                             try {
                                 progressDialog!!.dismiss()
                                 val jObject1 = JSONObject(response1.body())
@@ -2754,16 +3336,29 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                     txt_blnc_name!!.text = jobjt.getString("CustomerName")
                                     txt_blnc_mob!!.text = mob
 //                                    txt_blnc_mob!!.text = jobjt.getString("CusMobile")
-                                    txt_blnc_acno!!.text = edt_acc_first.text.toString() + edt_acc_second.text.toString() + edt_acc_third.text.toString()
-                                    getAccountDetails(edt_acc_first.text.toString() + edt_acc_second.text.toString() + edt_acc_third.text.toString(), jobjt.getString("Auth_ID"))
+                                    txt_blnc_acno!!.text =
+                                        edt_acc_first.text.toString() + edt_acc_second.text.toString() + edt_acc_third.text.toString()
+                                    getAccountDetails(
+                                        edt_acc_first.text.toString() + edt_acc_second.text.toString() + edt_acc_third.text.toString(),
+                                        jobjt.getString("Auth_ID")
+                                    )
                                 } else {
-                                    Toast.makeText(applicationContext, "Error", Toast.LENGTH_LONG).show()
-                                    val dialogBuilder = AlertDialog.Builder(this@CustomerSearchActivity, R.style.MyDialogTheme)
+                                    Toast.makeText(applicationContext, "Error", Toast.LENGTH_LONG)
+                                        .show()
+                                    val dialogBuilder = AlertDialog.Builder(
+                                        this@CustomerSearchActivity,
+                                        R.style.MyDialogTheme
+                                    )
                                     dialogBuilder.setMessage(jObject1.getString("StatusMessage"))
-                                            .setCancelable(false)
-                                            .setPositiveButton("OK", DialogInterface.OnClickListener { dialog, id ->
+                                        .setCancelable(false)
+                                        .setPositiveButton(
+                                            "OK",
+                                            DialogInterface.OnClickListener { dialog, id ->
 
-                                                var intent = Intent(applicationContext, HomeActivity::class.java)
+                                                var intent = Intent(
+                                                    applicationContext,
+                                                    HomeActivity::class.java
+                                                )
                                                 startActivity(intent)
                                                 finish()
                                             })
@@ -2780,8 +3375,9 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
                         override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
                             progressDialog!!.dismiss()
-                            val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                                    " Some technical issues.", Snackbar.LENGTH_SHORT
+                            val mySnackbar = Snackbar.make(
+                                findViewById(R.id.rl_main),
+                                " Some technical issues.", Snackbar.LENGTH_SHORT
                             )
                             mySnackbar.show()
                         }
@@ -2789,14 +3385,19 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                 } catch (e: Exception) {
                     progressDialog!!.dismiss()
                     e.printStackTrace()
-                    val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                            " Some technical issues.", Snackbar.LENGTH_SHORT
+                    val mySnackbar = Snackbar.make(
+                        findViewById(R.id.rl_main),
+                        " Some technical issues.", Snackbar.LENGTH_SHORT
                     )
                     mySnackbar.show()
                 }
             }
             false -> {
-                val mySnackbar = Snackbar.make(findViewById(R.id.rl_main), "No Internet Connection!!", Snackbar.LENGTH_SHORT)
+                val mySnackbar = Snackbar.make(
+                    findViewById(R.id.rl_main),
+                    "No Internet Connection!!",
+                    Snackbar.LENGTH_SHORT
+                )
                 mySnackbar.show()
             }
         }
@@ -2807,7 +3408,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
             applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
         var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
         var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
-        when(ConnectivityUtils.isConnected(this)) {
+        when (ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
                     applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
@@ -2821,35 +3422,45 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                 progressDialog!!.show()
                 try {
                     val client1 = OkHttpClient.Builder()
-                            .sslSocketFactory(getSSLSocketFactory())
-                            .hostnameVerifier(getHostnameVerifier())
-                            .build()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build()
                     val gson1 = GsonBuilder()
-                            .setLenient()
-                            .create()
+                        .setLenient()
+                        .create()
                     val retrofit1 = Retrofit.Builder()
-                            .baseUrl(ApiService.BASE_URL)
-                            .addConverterFactory(ScalarsConverterFactory.create())
-                            .addConverterFactory(GsonConverterFactory.create(gson1))
-                            .client(client1)
-                            .build()
+                        .baseUrl(ApiService.BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson1))
+                        .client(client1)
+                        .build()
                     val apiService1 = retrofit1.create(ApiInterface::class.java!!)
                     val requestObject2 = JSONObject()
                     try {
-                        val AgentIdSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
+                        val AgentIdSP = applicationContext.getSharedPreferences(
+                            BizcoreApplication.SHARED_PREF1,
+                            0
+                        )
                         val agentId = AgentIdSP.getString("Agent_ID", null)
                         val randomNumber = CryptoGraphy.getInstance().randomNumber(agentId)
                         val calendar = Calendar.getInstance()
-                        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH)
+                        val simpleDateFormat =
+                            SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH)
                         val dateTime = simpleDateFormat.format(calendar.time)
-                        mAccountNo1 = edt_acc_first.text.toString() + edt_acc_second.text.toString() + edt_acc_third.text.toString()
-                        val tokenSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF4, 0)
+                        mAccountNo1 =
+                            edt_acc_first.text.toString() + edt_acc_second.text.toString() + edt_acc_third.text.toString()
+                        val tokenSP = applicationContext.getSharedPreferences(
+                            BizcoreApplication.SHARED_PREF4,
+                            0
+                        )
                         val token = tokenSP.getString("token", null)
-                        val DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails(this)
+                        val DeviceAppDetails =
+                            BizcoreApplication.getInstance().getDeviceAppDetails(this)
                         var Imei = DeviceAppDetails.imei
                         if (Imei != null && !Imei.isEmpty()) {
                         } else {
-                            val DeviceAppDetails1 = BizcoreApplication.getInstance().getDeviceAppDetails1(this)
+                            val DeviceAppDetails1 =
+                                BizcoreApplication.getInstance().getDeviceAppDetails1(this)
                             Imei = DeviceAppDetails1.imei
                         }
                         val cardNo = BizcoreApplication.TEMP_CARD_NO
@@ -2863,14 +3474,35 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         hashList.add(customNo)
                         hashList.add(mAccountNo1!!)
                         val hashString = "21" + CryptoGraphy.getInstance().hashing(hashList) + token
-                        requestObject2.put("Processing_Code", BizcoreApplication.encryptMessage("211011"))
-                        requestObject2.put("Extended_Primary_AccountNumber", BizcoreApplication.encryptMessage(cardNo))
-                        requestObject2.put("Customer_Number", BizcoreApplication.encryptMessage(customNo))
-                        requestObject2.put("AccountIdentification1", BizcoreApplication.encryptMessage(mAccountNo1))
+                        requestObject2.put(
+                            "Processing_Code",
+                            BizcoreApplication.encryptMessage("211011")
+                        )
+                        requestObject2.put(
+                            "Extended_Primary_AccountNumber",
+                            BizcoreApplication.encryptMessage(cardNo)
+                        )
+                        requestObject2.put(
+                            "Customer_Number",
+                            BizcoreApplication.encryptMessage(customNo)
+                        )
+                        requestObject2.put(
+                            "AccountIdentification1",
+                            BizcoreApplication.encryptMessage(mAccountNo1)
+                        )
                         requestObject2.put("MultipleList", BizcoreApplication.encryptMessage("0"))
-                        requestObject2.put("From_Module", BizcoreApplication.encryptMessage(strModule))
-                        requestObject2.put("RequestMessage", BizcoreApplication.encryptMessage("hloooo"))
-                        requestObject2.put("SystemTrace_AuditNumber", BizcoreApplication.encryptMessage(randomNumber))
+                        requestObject2.put(
+                            "From_Module",
+                            BizcoreApplication.encryptMessage(strModule)
+                        )
+                        requestObject2.put(
+                            "RequestMessage",
+                            BizcoreApplication.encryptMessage("hloooo")
+                        )
+                        requestObject2.put(
+                            "SystemTrace_AuditNumber",
+                            BizcoreApplication.encryptMessage(randomNumber)
+                        )
                         requestObject2.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
                         requestObject2.put("ResponseType", BizcoreApplication.encryptMessage("0"))
                         requestObject2.put("Token", BizcoreApplication.encryptMessage(hashString))
@@ -2879,31 +3511,57 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject2.put("VerifyOTP", BizcoreApplication.encryptMessage("1"))
                         requestObject2.put("Amount", BizcoreApplication.encryptMessage("0"))
                         requestObject2.put("OTP", BizcoreApplication.encryptMessage(""))
-                        requestObject2.put("TranstypeIndicator", BizcoreApplication.encryptMessage("R"))
-                        requestObject2.put("CurrentDate", BizcoreApplication.encryptMessage(dateTime))
-                        requestObject2.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
+                        requestObject2.put(
+                            "TranstypeIndicator",
+                            BizcoreApplication.encryptMessage("R")
+                        )
+                        requestObject2.put(
+                            "CurrentDate",
+                            BizcoreApplication.encryptMessage(dateTime)
+                        )
+                        requestObject2.put(
+                            "Card_Acceptor_Terminal_IDCode",
+                            BizcoreApplication.encryptMessage(Imei)
+                        )
                         requestObject2.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
-                        requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
+                        requestObject2.put(
+                            "BankHeader",
+                            BizcoreApplication.encryptMessage(bank_header)
+                        )
                         requestObject2.put("SubMode", BizcoreApplication.encryptMessage("1"))
-                        requestObject2.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
-                        requestObject2.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
-                        requestObject2.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
-                        Log.e("dsfdsfdddd","requestObject2 "+requestObject2)
+                        requestObject2.put(
+                            "BankVerified",
+                            "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg="
+                        )//encrypted value for zero
+                        requestObject2.put(
+                            "CommonAPI",
+                            BizcoreApplication.encryptMessage(CommonAPI)
+                        )
+                        requestObject2.put(
+                            "CommonAPIURL",
+                            BizcoreApplication.encryptMessage(CommonAPIURL)
+                        )
+                        Log.e("dsfdsfdddd", "requestObject2 " + requestObject2)
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
-                        val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                                " Some technical issues.", Snackbar.LENGTH_SHORT
+                        val mySnackbar = Snackbar.make(
+                            findViewById(R.id.rl_main),
+                            " Some technical issues.", Snackbar.LENGTH_SHORT
                         )
                         mySnackbar.show()
                     }
-                    val body1 = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject2.toString())
+                    val body1 = RequestBody.create(
+                        okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                        requestObject2.toString()
+                    )
                     val call1 = apiService1.getAccountfetch(body1)
                     call1.enqueue(object : retrofit2.Callback<String> {
-                        override fun onResponse(call: retrofit2.Call<String>, response1:
-                        Response<String>
+                        override fun onResponse(
+                            call: retrofit2.Call<String>, response1:
+                            Response<String>
                         ) {
-                            Log.e("dsfdsfdddd","res111 "+response1.body())
+                            Log.e("dsfdsfdddd", "res111 " + response1.body())
                             try {
                                 progressDialog!!.dismiss()
                                 val jObject1 = JSONObject(response1.body())
@@ -2911,16 +3569,29 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                 if (jObject1.getString("StatusCode") == "0") {
                                     txt_blnc_name!!.text = jobjt.getString("CustomerName")
 //                                    txt_blnc_mob!!.text = jobjt.getString("CusMobile")
-                                    txt_blnc_acno!!.text = edt_acc_first.text.toString() + edt_acc_second.text.toString() + edt_acc_third.text.toString()
-                                    getAccountDetails(edt_acc_first.text.toString() + edt_acc_second.text.toString() + edt_acc_third.text.toString(), jobjt.getString("Auth_ID"))
+                                    txt_blnc_acno!!.text =
+                                        edt_acc_first.text.toString() + edt_acc_second.text.toString() + edt_acc_third.text.toString()
+                                    getAccountDetails(
+                                        edt_acc_first.text.toString() + edt_acc_second.text.toString() + edt_acc_third.text.toString(),
+                                        jobjt.getString("Auth_ID")
+                                    )
                                 } else {
-                                    Toast.makeText(applicationContext, "Error", Toast.LENGTH_LONG).show()
-                                    val dialogBuilder = AlertDialog.Builder(this@CustomerSearchActivity, R.style.MyDialogTheme)
+                                    Toast.makeText(applicationContext, "Error", Toast.LENGTH_LONG)
+                                        .show()
+                                    val dialogBuilder = AlertDialog.Builder(
+                                        this@CustomerSearchActivity,
+                                        R.style.MyDialogTheme
+                                    )
                                     dialogBuilder.setMessage(jObject1.getString("StatusMessage"))
-                                            .setCancelable(false)
-                                            .setPositiveButton("OK", DialogInterface.OnClickListener { dialog, id ->
+                                        .setCancelable(false)
+                                        .setPositiveButton(
+                                            "OK",
+                                            DialogInterface.OnClickListener { dialog, id ->
 
-                                                var intent = Intent(applicationContext, HomeActivity::class.java)
+                                                var intent = Intent(
+                                                    applicationContext,
+                                                    HomeActivity::class.java
+                                                )
                                                 startActivity(intent)
                                                 finish()
                                             })
@@ -2937,8 +3608,9 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
                         override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
                             progressDialog!!.dismiss()
-                            val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                                    " Some technical issues.", Snackbar.LENGTH_SHORT
+                            val mySnackbar = Snackbar.make(
+                                findViewById(R.id.rl_main),
+                                " Some technical issues.", Snackbar.LENGTH_SHORT
                             )
                             mySnackbar.show()
                         }
@@ -2946,42 +3618,45 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                 } catch (e: Exception) {
                     progressDialog!!.dismiss()
                     e.printStackTrace()
-                    val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                            " Some technical issues.", Snackbar.LENGTH_SHORT
+                    val mySnackbar = Snackbar.make(
+                        findViewById(R.id.rl_main),
+                        " Some technical issues.", Snackbar.LENGTH_SHORT
                     )
                     mySnackbar.show()
                 }
             }
             false -> {
-                val mySnackbar = Snackbar.make(findViewById(R.id.rl_main), "No Internet Connection!!", Snackbar.LENGTH_SHORT)
+                val mySnackbar = Snackbar.make(
+                    findViewById(R.id.rl_main),
+                    "No Internet Connection!!",
+                    Snackbar.LENGTH_SHORT
+                )
                 mySnackbar.show()
             }
         }
     }
 
 
-
     private fun SendInd() {
-        if(edt_acc_first!!.text.toString() == null||edt_acc_second!!.text.toString() == null||edt_acc_third!!.text.toString() == null){
+        if (edt_acc_first!!.text.toString() == null || edt_acc_second!!.text.toString() == null || edt_acc_third!!.text.toString() == null) {
 
             val dialogBuilder = AlertDialog.Builder(
-                    this@CustomerSearchActivity,
-                    R.style.MyDialogTheme
+                this@CustomerSearchActivity,
+                R.style.MyDialogTheme
             )
             dialogBuilder.setMessage("Please verify & select an account.")
-                    .setCancelable(false)
-                    .setPositiveButton(
-                            "OK",
-                            DialogInterface.OnClickListener { dialog, id ->
-                                dialog.dismiss()
-                                //doLogout()
-                            })
+                .setCancelable(false)
+                .setPositiveButton(
+                    "OK",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        dialog.dismiss()
+                        //doLogout()
+                    })
             val alert = dialogBuilder.create()
             alert.show()
             val pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE)
             pbutton.setTextColor(Color.MAGENTA)
-        }
-        else {
+        } else {
             amountValidation1(strCusName)
 
         }
@@ -2991,8 +3666,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     private fun amountValidation1(cName: String?) {
         if (input_amount!!.text.toString() == null || input_amount!!.text.toString().isEmpty()) {
             input_amount!!.setError("Please enter collection amount")
-        }
-        else{
+        } else {
             val dialog = Dialog(this)
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.setCancelable(false)
@@ -3003,27 +3677,24 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
             val tv_amount_words = dialog.findViewById(R.id.tv_amount_words) as TextView
             tv_amount_words.setText(tv_rupees!!.text)
             var amnt = input_amount!!.text.toString()
-            if (amnt.contains(".")){
+            if (amnt.contains(".")) {
                 val domain = amnt.substringAfterLast(".")
-                if (domain.length == 0){
+                if (domain.length == 0) {
                     tv_amount.setText("₹ " + amnt + "00")
-                }
-                else if (domain.length == 1){
+                } else if (domain.length == 1) {
                     tv_amount.setText("₹ " + amnt + "0")
-                }
-                else{
+                } else {
                     tv_amount.setText("₹ " + amnt)
                 }
-            }
-            else{
+            } else {
                 tv_amount.setText("₹ " + amnt + ".00")
             }
 
             val okBtn = dialog.findViewById(R.id.btnOK) as Button
             okBtn.setOnClickListener {
-                strAmount= input_amount!!.text?.toString()
+                strAmount = input_amount!!.text?.toString()
                 strAmount = strAmount!!.replace(",", "")
-                strMsg= input_msg!!.text?.toString()
+                strMsg = input_msg!!.text?.toString()
 
                 submitDeposit(strAmount, strMsg, cName)
                 dialog.dismiss()
@@ -3042,7 +3713,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
             applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
         var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
         var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
-        when(ConnectivityUtils.isConnected(this)) {
+        when (ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
                     applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
@@ -3056,36 +3727,45 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                 progressDialog!!.show()
                 try {
                     val client = OkHttpClient.Builder()
-                            .sslSocketFactory(getSSLSocketFactory())
-                            .hostnameVerifier(getHostnameVerifier())
-                            .build()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build()
                     val gson = GsonBuilder()
-                            .setLenient()
-                            .create()
+                        .setLenient()
+                        .create()
                     val retrofit = Retrofit.Builder()
-                            .baseUrl(ApiService.BASE_URL)
-                            .addConverterFactory(ScalarsConverterFactory.create())
-                            .addConverterFactory(GsonConverterFactory.create(gson))
-                            .client(client)
-                            .build()
+                        .baseUrl(ApiService.BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build()
 
                     val apiService = retrofit.create(ApiInterface::class.java!!)
                     val requestObject1 = JSONObject()
                     try {
                         val calendar = Calendar.getInstance()
-                        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH)
+                        val simpleDateFormat =
+                            SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH)
                         val dateTime = simpleDateFormat.format(calendar.time)
-                        val DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails(this)
+                        val DeviceAppDetails =
+                            BizcoreApplication.getInstance().getDeviceAppDetails(this)
                         var Imei = DeviceAppDetails.imei
                         if (Imei != null && !Imei.isEmpty()) {
 
                         } else {
-                            val DeviceAppDetails1 = BizcoreApplication.getInstance().getDeviceAppDetails1(this)
+                            val DeviceAppDetails1 =
+                                BizcoreApplication.getInstance().getDeviceAppDetails1(this)
                             Imei = DeviceAppDetails1.imei
                         }
-                        val AgentIdSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
+                        val AgentIdSP = applicationContext.getSharedPreferences(
+                            BizcoreApplication.SHARED_PREF1,
+                            0
+                        )
                         val agentId = AgentIdSP.getString("Agent_ID", null)
-                        val tokenSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF4, 0)
+                        val tokenSP = applicationContext.getSharedPreferences(
+                            BizcoreApplication.SHARED_PREF4,
+                            0
+                        )
                         val token = tokenSP.getString("token", null)
                         val randomNumber = CryptoGraphy.getInstance().randomNumber(agentId)
                         var cardlessValue = 1
@@ -3120,57 +3800,111 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
                         val processingCode = "76" + strModuleValue + "11"
 
-                        requestObject1.put("Processing_Code", BizcoreApplication.encryptMessage(processingCode))
-                        requestObject1.put("Extended_Primary_AccountNumber", BizcoreApplication.encryptMessage("0000000000000000"))
-                        requestObject1.put("Customer_Number", BizcoreApplication.encryptMessage("000000000000"))
-                        requestObject1.put("AccountIdentification1", BizcoreApplication.encryptMessage(edt_acc_first!!.text.toString() + edt_acc_second!!.text.toString() + edt_acc_third!!.text.toString()))
-                        requestObject1.put("From_Module", BizcoreApplication.encryptMessage(strModule))
-                        requestObject1.put("RequestMessage", BizcoreApplication.encryptMessage(strMsg))
+                        requestObject1.put(
+                            "Processing_Code",
+                            BizcoreApplication.encryptMessage(processingCode)
+                        )
+                        requestObject1.put(
+                            "Extended_Primary_AccountNumber",
+                            BizcoreApplication.encryptMessage("0000000000000000")
+                        )
+                        requestObject1.put(
+                            "Customer_Number",
+                            BizcoreApplication.encryptMessage("000000000000")
+                        )
+                        requestObject1.put(
+                            "AccountIdentification1",
+                            BizcoreApplication.encryptMessage(edt_acc_first!!.text.toString() + edt_acc_second!!.text.toString() + edt_acc_third!!.text.toString())
+                        )
+                        requestObject1.put(
+                            "From_Module",
+                            BizcoreApplication.encryptMessage(strModule)
+                        )
+                        requestObject1.put(
+                            "RequestMessage",
+                            BizcoreApplication.encryptMessage(strMsg)
+                        )
                         requestObject1.put("Narration", BizcoreApplication.encryptMessage(strMsg))
-                        requestObject1.put("SystemTrace_AuditNumber", BizcoreApplication.encryptMessage(randomNumber))
+                        requestObject1.put(
+                            "SystemTrace_AuditNumber",
+                            BizcoreApplication.encryptMessage(randomNumber)
+                        )
                         requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
                         requestObject1.put("Amount", BizcoreApplication.encryptMessage(strAmount))
                         requestObject1.put("TransDate", BizcoreApplication.encryptMessage(dateTime))
                         requestObject1.put("Token", BizcoreApplication.encryptMessage(hashString))
-                        requestObject1.put("CardLess", BizcoreApplication.encryptMessage(1.toString()))
-                        requestObject1.put("TransType", BizcoreApplication.encryptMessage("RECEIPT"))
-                        requestObject1.put("CurrentDate", BizcoreApplication.encryptMessage(dateTime))
-                        requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("LastTransactionId", BizcoreApplication.encryptMessage(LastTransactionId))
+                        requestObject1.put(
+                            "CardLess",
+                            BizcoreApplication.encryptMessage(1.toString())
+                        )
+                        requestObject1.put(
+                            "TransType",
+                            BizcoreApplication.encryptMessage("RECEIPT")
+                        )
+                        requestObject1.put(
+                            "CurrentDate",
+                            BizcoreApplication.encryptMessage(dateTime)
+                        )
+                        requestObject1.put(
+                            "Card_Acceptor_Terminal_IDCode",
+                            BizcoreApplication.encryptMessage(Imei)
+                        )
+                        requestObject1.put(
+                            "LastTransactionId",
+                            BizcoreApplication.encryptMessage(LastTransactionId)
+                        )
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
-                        requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
-                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
-                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
+                        requestObject1.put(
+                            "BankHeader",
+                            BizcoreApplication.encryptMessage(bank_header)
+                        )
+                        requestObject1.put(
+                            "BankVerified",
+                            "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg="
+                        )//encrypted value for zero
+                        requestObject1.put(
+                            "CommonAPI",
+                            BizcoreApplication.encryptMessage(CommonAPI)
+                        )
+                        requestObject1.put(
+                            "CommonAPIURL",
+                            BizcoreApplication.encryptMessage(CommonAPIURL)
+                        )
 
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
                     }
-                    val body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString())
+                    val body = RequestBody.create(
+                        okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                        requestObject1.toString()
+                    )
                     val call = apiService.getTransactionRequest(body)
                     call.enqueue(object : retrofit2.Callback<String> {
-                        override fun onResponse(call: retrofit2.Call<String>, response:
-                        Response<String>
+                        override fun onResponse(
+                            call: retrofit2.Call<String>, response:
+                            Response<String>
                         ) {
-                            Log.v("dsfsdfsdfds","res "+response.body())
+                            Log.v("dsfsdfsdfds", "res " + response.body())
                             try {
-                                Log.e(TAG,"0000111   "+response.body())
+                                Log.e(TAG, "0000111   " + response.body())
                                 progressDialog!!.dismiss()
                                 val jObject = JSONObject(response.body())
                                 if (jObject.getString("StatusCode") == "0") {
 
                                     val jobjt = jObject.getJSONObject("TransInfo")
-                                    Log.e(TAG,"33333    " + response.body())
+                                    Log.e(TAG, "33333    " + response.body())
                                     val sdf = SimpleDateFormat("dd-M-yyyy hh:mm:ss")
-                                    showSuccessDialog(":" + jObject.getString("StatusMessage"),
-                                            ":" + strCustname,
-                                            ":" + edt_acc_first!!.text.toString() + edt_acc_second!!.text.toString() + edt_acc_third!!.text.toString() + "(" + strModule + ")",
-                                            ":₹" + jobjt.getString("NetAmount") + " /-",
-                                            ":" + jobjt.getString("ReferanceNumber"),
-                                            jobjt.getString("BalanceAmount"),
-                                            jobjt.getString("NetAmount"), ""+sdf.format(Date()),
-                                        strOrgName.toString())
+                                    showSuccessDialog(
+                                        ":" + jObject.getString("StatusMessage"),
+                                        ":" + strCustname,
+                                        ":" + edt_acc_first!!.text.toString() + edt_acc_second!!.text.toString() + edt_acc_third!!.text.toString() + "(" + strModule + ")",
+                                        ":₹" + jobjt.getString("NetAmount") + " /-",
+                                        ":" + jobjt.getString("ReferanceNumber"),
+                                        jobjt.getString("BalanceAmount"),
+                                        jobjt.getString("NetAmount"), "" + sdf.format(Date()),
+                                        strOrgName.toString()
+                                    )
 
 //                                    printData =
 ////                                         "(" + strModule + ")" + "|" +
@@ -3182,27 +3916,32 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 //                                    printdata = "A/C No" + "      :" + "10000000"
 
 
-                                   var value = BizcoreUtility.roundDecimalDoubleZero(""+netAmt)
-                                    var avlbal = BizcoreUtility.roundDecimalDoubleZero(""+avlBal)
+                                    var value = BizcoreUtility.roundDecimalDoubleZero("" + netAmt)
+                                    var avlbal = BizcoreUtility.roundDecimalDoubleZero("" + avlBal)
 
                                     printdata =
-                                                "NAME" +"      :" + strCustname + "|" +
-                                                "Amount" +"    :" + value + "|" +
-                                                "AvlBal"+"     :" + avlbal+"Cr"+ "|" +
-                                                "Ref.no"+"     :" + jobjt.getString("ReferanceNumber")
+                                        "NAME" + "      :" + strCustname + "|" +
+                                                "Amount" + "    :" + value + "|" +
+                                                "AvlBal" + "     :" + avlbal + "Cr" + "|" +
+                                                "Ref.no" + "     :" + jobjt.getString("ReferanceNumber")
 
-                                    Log.e(TAG,"88888    " + printdata)
+                                    Log.e(TAG, "88888    " + printdata)
 //                                    Log.v("hffghfsrtyhy","88888hh"+ BizcoreUtility.hideAccNo(mAccountNo1!!) )
 //                                    Log.v("hffghfsrtyhy","88888 data"+ "NAME" + "        :" + strCustname)
 //                                    Log.v("hffghfsrtyhy","88888"+ "Depo.Dt" + ":" + strModule)
 
 
                                 } else {
-                                    Log.v(TAG,"66666666")
-                                    val dialogBuilder = AlertDialog.Builder(this@CustomerSearchActivity, R.style.MyDialogTheme)
+                                    Log.v(TAG, "66666666")
+                                    val dialogBuilder = AlertDialog.Builder(
+                                        this@CustomerSearchActivity,
+                                        R.style.MyDialogTheme
+                                    )
                                     dialogBuilder.setMessage(jObject.getString("StatusMessage"))
-                                            .setCancelable(false)
-                                            .setPositiveButton("OK", DialogInterface.OnClickListener { dialog, id ->
+                                        .setCancelable(false)
+                                        .setPositiveButton(
+                                            "OK",
+                                            DialogInterface.OnClickListener { dialog, id ->
                                                 dialog.dismiss()
                                                 // doLogout()
                                             })
@@ -3212,7 +3951,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                     pbutton.setTextColor(Color.MAGENTA)
                                 }
                             } catch (e: Exception) {
-                                Log.v(TAG,"7777777777"+e)
+                                Log.v(TAG, "7777777777" + e)
                                 progressDialog!!.dismiss()
                                 e.printStackTrace()
                             }
@@ -3220,8 +3959,9 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
                         override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
                             progressDialog!!.dismiss()
-                            val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                                    " Some technical issues.", Snackbar.LENGTH_SHORT
+                            val mySnackbar = Snackbar.make(
+                                findViewById(R.id.rl_main),
+                                " Some technical issues.", Snackbar.LENGTH_SHORT
                             )
                             mySnackbar.show()
                         }
@@ -3229,8 +3969,9 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                 } catch (e: Exception) {
                     progressDialog!!.dismiss()
                     e.printStackTrace()
-                    val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                            " Some technical issues.", Snackbar.LENGTH_SHORT
+                    val mySnackbar = Snackbar.make(
+                        findViewById(R.id.rl_main),
+                        " Some technical issues.", Snackbar.LENGTH_SHORT
                     )
                     mySnackbar.show()
                 }
@@ -3238,13 +3979,15 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
             false -> {
                 val dialogBuilder = AlertDialog.Builder(this, R.style.MyDialogTheme)
                 dialogBuilder.setMessage("No internet connection, you can collect amount in offline mode.")
-                        .setCancelable(false)
-                        .setPositiveButton("COLLECT OFFLINE", DialogInterface.OnClickListener { dialog, id ->
+                    .setCancelable(false)
+                    .setPositiveButton(
+                        "COLLECT OFFLINE",
+                        DialogInterface.OnClickListener { dialog, id ->
                             doCollection()
                         })
-                        .setNegativeButton("CANCEL", DialogInterface.OnClickListener { dialog, id ->
-                            dialog.dismiss()
-                        })
+                    .setNegativeButton("CANCEL", DialogInterface.OnClickListener { dialog, id ->
+                        dialog.dismiss()
+                    })
                 val alert = dialogBuilder.create()
                 alert.show()
                 val nbutton = alert.getButton(DialogInterface.BUTTON_NEGATIVE)
@@ -3257,10 +4000,23 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
 
     @SuppressLint("SetTextI18n")
-    private fun showSuccessDialog(deposit: String, recName: String,recAc: String, amount: String, reffNo: String, BalAmount: String, netAmount: String, datetime: String, orgName : String) {
+    private fun showSuccessDialog(
+        deposit: String,
+        recName: String,
+        recAc: String,
+        amount: String,
+        reffNo: String,
+        BalAmount: String,
+        netAmount: String,
+        datetime: String,
+        orgName: String
+    ) {
 
 
-        Log.e(TAG, "showSuccessDialog   2464   "+deposit+" "+recName+" "+recAc+" "+amount+" "+reffNo+" "+BalAmount+" "+netAmount+" "+datetime+" "+orgName)
+        Log.e(
+            TAG,
+            "showSuccessDialog   2464   " + deposit + " " + recName + " " + recAc + " " + amount + " " + reffNo + " " + BalAmount + " " + netAmount + " " + datetime + " " + orgName
+        )
 //        val dialog = Dialog(this)
 //        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
 //        dialog.setCancelable(false)
@@ -3274,51 +4030,49 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         dialogBuilder.setView(dialogView)
 
         val btnShare = dialogView.findViewById(R.id.btnShare) as Button
-        val lnr_success= dialogView.findViewById(R.id.lnr_success) as LinearLayout
+        val lnr_success = dialogView.findViewById(R.id.lnr_success) as LinearLayout
 
 
-
-        val txtDeposit = dialogView.findViewById(R.id.txtDeposit)as TextView
+        val txtDeposit = dialogView.findViewById(R.id.txtDeposit) as TextView
         txtDeposit.text = deposit
 
-        val txtReceiverName = dialogView.findViewById(R.id.txtReceiverName)as TextView
+        val txtReceiverName = dialogView.findViewById(R.id.txtReceiverName) as TextView
         txtReceiverName.text = recName
 
-        val txtReceiverAC = dialogView.findViewById(R.id.txtReceiverAC)as TextView
+        val txtReceiverAC = dialogView.findViewById(R.id.txtReceiverAC) as TextView
         txtReceiverAC.text = recAc
 
-        val txtOrgName = dialogView.findViewById(R.id.txtOrgName)as TextView
-        val ll_orga_name = dialogView.findViewById(R.id.ll_orga_name)as LinearLayout
+        val txtOrgName = dialogView.findViewById(R.id.txtOrgName) as TextView
+        val ll_orga_name = dialogView.findViewById(R.id.ll_orga_name) as LinearLayout
 
-        if (orgName == ""){
+        if (orgName == "") {
             ll_orga_name.visibility = View.GONE
 
-        }
-        else{
+        } else {
             ll_orga_name.visibility = View.VISIBLE
-            txtOrgName.text = ": "+orgName
+            txtOrgName.text = ": " + orgName
         }
 
 
-        avlBal=(BalAmount.replace("C", "")).toDouble()
-        netAmt=(netAmount).toDouble()
-        opBal= avlBal!! - netAmt!!
+        avlBal = (BalAmount.replace("C", "")).toDouble()
+        netAmt = (netAmount).toDouble()
+        opBal = avlBal!! - netAmt!!
 
-        val txtAOpeningBal = dialogView.findViewById(R.id.txtAOpeningBal)as TextView
-        var values = BizcoreUtility.roundDecimalDoubleZero(""+opBal)
-        txtAOpeningBal.text = ": ₹ "+values.toString()+"Cr"
+        val txtAOpeningBal = dialogView.findViewById(R.id.txtAOpeningBal) as TextView
+        var values = BizcoreUtility.roundDecimalDoubleZero("" + opBal)
+        txtAOpeningBal.text = ": ₹ " + values.toString() + "Cr"
 
-        val txtAvbal = dialogView.findViewById(R.id.txtAvbal)as TextView
-        var balance = BizcoreUtility.roundDecimalDoubleZero(""+BalAmount)
-        txtAvbal.text = ": ₹ "+balance+"Cr"
+        val txtAvbal = dialogView.findViewById(R.id.txtAvbal) as TextView
+        var balance = BizcoreUtility.roundDecimalDoubleZero("" + BalAmount)
+        txtAvbal.text = ": ₹ " + balance + "Cr"
 
-        val txtDateTime = dialogView.findViewById(R.id.txtDateTime)as TextView
-        txtDateTime.text = ": "+datetime
+        val txtDateTime = dialogView.findViewById(R.id.txtDateTime) as TextView
+        txtDateTime.text = ": " + datetime
 
-        val txtAmount = dialogView.findViewById(R.id.txtAmount)as TextView
-        txtAmount.text = amount+"\n[ "+tv_rupees.text.toString()+" ]"
+        val txtAmount = dialogView.findViewById(R.id.txtAmount) as TextView
+        txtAmount.text = amount + "\n[ " + tv_rupees.text.toString() + " ]"
 
-        val txtRefferenceNo = dialogView.findViewById(R.id.txtRefferenceNo)as TextView
+        val txtRefferenceNo = dialogView.findViewById(R.id.txtRefferenceNo) as TextView
         txtRefferenceNo.text = reffNo
         sharelayout(dialogView)
         btnShare.setOnClickListener {
@@ -3361,10 +4115,6 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 //                startActivity(Intent.createChooser(shareIntent, "Share Opportunity"));
 
 
-
-
-
-
 //            } catch (e: java.lang.Exception) {
 //                e.printStackTrace()
 //                Log.e(TAG, "Exception   2496   "+e.toString())
@@ -3381,9 +4131,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 //        startActivity(Intent.createChooser(shareIntent, "Share"))
 
 
-
         }
-        val okBtn = dialogView .findViewById(R.id.btnOK) as Button
+        val okBtn = dialogView.findViewById(R.id.btnOK) as Button
         okBtn.setOnClickListener {
             //dialogView .dismiss()
 
@@ -3393,22 +4142,30 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         }
         val printBtn = dialogView.findViewById(R.id.btnprint) as Button
         //sharelayout(dialogView)
-        printBtn.setOnClickListener{
+        printBtn.setOnClickListener {
 //            showPrintDialog()
 //            val agent_Name = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF2, 0)
 //            val header: String = agent_Name.toString()
-            var values = BizcoreUtility.roundDecimalDoubleZero(""+opBal)
-            var opball:String = values.toString()+"Cr"
-            Log.e(TAG,"print00000000 "+from)
-            Log.e(TAG,"555555555555 "+printdata)
-            Log.e(TAG,"rec A/c "+recAc)
-            Log.e(TAG,"opball"+opball)
+            var values = BizcoreUtility.roundDecimalDoubleZero("" + opBal)
+            var opball: String = values.toString() + "Cr"
+            Log.e(TAG, "print00000000 " + from)
+            Log.e(TAG, "555555555555 " + printdata)
+            Log.e(TAG, "rec A/c " + recAc)
+            Log.e(TAG, "opball" + opball)
 
-          //  BizcoreUtility.preparePrintingMessage(from!!, printdata!!,recAc,opBal!!.toString(),"","",this@CustomerSearchActivity)
-            BizcoreUtility.preparePrintingMessage(from!!, printdata!!,recAc,opball!!.toString(),"","",this@CustomerSearchActivity)
+            //  BizcoreUtility.preparePrintingMessage(from!!, printdata!!,recAc,opBal!!.toString(),"","",this@CustomerSearchActivity)
+            BizcoreUtility.preparePrintingMessage(
+                from!!,
+                printdata!!,
+                recAc,
+                opball!!.toString(),
+                "",
+                "",
+                this@CustomerSearchActivity
+            )
         }
         val alertDialog = dialogBuilder.create()
-        alertDialog .show()
+        alertDialog.show()
     }
 
     private fun sharelayout(customLayout2: View) {
@@ -3448,7 +4205,10 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     private fun getLocalBitmapUri(bitmap: Bitmap?, deposit: String): Uri {
 
         var bmpUri: Uri? = null
-        val file = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "" + deposit + "_" + System.currentTimeMillis().toString() + ".png")
+        val file = File(
+            getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+            "" + deposit + "_" + System.currentTimeMillis().toString() + ".png"
+        )
         var out: FileOutputStream? = null
         try {
             out = FileOutputStream(file)
@@ -3459,20 +4219,20 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                 out.close()
             } catch (e: IOException) {
                 e.printStackTrace()
-                Log.e(TAG, "IOException   2581   "+e.toString())
+                Log.e(TAG, "IOException   2581   " + e.toString())
             }
             bmpUri = Uri.fromFile(file)
         } catch (e: FileNotFoundException) {
             e.printStackTrace()
-            Log.e(TAG, "FileNotFoundException   2586   "+e.toString())
+            Log.e(TAG, "FileNotFoundException   2586   " + e.toString())
         }
         return bmpUri!!
 
     }
 
 
-    fun doReset(){
-        val intent= Intent(this, CustomerSearchActivity::class.java)
+    fun doReset() {
+        val intent = Intent(this, CustomerSearchActivity::class.java)
         intent.putExtra("from", from)
         startActivity(intent)
         finish()
@@ -3481,45 +4241,49 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     private fun showPrintDialog() {
 
         val dialog = Dialog(this)
-        dialog .requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog .setCancelable(false)
-        dialog .setContentView(R.layout.print_selection_layout)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.print_selection_layout)
         dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
 
-        val txtMaximus = dialog.findViewById(R.id.txt_maximus)as TextView
+        val txtMaximus = dialog.findViewById(R.id.txt_maximus) as TextView
         txtMaximus.setOnClickListener {
-            val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                    "Maximus", Snackbar.LENGTH_SHORT
+            val mySnackbar = Snackbar.make(
+                findViewById(R.id.rl_main),
+                "Maximus", Snackbar.LENGTH_SHORT
             )
             mySnackbar.show()
             selectedPrinter = "1"
-            dialog .dismiss()
+            dialog.dismiss()
         }
 
-        val txtEvalute = dialog.findViewById(R.id.txt_evalute)as TextView
+        val txtEvalute = dialog.findViewById(R.id.txt_evalute) as TextView
         txtEvalute.setOnClickListener {
-            val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                    "Evalute", Snackbar.LENGTH_SHORT
+            val mySnackbar = Snackbar.make(
+                findViewById(R.id.rl_main),
+                "Evalute", Snackbar.LENGTH_SHORT
             )
             mySnackbar.show()
             selectedPrinter = "2"
-            dialog .dismiss()
+            dialog.dismiss()
         }
 
-        val txtEvaluteMini = dialog.findViewById(R.id.txt_evalute_mini)as TextView
+        val txtEvaluteMini = dialog.findViewById(R.id.txt_evalute_mini) as TextView
         txtEvaluteMini.setOnClickListener {
-            val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                    "Evalute mini", Snackbar.LENGTH_SHORT
+            val mySnackbar = Snackbar.make(
+                findViewById(R.id.rl_main),
+                "Evalute mini", Snackbar.LENGTH_SHORT
             )
             mySnackbar.show()
             selectedPrinter = "3"
-            dialog .dismiss()
+            dialog.dismiss()
         }
 
-        val txtSoftland = dialog.findViewById(R.id.txt_softland)as TextView
+        val txtSoftland = dialog.findViewById(R.id.txt_softland) as TextView
         txtSoftland.setOnClickListener {
-            val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                    "softland", Snackbar.LENGTH_SHORT
+            val mySnackbar = Snackbar.make(
+                findViewById(R.id.rl_main),
+                "softland", Snackbar.LENGTH_SHORT
             )
             mySnackbar.show()
             try {
@@ -3538,29 +4302,29 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 //                val header: String = successDisplayModel.getTitleLabel()
 //                BizcoreUtility.preparePrintingMessage(header, printingMessage, this@CustomerSearchActivity)
             } catch (e: java.lang.Exception) {
-                Log.e(TAG, "Exception    78982   "+e)
+                Log.e(TAG, "Exception    78982   " + e)
             }
             selectedPrinter = "4"
-            dialog .dismiss()
+            dialog.dismiss()
         }
 
-        val txtSunmi = dialog.findViewById(R.id.txt_sunmi)as TextView
+        val txtSunmi = dialog.findViewById(R.id.txt_sunmi) as TextView
         txtSunmi.setOnClickListener {
-            val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                    "sunmi", Snackbar.LENGTH_SHORT
+            val mySnackbar = Snackbar.make(
+                findViewById(R.id.rl_main),
+                "sunmi", Snackbar.LENGTH_SHORT
             )
             mySnackbar.show()
             selectedPrinter = "5"
-            dialog .dismiss()
+            dialog.dismiss()
         }
 
-        val okBtn = dialog .findViewById(R.id.btnCANCEL) as Button
+        val okBtn = dialog.findViewById(R.id.btnCANCEL) as Button
         okBtn.setOnClickListener {
-            dialog .dismiss()
+            dialog.dismiss()
         }
-        dialog .show()
+        dialog.show()
     }
-
 
 
     private fun doLogout() {
@@ -3570,42 +4334,50 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
             loginEditer.putString("loginsession", "No")
             loginEditer.commit()
 
-            val AgentIdSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
+            val AgentIdSP =
+                applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
             val AgentIdEditor = AgentIdSP.edit()
             AgentIdEditor.putString("Agent_ID", "")
             AgentIdEditor.commit()
 
-            val Agent_NameSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF2, 0)
+            val Agent_NameSP =
+                applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF2, 0)
             val Agent_NameEditer = Agent_NameSP.edit()
             Agent_NameEditer.putString("Agent_Name", "")
             Agent_NameEditer.commit()
 
-            val CusMobileSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF3, 0)
+            val CusMobileSP =
+                applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF3, 0)
             val CusMobileEditer = CusMobileSP.edit()
             CusMobileEditer.putString("CusMobile", "")
             CusMobileEditer.commit()
 
-            val tokenSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF4, 0)
+            val tokenSP =
+                applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF4, 0)
             val tokenEditer = tokenSP.edit()
             tokenEditer.putString("token", "")
             tokenEditer.commit()
 
-            val UserName = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF5, 0)
+            val UserName =
+                applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF5, 0)
             val UserNameEditor = UserName.edit()
             UserNameEditor.putString("username", "")
             UserNameEditor.commit()
 
-            val transactionIDSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF6, 0)
+            val transactionIDSP =
+                applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF6, 0)
             val transactionIDEditor = transactionIDSP.edit()
             transactionIDEditor.putString("Transaction_ID", "1")
             transactionIDEditor.commit()
 
-            val archiveIDSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF7, 0)
+            val archiveIDSP =
+                applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF7, 0)
             val archiveIDEditor = archiveIDSP.edit()
             archiveIDEditor.putString("Archive_ID", "1")
             archiveIDEditor.commit()
 
-            val loginTimeSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF8, 0)
+            val loginTimeSP =
+                applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF8, 0)
             val loginTimeEditer = loginTimeSP.edit()
             loginTimeEditer.putString("logintime", "")
             loginTimeEditer.commit()
@@ -3624,17 +4396,19 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     }
 
     private fun doCollection() {
-        val intent= Intent(this, NewCollectionActivity::class.java)
+        val intent = Intent(this, NewCollectionActivity::class.java)
         intent.putExtra("from", "Deposit")
         startActivity(intent)
         finish()
     }
 
 
-
-
     /*Place comma seperator on edit text and display amount in words on a text view*/
-    fun setEdtTxtAmountCommaSeperator(editText: EditText, txtAmt: TextView?, isDecimalAllowed: Boolean) {
+    fun setEdtTxtAmountCommaSeperator(
+        editText: EditText,
+        txtAmt: TextView?,
+        isDecimalAllowed: Boolean
+    ) {
 
         editText.addTextChangedListener(object : TextWatcher {
             internal lateinit var firstString: String
@@ -3645,7 +4419,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                 txtAmt!!.text = ""
                 firstString = charSequence.toString()
                 val rupee =
-                        firstString.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    firstString.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                 if (rupee.size > 0)
                     beforeInt = rupee[0]
                 if (rupee.size > 1)
@@ -3659,7 +4433,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                     val amount = charSequence.toString().replace(",".toRegex(), "")
                     if (txtAmt != null && !amount.isEmpty()) {
                         val rupee = amount.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }
-                                .toTypedArray()
+                            .toTypedArray()
                         if (rupee.size == 0)
                             return
                         var intPart = rupee[0]
@@ -3680,22 +4454,22 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                     editText.addTextChangedListener(this)
 
                                     var amountInWords =
-                                            rupeeString + NumberToWord.convertNumberToWords(
-                                                    Integer.parseInt(
-                                                            beforeInt.replace(
-                                                                    ",".toRegex(), ""
-                                                            )
-                                                    )
+                                        rupeeString + NumberToWord.convertNumberToWords(
+                                            Integer.parseInt(
+                                                beforeInt.replace(
+                                                    ",".toRegex(), ""
+                                                )
                                             )
+                                        )
                                     if (!beforeDec.isEmpty()) {
                                         beforeDec = beforeDec.replace(",".toRegex(), "")
                                         beforeDec = String.format(
-                                                Locale.ENGLISH,
-                                                "%02d",
-                                                Integer.parseInt(beforeDec)
+                                            Locale.ENGLISH,
+                                            "%02d",
+                                            Integer.parseInt(beforeDec)
                                         )
                                         amountInWords += " and " + NumberToWord.convertNumberToWords(
-                                                Integer.parseInt(beforeDec)
+                                            Integer.parseInt(beforeDec)
                                         )
                                         amountInWords += " paisa only"
                                     }
@@ -3705,12 +4479,12 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                     if (intPart.isEmpty())
                                         intPart = "0"
                                     var amountInWords =
-                                            rupeeString + NumberToWord.convertNumberToWords(
-                                                    Integer.parseInt(intPart)
-                                            )
+                                        rupeeString + NumberToWord.convertNumberToWords(
+                                            Integer.parseInt(intPart)
+                                        )
 
                                     amountInWords += " and " + NumberToWord.convertNumberToWords(
-                                            Integer.parseInt(decPart)
+                                        Integer.parseInt(decPart)
                                     )
                                     amountInWords += " paisa only"
 
@@ -3729,12 +4503,12 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
                                 val amountInWords = rupeeString +
                                         NumberToWord.convertNumberToWords(
-                                                Integer.parseInt(
-                                                        beforeInt.replace(
-                                                                ",".toRegex(),
-                                                                ""
-                                                        )
+                                            Integer.parseInt(
+                                                beforeInt.replace(
+                                                    ",".toRegex(),
+                                                    ""
                                                 )
+                                            )
                                         ) + " only"
 
                                 txtAmt.text = amountInWords
@@ -3748,7 +4522,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                 editText.setSelection(firstString.length)
                                 editText.addTextChangedListener(this)
                                 val amountInWords = rupeeString + NumberToWord.convertNumberToWords(
-                                        Integer.parseInt(intPart)
+                                    Integer.parseInt(intPart)
                                 ) + " only"
                                 txtAmt.text = amountInWords
                             }
@@ -3783,6 +4557,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         formatter.applyPattern("#,##,##,##,###")
         return formatter.format(longval)
     }
+
     /*Add comma to a amount string ex: 10024 converted to 10,024*/
     fun commSeperatorWithZero(originalString: String?): String {
         var originalString = originalString
@@ -3800,10 +4575,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     }
 
 
-
-
     private fun getAccountDetails(accvalue: String, authid: String) {
-        when(ConnectivityUtils.isConnected(this)) {
+        when (ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
                     applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
@@ -3819,34 +4592,43 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                 progressDialog!!.show()
                 try {
                     val client1 = OkHttpClient.Builder()
-                            .sslSocketFactory(getSSLSocketFactory())
-                            .hostnameVerifier(getHostnameVerifier())
-                            .build()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build()
                     val gson1 = GsonBuilder()
-                            .setLenient()
-                            .create()
+                        .setLenient()
+                        .create()
                     val retrofit1 = Retrofit.Builder()
-                            .baseUrl(ApiService.BASE_URL)
-                            .addConverterFactory(ScalarsConverterFactory.create())
-                            .addConverterFactory(GsonConverterFactory.create(gson1))
-                            .client(client1)
-                            .build()
+                        .baseUrl(ApiService.BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson1))
+                        .client(client1)
+                        .build()
                     val apiService1 = retrofit1.create(ApiInterface::class.java!!)
                     val requestObject2 = JSONObject()
                     try {
-                        val AgentIdSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
+                        val AgentIdSP = applicationContext.getSharedPreferences(
+                            BizcoreApplication.SHARED_PREF1,
+                            0
+                        )
                         val agentId = AgentIdSP.getString("Agent_ID", null)
                         val randomNumber = CryptoGraphy.getInstance().randomNumber(agentId)
                         val calendar = Calendar.getInstance()
-                        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH)
+                        val simpleDateFormat =
+                            SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH)
                         val dateTime = simpleDateFormat.format(calendar.time)
-                        val tokenSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF4, 0)
+                        val tokenSP = applicationContext.getSharedPreferences(
+                            BizcoreApplication.SHARED_PREF4,
+                            0
+                        )
                         val token = tokenSP.getString("token", null)
-                        val DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails(this)
+                        val DeviceAppDetails =
+                            BizcoreApplication.getInstance().getDeviceAppDetails(this)
                         var Imei = DeviceAppDetails.imei
                         if (Imei != null && !Imei.isEmpty()) {
                         } else {
-                            val DeviceAppDetails1 = BizcoreApplication.getInstance().getDeviceAppDetails1(this)
+                            val DeviceAppDetails1 =
+                                BizcoreApplication.getInstance().getDeviceAppDetails1(this)
                             Imei = DeviceAppDetails1.imei
                         }
                         val cardNo = BizcoreApplication.TEMP_CARD_NO
@@ -3868,38 +4650,83 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                             hashList.add(acc)
                         }
                         val hashString = "31" + CryptoGraphy.getInstance().hashing(hashList) + token
-                        requestObject2.put("Processing_Code", BizcoreApplication.encryptMessage("311011"))
-                        requestObject2.put("Extended_Primary_AccountNumber", BizcoreApplication.encryptMessage(cardNo))
-                        requestObject2.put("Customer_Number", BizcoreApplication.encryptMessage(acc))
-                        requestObject2.put("AccountIdentification1", BizcoreApplication.encryptMessage(acc))
-                        requestObject2.put("From_Module", BizcoreApplication.encryptMessage(strModule))
-                        requestObject2.put("RequestMessage", BizcoreApplication.encryptMessage("hloooo"))
-                        requestObject2.put("SystemTrace_AuditNumber", BizcoreApplication.encryptMessage(randomNumber))
+                        requestObject2.put(
+                            "Processing_Code",
+                            BizcoreApplication.encryptMessage("311011")
+                        )
+                        requestObject2.put(
+                            "Extended_Primary_AccountNumber",
+                            BizcoreApplication.encryptMessage(cardNo)
+                        )
+                        requestObject2.put(
+                            "Customer_Number",
+                            BizcoreApplication.encryptMessage(acc)
+                        )
+                        requestObject2.put(
+                            "AccountIdentification1",
+                            BizcoreApplication.encryptMessage(acc)
+                        )
+                        requestObject2.put(
+                            "From_Module",
+                            BizcoreApplication.encryptMessage(strModule)
+                        )
+                        requestObject2.put(
+                            "RequestMessage",
+                            BizcoreApplication.encryptMessage("hloooo")
+                        )
+                        requestObject2.put(
+                            "SystemTrace_AuditNumber",
+                            BizcoreApplication.encryptMessage(randomNumber)
+                        )
                         requestObject2.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
                         requestObject2.put("ResponseType", BizcoreApplication.encryptMessage("1"))
                         requestObject2.put("Token", BizcoreApplication.encryptMessage(hashString))
                         requestObject2.put("CardLess", BizcoreApplication.encryptMessage("1"))
-                        requestObject2.put("CurrentDate", BizcoreApplication.encryptMessage(dateTime))
+                        requestObject2.put(
+                            "CurrentDate",
+                            BizcoreApplication.encryptMessage(dateTime)
+                        )
                         requestObject2.put("Auth_ID", BizcoreApplication.encryptMessage(authid))
-                        requestObject2.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
+                        requestObject2.put(
+                            "Card_Acceptor_Terminal_IDCode",
+                            BizcoreApplication.encryptMessage(Imei)
+                        )
                         requestObject2.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
-                        requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
-                        requestObject2.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
-                        requestObject2.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
-                        requestObject2.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
+                        requestObject2.put(
+                            "BankHeader",
+                            BizcoreApplication.encryptMessage(bank_header)
+                        )
+                        requestObject2.put(
+                            "BankVerified",
+                            "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg="
+                        )//encrypted value for zero
+                        requestObject2.put(
+                            "CommonAPI",
+                            BizcoreApplication.encryptMessage(CommonAPI)
+                        )
+                        requestObject2.put(
+                            "CommonAPIURL",
+                            BizcoreApplication.encryptMessage(CommonAPIURL)
+                        )
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
-                        val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                                " Some technical issues.", Snackbar.LENGTH_SHORT
+                        val mySnackbar = Snackbar.make(
+                            findViewById(R.id.rl_main),
+                            " Some technical issues.", Snackbar.LENGTH_SHORT
                         )
                         mySnackbar.show()
                     }
-                    val body1 = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject2.toString())
+                    val body1 = RequestBody.create(
+                        okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                        requestObject2.toString()
+                    )
                     val call1 = apiService1.getBalenq(body1)
                     call1.enqueue(object : retrofit2.Callback<String> {
-                        override fun onResponse(call: retrofit2.Call<String>, response1:
-                        Response<String>) {
+                        override fun onResponse(
+                            call: retrofit2.Call<String>, response1:
+                            Response<String>
+                        ) {
                             try {
                                 progressDialog!!.dismiss()
                                 val jObject1 = JSONObject(response1.body())
@@ -3914,7 +4741,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 //                                        txtv_viewbal.setText("₹ " + (amount.replace("C", "")) + "(Cr)")
 
                                         val formatter = DecimalFormat("#,##,##,##,###.##")
-                                        val yourFormattedBalAmount = formatter.format(amount.replace("C", "").toDouble())
+                                        val yourFormattedBalAmount =
+                                            formatter.format(amount.replace("C", "").toDouble())
                                         txtv_viewbal.setText("₹ " + yourFormattedBalAmount + " (Cr)")
                                     } else if (amount.contains("null")) {
                                         txtv_viewbal?.visibility = View.GONE
@@ -3922,7 +4750,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 //                                        txtv_viewbal.setText("₹ " + (amount) + " (Cr)")
 
                                         val formatter = DecimalFormat("#,##,##,##,###.##")
-                                        val yourFormattedBalAmount = formatter.format(amount.toDouble())
+                                        val yourFormattedBalAmount =
+                                            formatter.format(amount.toDouble())
                                         txtv_viewbal.setText("₹ " + yourFormattedBalAmount + " (Cr)")
                                     }
                                     if (due.contains("null")) {
@@ -3931,7 +4760,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                         ll_dueamnt?.visibility = View.VISIBLE
 
                                         val formatter = DecimalFormat("#,##,##,##,###.##")
-                                        val yourFormattedDueAmount = formatter.format(due.replace("C", "").toDouble())
+                                        val yourFormattedDueAmount =
+                                            formatter.format(due.replace("C", "").toDouble())
 
                                         txtv_dueam1.setText("₹ " + yourFormattedDueAmount + " (Cr)")
 
@@ -3941,7 +4771,8 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                         ll_dueamnt?.visibility = View.VISIBLE
 
                                         val formatter = DecimalFormat("#,##,##,##,###.##")
-                                        val yourFormattedDueAmount = formatter.format(due.toDouble())
+                                        val yourFormattedDueAmount =
+                                            formatter.format(due.toDouble())
                                         txtv_dueam1.setText("₹ " + yourFormattedDueAmount + " (Cr)")
 
 //                                        txtv_dueam1.setText(" ₹ " + (due) + " (Cr)")
@@ -3950,10 +4781,15 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                 } else if (jObject1.getString("StatusCode") == "-1") {
                                     cv_balanceenq!!.visibility = View.GONE
 
-                                    val dialogBuilder = AlertDialog.Builder(this@CustomerSearchActivity, R.style.MyDialogTheme)
+                                    val dialogBuilder = AlertDialog.Builder(
+                                        this@CustomerSearchActivity,
+                                        R.style.MyDialogTheme
+                                    )
                                     dialogBuilder.setMessage(jObject1.getString("StatusMessage"))
-                                            .setCancelable(false)
-                                            .setPositiveButton("OK", DialogInterface.OnClickListener { dialog, id ->
+                                        .setCancelable(false)
+                                        .setPositiveButton(
+                                            "OK",
+                                            DialogInterface.OnClickListener { dialog, id ->
                                                 dialog.dismiss()
 //                                            doLogout()
                                             })
@@ -3963,10 +4799,15 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                                     pbutton.setTextColor(Color.MAGENTA)
                                 } else {
                                     cv_balanceenq!!.visibility = View.GONE
-                                    val dialogBuilder = AlertDialog.Builder(this@CustomerSearchActivity, R.style.MyDialogTheme)
+                                    val dialogBuilder = AlertDialog.Builder(
+                                        this@CustomerSearchActivity,
+                                        R.style.MyDialogTheme
+                                    )
                                     dialogBuilder.setMessage(jObject1.getString("StatusMessage"))
-                                            .setCancelable(false)
-                                            .setPositiveButton("OK", DialogInterface.OnClickListener { dialog, id ->
+                                        .setCancelable(false)
+                                        .setPositiveButton(
+                                            "OK",
+                                            DialogInterface.OnClickListener { dialog, id ->
                                                 dialog.dismiss()
 //                                            doLogout()
                                             })
@@ -3983,24 +4824,31 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
                         override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
                             progressDialog!!.dismiss()
-                            val mySnackbar = Snackbar.make(findViewById(R.id.rl_main), " Some technical issues.", Snackbar.LENGTH_SHORT)
+                            val mySnackbar = Snackbar.make(
+                                findViewById(R.id.rl_main),
+                                " Some technical issues.",
+                                Snackbar.LENGTH_SHORT
+                            )
                             mySnackbar.show()
                         }
                     })
                 } catch (e: Exception) {
                     progressDialog!!.dismiss()
                     e.printStackTrace()
-                    Toast.makeText(applicationContext, " Some technical issues.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, " Some technical issues.", Toast.LENGTH_LONG)
+                        .show()
                 }
             }
             false -> {
-                val mySnackbar = Snackbar.make(findViewById(R.id.rl_main), "No Internet Connection!!", Snackbar.LENGTH_SHORT)
+                val mySnackbar = Snackbar.make(
+                    findViewById(R.id.rl_main),
+                    "No Internet Connection!!",
+                    Snackbar.LENGTH_SHORT
+                )
                 mySnackbar.show()
             }
         }
     }
-
-
 
 
     private fun hideKeyboard(view: View) {
@@ -4053,13 +4901,19 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         })
     }
 
-    @Throws(CertificateException::class, KeyStoreException::class, IOException::class, NoSuchAlgorithmException::class, KeyManagementException::class)
+    @Throws(
+        CertificateException::class,
+        KeyStoreException::class,
+        IOException::class,
+        NoSuchAlgorithmException::class,
+        KeyManagementException::class
+    )
     private fun getSSLSocketFactory(): SSLSocketFactory {
         val cf = CertificateFactory.getInstance("X.509")
         //  InputStream caInput = getResources().openRawResource(Common.getCertificateAssetName());
         // File path: app\src\main\res\raw\your_cert.cer
         val caInput =
-                applicationContext.assets.open(ApiService.CERT_NAME)
+            applicationContext.assets.open(ApiService.CERT_NAME)
         val ca = cf.generateCertificate(caInput)
         caInput.close()
         val keyStore = KeyStore.getInstance("BKS")
@@ -4079,7 +4933,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
             applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
         var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
         var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
-        when(ConnectivityUtils.isConnected(this)) {
+        when (ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
                     applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
@@ -4092,13 +4946,14 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                 progressDialog!!.setIndeterminateDrawable(this.resources.getDrawable(R.drawable.progress))
                 progressDialog!!.show()
 
-                val AgentIdSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
+                val AgentIdSP =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
                 val agentId = AgentIdSP.getString("Agent_ID", null)
 
                 val calendar = Calendar.getInstance()
                 val simpleDateFormat = SimpleDateFormat(
-                        "yyyy-MM-dd HH:mm:ss.SSS",
-                        Locale.ENGLISH
+                    "yyyy-MM-dd HH:mm:ss.SSS",
+                    Locale.ENGLISH
                 )
                 val dateTime = simpleDateFormat.format(calendar.time)
 
@@ -4106,49 +4961,74 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                 var Imei = DeviceAppDetails.imei
                 if (Imei != null && !Imei.isEmpty()) {
                 } else {
-                    val DeviceAppDetails1 = BizcoreApplication.getInstance().getDeviceAppDetails1(this)
+                    val DeviceAppDetails1 =
+                        BizcoreApplication.getInstance().getDeviceAppDetails1(this)
                     Imei = DeviceAppDetails1.imei
                 }
 
                 try {
 
                     val client1 = OkHttpClient.Builder()
-                            .sslSocketFactory(getSSLSocketFactory())
-                            .hostnameVerifier(getHostnameVerifier())
-                            .build()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build()
                     val gson1 = GsonBuilder()
-                            .setLenient()
-                            .create()
+                        .setLenient()
+                        .create()
                     val retrofit1 = Retrofit.Builder()
-                            .baseUrl(ApiService.BASE_URL)
-                            .addConverterFactory(ScalarsConverterFactory.create())
-                            .addConverterFactory(GsonConverterFactory.create(gson1))
-                            .client(client1)
-                            .build()
+                        .baseUrl(ApiService.BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson1))
+                        .client(client1)
+                        .build()
                     val apiService1 = retrofit1.create(ApiInterface::class.java!!)
                     val requestObject1 = JSONObject()
                     try {
                         requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
-                        requestObject1.put(BizcoreApplication.CARD_ACCEPTOR_TERMINAL_CODE, BizcoreApplication.encryptMessage(Imei))
-                        requestObject1.put("Module", BizcoreApplication.encryptMessage(comparevalue))
-                        requestObject1.put("FK_Account", BizcoreApplication.encryptMessage(fk_acc_ind))
+                        requestObject1.put(
+                            BizcoreApplication.CARD_ACCEPTOR_TERMINAL_CODE,
+                            BizcoreApplication.encryptMessage(Imei)
+                        )
+                        requestObject1.put(
+                            "Module",
+                            BizcoreApplication.encryptMessage(comparevalue)
+                        )
+                        requestObject1.put(
+                            "FK_Account",
+                            BizcoreApplication.encryptMessage(fk_acc_ind)
+                        )
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
-                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
-                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
+                        requestObject1.put(
+                            "BankHeader",
+                            BizcoreApplication.encryptMessage(bank_header)
+                        )
+                        requestObject1.put(
+                            "CommonAPI",
+                            BizcoreApplication.encryptMessage(CommonAPI)
+                        )
+                        requestObject1.put(
+                            "CommonAPIURL",
+                            BizcoreApplication.encryptMessage(CommonAPIURL)
+                        )
+                        Log.v("sfsdfdsdd","requestObject1 "+requestObject1)
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
-                        val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                                " Some technical issues. ", Snackbar.LENGTH_SHORT
+                        val mySnackbar = Snackbar.make(
+                            findViewById(R.id.rl_main),
+                            " Some technical issues. ", Snackbar.LENGTH_SHORT
                         )
                         mySnackbar.show()
                     }
-                    val body1 = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString())
+                    val body1 = RequestBody.create(
+                        okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                        requestObject1.toString()
+                    )
                     val call1 = apiService1.getbalsplit(body1)
                     call1.enqueue(object : retrofit2.Callback<String> {
-                        override fun onResponse(call: retrofit2.Call<String>, response1:
-                        Response<String>
+                        override fun onResponse(
+                            call: retrofit2.Call<String>, response1:
+                            Response<String>
                         ) {
                             progressDialog!!.dismiss()
                             val jObject = JSONObject(response1.body())
@@ -4164,8 +5044,9 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
                         override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
                             progressDialog!!.dismiss()
-                            val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                                    " Some technical issues.", Snackbar.LENGTH_SHORT
+                            val mySnackbar = Snackbar.make(
+                                findViewById(R.id.rl_main),
+                                " Some technical issues.", Snackbar.LENGTH_SHORT
                             )
                             mySnackbar.show()
                         }
@@ -4173,8 +5054,9 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                 } catch (e: Exception) {
                     progressDialog!!.dismiss()
                     e.printStackTrace()
-                    val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
-                            " Some technical issues.", Snackbar.LENGTH_SHORT
+                    val mySnackbar = Snackbar.make(
+                        findViewById(R.id.rl_main),
+                        " Some technical issues.", Snackbar.LENGTH_SHORT
                     )
                     mySnackbar.show()
                 }
@@ -4182,7 +5064,11 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
             }
             false -> {
-                val mySnackbar = Snackbar.make(findViewById(R.id.rl_main), "No Internet Connection!!", Snackbar.LENGTH_SHORT)
+                val mySnackbar = Snackbar.make(
+                    findViewById(R.id.rl_main),
+                    "No Internet Connection!!",
+                    Snackbar.LENGTH_SHORT
+                )
                 mySnackbar.show()
             }
         }
@@ -4191,7 +5077,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 
     private fun saveBitmap(bm: Bitmap, fileName: String): File? {
 
-       //deprecated issue solved -changes in manifest(legacy)
+        //deprecated issue solved -changes in manifest(legacy)
         val docsFolder =
             File(Environment.getExternalStorageDirectory().toString() + "/Download" + "/")
 

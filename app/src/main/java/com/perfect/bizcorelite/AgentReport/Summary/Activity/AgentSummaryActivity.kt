@@ -1,5 +1,6 @@
 package com.perfect.bizcorelite.AgentReport.Summary.Activity
 
+import EnglishDatePickerDialog
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
@@ -419,20 +420,41 @@ class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+//    fun dateSelector() {
+//        try {
+//            mYear = calendar.get(Calendar.YEAR)
+//            mMonth = calendar.get(Calendar.MONTH)
+//            mDay = calendar.get(Calendar.DAY_OF_MONTH)
+//            val datePickerDialog = DatePickerDialog(this,
+//                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+//                    etdate!!.setText(dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
+//                    dateTime = year.toString() + "-" + (monthOfYear + 1) + "-" + dayOfMonth.toString()
+//                    getSummary(dateTime!!)
+//                }, mYear, mMonth, mDay
+//            )
+//            datePickerDialog.datePicker.maxDate = calendar.timeInMillis
+//            datePickerDialog.show()
+//        } catch (e: ParseException) {
+//            e.printStackTrace()
+//        }
+//    }
+
     fun dateSelector() {
         try {
             mYear = calendar.get(Calendar.YEAR)
             mMonth = calendar.get(Calendar.MONTH)
             mDay = calendar.get(Calendar.DAY_OF_MONTH)
-            val datePickerDialog = DatePickerDialog(this,
-                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                    etdate!!.setText(dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
-                    dateTime = year.toString() + "-" + (monthOfYear + 1) + "-" + dayOfMonth.toString()
+            val dialog = EnglishDatePickerDialog(
+                this,
+                DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                    etdate!!.setText(dayOfMonth.toString() + "-" + (month + 1) + "-" + year)
+                    dateTime = year.toString() + "-" + (month + 1) + "-" + dayOfMonth.toString()
                     getSummary(dateTime!!)
-                }, mYear, mMonth, mDay
+                },
+                mYear, mMonth, mDay
             )
-            datePickerDialog.datePicker.maxDate = calendar.timeInMillis
-            datePickerDialog.show()
+            dialog.show()
+
         } catch (e: ParseException) {
             e.printStackTrace()
         }

@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Bizcore Lite</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="module">Module </string>
+    <string name="date_remarks">Date/Remarks</string>
+    <string name="submit">Submit</string>
+    <string name="semi">:</string>
+    //bluetooth Printer
+    <string name="connect">Connect a device</string>
+
+    <string name="discoverable">Make discoverable</string>
+    <string name="title_other_devices">Other Available Devices</string>
+    <string name="title_paired_devices">Paired Devices</string>
+    <string name="scanning">scanning for devices...</string>
+    <string name="button_scan">Scan for devices</string>
+    <string name="select_device">select a device to connect</string>
+    <string name="none_found">No devices found</string>
+
+    <string name="none_paired">No devices have been paired</string>
+
+    //Bottom Bar
+    <string name="title_home">Home</string>
+    <string name="title_about">About Us</string>
+    <string name="title_credentials">Reset Pin</string>
+    <string name="title_logout">Logout</string>
+    <string name="title_quit">Quit</string>
+    <string name="Aboutus">        Bizcore lite is the mobile application which helps you to recover the loan Payment dues from the loan account holders. It has a simple loan collection strategy which allows you to attain a smooth collection of loans. Some high-end features like Deposit, Balance enquiry, Client &amp; User reports in Bizcore lite allow you to attain a hassle-free Loan recovery.</string>
+
+    <string-array name="array_accounts">
+        <item>Savings Bank</item>
+        <item>Daily Deposit</item>
+        <item>Recurring Deposit</item>
+        <item>Group Deposit Credit Scheme</item>
+        <item>Home Safe Deposit</item>
+    </string-array>
+
+
+<!--    python-->
+    <string name="BankKey">12345</string>
+    <string name="BankHeader">PERFECT HEAD OFFICE</string>
+    <string name="bank_name">PERFECT HEAD OFFICE</string>
+    <string name="BankVerified">0</string>
+
+
+<!--    development-->
+<!--    <string name="BankVerified">0</string>-->
+<!--    <string name="BankKey">d.22333</string>-->
+<!--    <string name="BankHeader">PERFECT SCORE BANK HEAD OFFICE</string>-->
+<!--    <string name="bank_name">PERFECT SCORE BANK HEAD OFFICE</string>-->
+
+
+
+</resources>

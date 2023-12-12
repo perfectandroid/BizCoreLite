@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loginbg"
+    android:id="@+id/rl_main"
+    android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:src="@drawable/applogo" />
+
+            <TextView
+                android:id="@+id/tv_cus_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:text=""
+                android:textColor="#fff"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/tv_otp2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="Enter the 6 digit MPIN"
+                android:textColor="#fff"
+                android:textSize="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="4.5">
+
+                <EditText
+                    android:id="@+id/et_otp1"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight=".75"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:nextFocusForward="@+id/et_otp2"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
+                    android:background="@drawable/edtbg"
+                    android:textColor="#fff"
+                    android:textColorHint="#fff">
+                    <requestFocus />
+                </EditText>
+
+                <EditText
+                    android:id="@+id/et_otp2"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight=".75"
+                    android:nextFocusForward="@+id/et_otp3"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
+                    android:background="@drawable/edtbg"
+                    android:maxLength="1"
+                    android:textColor="#fff"
+                    android:textColorHint="#fff">
+                    <requestFocus />
+                </EditText>
+
+                <EditText
+                    android:id="@+id/et_otp3"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight=".75"
+                    android:nextFocusForward="@+id/et_otp4"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
+                    android:background="@drawable/edtbg"
+                    android:maxLength="1"
+                    android:textColor="#fff"
+                    android:textColorHint="#fff">
+                    <requestFocus />
+                </EditText>
+
+                <EditText
+                    android:id="@+id/et_otp4"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight=".75"
+                    android:nextFocusForward="@+id/et_otp5"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
+                    android:background="@drawable/edtbg"
+                    android:maxLength="1"
+                    android:textColor="#fff"
+                    android:textColorHint="#fff">
+                    <requestFocus />
+                </EditText>
+
+                <EditText
+                    android:id="@+id/et_otp5"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight=".75"
+                    android:nextFocusForward="@+id/et_otp6"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
+                    android:background="@drawable/edtbg"
+                    android:maxLength="1"
+                    android:textColor="#fff"
+                    android:textColorHint="#fff">
+                    <requestFocus />
+                </EditText>
+
+                <EditText
+                    android:id="@+id/et_otp6"
+                    android:layout_width="34dp"
+                    android:layout_height="46dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_weight=".75"
+                    android:background="@drawable/edtbg"
+                    android:gravity="center"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:singleLine="true"
+                    android:textColor="#fff"
+                    android:textColorHint="#fff">
+
+                    <requestFocus />
+                </EditText>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_forget"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:text="Forget MPIN ?"
+                android:textColor="#fff"
+                android:textSize="15dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="135dp"
+                android:layout_marginRight="135dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:background="@color/white"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:visibility="gone"
+                android:orientation="horizontal"
+                android:weightSum="5">
+
+                <TextView
+                    android:id="@+id/tv_otp3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:paddingLeft="30dp"
+                    android:text="Still waiting for the OTP?"
+                    android:textColor="#fff"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_resend"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.1"
+                    android:gravity="center"
+                    android:text="RESEND"
+                    android:textColor="#fff"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:text="Re-enter your mobile number once again??"
+                android:textColor="#fff"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:text="Click here"
+                android:textColor="#fff"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

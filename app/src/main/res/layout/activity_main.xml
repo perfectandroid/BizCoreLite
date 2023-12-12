@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
+    android:background="@drawable/white_back"
     android:layout_height="match_parent">
-
 
     <fragment
         android:id="@+id/nav_host_fragment"
@@ -29,6 +28,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.96"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.55"
@@ -38,14 +38,39 @@
         android:id="@+id/nav_view"
         android:layout_width="0dp"
         android:layout_height="58dp"
-        android:visibility="gone"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/rounded_square"
+        android:visibility="visible"
         app:itemIconTint="@drawable/bottom_nav_icon_color_selector"
+        android:layout_margin="8dp"
         app:itemTextColor="@drawable/bottom_nav_icon_color_selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/bottom_nav_menu" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:paddingRight="30dp"
+            android:gravity="right">
+
+            <LinearLayout
+                android:id="@+id/lin1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/red" />
+            <LinearLayout
+                android:id="@+id/lin2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@color/green" />
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

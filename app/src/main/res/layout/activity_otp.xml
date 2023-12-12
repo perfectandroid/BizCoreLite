@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loginbg"
+    android:background="@drawable/white_back"
     android:id="@+id/rl_main"
     android:orientation="vertical">
     <ScrollView
@@ -22,7 +22,7 @@
                 android:layout_height="150dp"
                 android:layout_margin="20dp"
                 android:gravity="center"
-                android:src="@drawable/applogo" />
+                android:src="@drawable/applogodark" />
 
             <TextView
                 android:id="@+id/tv_otp1"
@@ -31,7 +31,7 @@
                 android:gravity="center"
                 android:layout_margin="10dp"
                 android:text="Enter the 6 digit OTP"
-                android:textColor="#fff"
+                android:textColor="@color/colorAccentDark"
                 android:textSize="23sp" />
 
             <TextView
@@ -44,7 +44,7 @@
                 android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:text="Please type OTP sent to your registered mobile number"
-                android:textColor="#fff"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="14sp" />
 
             <LinearLayout
@@ -69,8 +69,8 @@
                     android:imeOptions="actionDone"
                     android:singleLine="true"
                     android:background="@drawable/edtbg"
-                    android:textColor="#fff"
-                    android:textColorHint="#fff">
+                    android:textColor="@color/colorAccentDark"
+                    android:textColorHint="@color/colorAccentDark">
                     <requestFocus />
                 </EditText>
 
@@ -88,8 +88,8 @@
                     android:singleLine="true"
                     android:background="@drawable/edtbg"
                     android:maxLength="1"
-                    android:textColor="#fff"
-                    android:textColorHint="#fff">
+                    android:textColor="@color/colorAccentDark"
+                    android:textColorHint="@color/colorAccentDark">
                     <requestFocus />
                 </EditText>
 
@@ -107,8 +107,8 @@
                     android:singleLine="true"
                     android:background="@drawable/edtbg"
                     android:maxLength="1"
-                    android:textColor="#fff"
-                    android:textColorHint="#fff">
+                    android:textColor="@color/colorAccentDark"
+                    android:textColorHint="@color/colorAccentDark">
                     <requestFocus />
                 </EditText>
 
@@ -126,8 +126,8 @@
                     android:singleLine="true"
                     android:background="@drawable/edtbg"
                     android:maxLength="1"
-                    android:textColor="#fff"
-                    android:textColorHint="#fff">
+                    android:textColor="@color/colorAccentDark"
+                    android:textColorHint="@color/colorAccentDark">
                     <requestFocus />
                 </EditText>
 
@@ -145,8 +145,8 @@
                     android:singleLine="true"
                     android:background="@drawable/edtbg"
                     android:maxLength="1"
-                    android:textColor="#fff"
-                    android:textColorHint="#fff">
+                    android:textColor="@color/colorAccentDark"
+                    android:textColorHint="@color/colorAccentDark">
                     <requestFocus />
                 </EditText>
 
@@ -163,8 +163,8 @@
                     android:singleLine="true"
                     android:background="@drawable/edtbg"
                     android:maxLength="1"
-                    android:textColor="#fff"
-                    android:textColorHint="#fff">
+                    android:textColor="@color/colorAccentDark"
+                    android:textColorHint="@color/colorAccentDark">
                     <requestFocus />
                 </EditText>
             </LinearLayout>

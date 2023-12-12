@@ -5,33 +5,33 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="fontFamily">@font/font</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
-
-    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-        <item name="boxStrokeColor">#fff</item>
-        <item name="boxStrokeWidth">2dp</item>
-        <item name="hintTextAppearance">@style/TextFloatingLabelApperarance</item>
-    </style>
-
-    <style name="TextFloatingLabelApperarance" parent="TextAppearance.Design.Hint">
-        <item name="android:textColorHint">#fff</item>
-        <item name="android:textColor">#fff</item>
-    </style>
-
-    <style name="Progress" parent="android:Theme.Holo.Dialog">
-        <item name="android:alertDialogStyle">@style/CustomAlertDialogStyle</item>
-        <item name="android:windowBackground">@color/color_activity_transparent</item>
-        <item name="android:backgroundDimEnabled">false</item>
-    </style>
-
     <style name="AppTheme2" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="fontFamily">@font/font</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="background">@color/colorPrimaryDark</item>
+        <item name="boxStrokeColor">@color/colorPrimaryDark</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="hintTextAppearance">@style/TextFloatingLabelApperarance</item>
+    </style>
+
+    <style name="TextFloatingLabelApperarance" parent="TextAppearance.Design.Hint">
+        <item name="android:textColorHint">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="Progress" parent="android:Theme.Holo.Dialog">
+        <item name="android:alertDialogStyle">@style/CustomAlertDialogStyle</item>
+        <item name="android:windowBackground">@color/color_activity_transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
     </style>
 
     <style name="CustomAlertDialogStyle">MyDialogTheme
@@ -52,6 +52,7 @@
         <item name="android:textColor">#fff</item>
         <item name="android:textStyle">bold</item>
     </style>
+
 
     <style name="white_field">
         <item name="android:layout_width">match_parent</item>

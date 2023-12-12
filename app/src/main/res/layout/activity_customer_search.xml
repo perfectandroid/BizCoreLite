@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/grey"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <LinearLayout
@@ -17,7 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:orientation="horizontal"
-            android:background="@drawable/toolbarbg"
             android:layout_alignParentTop="true">
             <ImageView
                 android:id="@+id/imback"
@@ -25,6 +24,7 @@
                 android:layout_weight="5"
                 android:layout_gravity="left|center_vertical"
                 android:layout_margin="10dp"
+                android:tint="@color/colorAccentDark"
                 android:layout_alignParentLeft="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
@@ -38,12 +38,12 @@
                 android:padding="5dp"
                 android:layout_gravity="center"
                 android:gravity="center_vertical"
-                android:textColor="@color/white"
+                android:textColor="@color/colorAccentDark"
                 android:layout_weight="1"/>
         </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:background="@color/grey"
+            android:background="@color/white"
             android:layout_height="match_parent">
 
             <ScrollView
@@ -53,8 +53,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="5dp"
-                android:background="@color/grey">
+                android:layout_marginBottom="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -73,8 +72,7 @@
                         android:layout_marginTop="1dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginBottom="1dp"
-                        app:cardCornerRadius="4dp"
-                        app:cardElevation="4dp"
+                        app:cardCornerRadius="1dp"
                         tools:ignore="MissingConstraints">
 
                         <LinearLayout
@@ -111,7 +109,7 @@
                                     android:layout_marginRight="20dp"
                                     android:layout_marginBottom="2dp"
                                     android:layout_weight="2"
-                                    android:background="@drawable/edttxtbg"
+                                    android:background="@drawable/underline"
                                     android:drawableRight="@drawable/ic_arrowdown"
                                     android:hint="Select Type *"
                                     android:inputType="textPersonName"
@@ -132,6 +130,7 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
                                     android:orientation="horizontal">
 
                                     <Button
@@ -140,7 +139,7 @@
                                         android:layout_height="40dp"
                                         android:layout_marginLeft="20dp"
                                         android:layout_marginTop="2dp"
-                                        android:layout_marginBottom="1dp"
+                                        android:layout_marginBottom="2dp"
                                         android:background="@drawable/name_1" />
 
                                     <Button
@@ -149,7 +148,7 @@
                                         android:layout_height="40dp"
                                         android:layout_marginTop="2dp"
                                         android:layout_marginRight="2dp"
-                                        android:layout_marginBottom="1dp"
+                                        android:layout_marginBottom="2dp"
                                         android:background="@drawable/phone_1" />
 
                                     <EditText
@@ -161,7 +160,7 @@
                                         android:layout_marginRight="20dp"
                                         android:layout_marginBottom="1dp"
                                         android:layout_weight="1"
-                                        android:background="@drawable/edttxtbg"
+                                        android:background="@drawable/underline"
                                         android:hint="Customer Name"
                                         android:inputType="textPersonName"
                                         android:maxLength="30"
@@ -179,7 +178,7 @@
                                         android:layout_marginRight="20dp"
                                         android:layout_marginBottom="1dp"
                                         android:layout_weight="1"
-                                        android:background="@drawable/edttxtbg"
+                                        android:background="@drawable/underline"
                                         android:hint="Mobile No"
                                         android:inputType="number"
                                         android:maxLength="10"
@@ -193,7 +192,7 @@
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="40dp"
                                     android:layout_gravity="center"
                                     android:layout_marginLeft="20dp"
                                     android:layout_marginTop="5dp"
@@ -205,9 +204,9 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="A/C \n No.: "
+                                        android:text="A/C \n No."
                                         android:textColor="@color/black"
-                                        android:textSize="12sp" />
+                                        android:textSize="12dp" />
 
                                     <LinearLayout
                                         android:layout_width="match_parent"
@@ -222,9 +221,9 @@
                                             android:layout_height="match_parent"
                                             android:layout_gravity="center"
                                             android:layout_marginLeft="2dp"
-                                            android:layout_marginRight="1dp"
+                                            android:layout_marginRight="5dp"
                                             android:layout_weight="1.4"
-                                            android:background="@drawable/edttxtbg"
+                                            android:background="@drawable/underline"
                                             android:gravity="center"
                                             android:imeOptions="actionNext"
                                             android:inputType="number"
@@ -243,9 +242,9 @@
                                             android:layout_height="match_parent"
                                             android:layout_gravity="center"
                                             android:layout_marginLeft="1dp"
-                                            android:layout_marginRight="1dp"
+                                            android:layout_marginRight="5dp"
                                             android:layout_weight="1.4"
-                                            android:background="@drawable/edttxtbg"
+                                            android:background="@drawable/underline"
                                             android:gravity="center"
                                             android:imeOptions="actionNext"
                                             android:inputType="number"
@@ -263,9 +262,9 @@
                                             android:layout_height="match_parent"
                                             android:layout_gravity="center"
                                             android:layout_marginLeft="1dp"
-                                            android:layout_marginRight="1dp"
+                                            android:layout_marginRight="5dp"
                                             android:layout_weight="1.25"
-                                            android:background="@drawable/edttxtbg"
+                                            android:background="@drawable/underline"
                                             android:gravity="center"
                                             android:imeOptions="actionNext"
                                             android:inputType="number"
@@ -280,12 +279,9 @@
 
                                         <Button
                                             android:id="@+id/btnIndivitualSearch"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="45dp"
-                                            android:layout_margin="5dp"
-                                            android:layout_weight="1.45"
-                                            android:background="@drawable/ok_cus_search"
-                                            android:padding="5dp"
+                                            android:layout_width="35dp"
+                                            android:layout_height="35dp"
+                                            android:background="@drawable/ic_search"
                                             android:textStyle="bold" />
 
 
@@ -306,10 +302,9 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginRight="5dp"
-                        android:layout_marginBottom="60dp"
+                        android:layout_marginBottom="20dp"
                         android:visibility="gone"
-                        app:cardCornerRadius="4dp"
-                        app:cardElevation="4dp"
+                        app:cardCornerRadius="1dp"
                         tools:ignore="MissingConstraints">
 
                         <LinearLayout
@@ -333,7 +328,7 @@
                                     android:layout_gravity="center"
                                     android:gravity="center"
                                     android:orientation="vertical"
-                                    android:visibility="gone">
+                                    android:visibility="visible">
 
                                     <LinearLayout
                                         android:layout_width="match_parent"
@@ -354,7 +349,7 @@
                                             android:layout_weight="1"
                                             android:gravity="left|center"
                                             android:text=""
-                                            android:textColor="@color/black"
+                                            android:textColor="@color/colorAccentDark"
                                             android:textSize="15dp"
                                             android:textStyle="bold" />
 
@@ -583,17 +578,24 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="30dp"
                                     android:layout_marginTop="20dp"
+                                    android:gravity="center_vertical"
                                     android:layout_marginRight="30dp"
-                                    android:orientation="vertical">
+                                    android:orientation="horizontal">
 
+                                    <ImageView
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:tint="@color/colorAccentDark"
+                                        android:padding="3dp"
+                                        android:src="@drawable/money_bag"/>
                                     <EditText
                                         android:id="@+id/input_amount"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:background="@drawable/edttxtbg"
-                                        android:drawableLeft="@drawable/rupeeindian"
+                                        android:background="@drawable/underline"
                                         android:drawablePadding="10dp"
                                         android:drawableTint="@color/black"
+                                        android:layout_marginLeft="10dp"
                                         android:hint="Amount"
                                         android:inputType="numberDecimal"
                                         android:padding="10dp"
@@ -619,21 +621,27 @@
                                     android:layout_marginTop="10dp"
                                     android:layout_marginRight="30dp"
                                     android:layout_marginBottom="30dp"
-                                    android:orientation="vertical">
-
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+                                    <ImageView
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:tint="@color/colorAccentDark"
+                                        android:padding="3dp"
+                                        android:src="@drawable/message"/>
                                     <EditText
                                         android:id="@+id/input_msg"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:background="@drawable/edttxtbg"
-                                        android:drawableLeft="@drawable/msgicon"
+                                        android:background="@drawable/underline"
                                         android:drawablePadding="10dp"
                                         android:hint="Message"
                                         android:lines="1"
+                                        android:layout_marginLeft="10dp"
                                         android:singleLine="true"
-                                        android:imeOptions="actionDone"
                                         android:minLines="1"
                                         android:padding="10dp"
+                                        android:imeOptions="actionDone"
                                         android:textColor="@color/black"
                                         android:textColorHint="@color/greydark" />
 
@@ -971,13 +979,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:layout_marginTop="15dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginBottom="10dp"
                         android:background="@color/white"
                         android:visibility="gone"
                         app:cardCornerRadius="4dp"
-                        app:cardElevation="4dp"
                         tools:ignore="MissingConstraints">
 
                         <LinearLayout
@@ -1143,7 +1149,7 @@
                                     android:layout_marginTop="2dip"
                                     android:gravity="center"
                                     android:text="View Balance"
-                                    android:textColor="@color/colorPrimary"
+                                    android:textColor="@color/colorAccentDark"
                                     android:textSize="15dp"
                                     android:textStyle="bold" />
 
@@ -1213,6 +1219,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/rounded_square"
                     android:orientation="horizontal">
                     <TextView
                         android:id="@+id/tv_reset"
@@ -1221,22 +1229,17 @@
                         android:text="Reset"
                         android:textColor="@color/white"
                         android:textSize="18dp"
-                        android:background="@color/colorPrimary"
                         android:layout_weight="1"
                         android:textStyle="bold"
                         android:layout_gravity="center"
                         android:gravity="center"/>
-                    <LinearLayout
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft=".5dp"/>
                     <TextView
                         android:id="@+id/tv_send_individual"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="Submit"
-                        android:background="@color/colorPrimary"
                         android:textColor="@color/white"
+                        android:background="@drawable/leftline"
                         android:textSize="18dp"
                         android:textStyle="bold"
                         android:visibility="gone"
