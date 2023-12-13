@@ -113,7 +113,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:layout_margin="10dp"
+                                    android:layout_margin="2dp"
                                     android:gravity="center"
                                     android:orientation="vertical">
 
@@ -130,7 +130,6 @@
                                         android:id="@+id/tv_holder_name"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text=""
                                         android:textColor="@color/white"
                                         android:textSize="20sp"
                                         android:textStyle="italic" />

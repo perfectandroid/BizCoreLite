@@ -1993,6 +1993,9 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
         } else if (strModule == "HD") {                      //..............<..........
             moduleFrom1 = "PDHD"
         }
+        else if (strModule == "GS") {                      //..............<..........
+            moduleFrom1 = "PDGD"
+        }
 
 
         if (moduleFrom1 == "DDCA" || moduleFrom1 == "DDSB") {
@@ -2011,7 +2014,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
             AccountCodeFiledName = "FK_GroupDepositSchemeSubscriber"
             TableName = "GroupDepositSchemeRemittance"
             FieldName = ""
-        } else if (moduleFrom1 == "PDDD" || moduleFrom1 == "PDHD" || moduleFrom1 == "PDRD") {
+        } else if (moduleFrom1 == "PDDD" || moduleFrom1 == "PDHD" || moduleFrom1 == "PDRD"||moduleFrom1 == "PDGD") {
             AccountCodeFiledName = "FK_PeriodicDeposit"
             TableName = "PeriodicDepositRemittance"
             FieldName = "PdrAmount"
@@ -2189,14 +2192,12 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject2.put( "AccountCodeFiledName", BizcoreApplication.encryptMessage(accountCodeFiledName) )
                         requestObject2.put( "TableName", BizcoreApplication.encryptMessage(tableName) )
                         requestObject2.put( "FieldName", BizcoreApplication.encryptMessage(fieldName) )
-
-
-
-
+                        Log.v("sdfsdfdddd","requestObject2 "+requestObject2)
                     }
 
 
                     catch (e: Exception) {
+                        Log.v("sdfsdfdddd","ex "+e)
                         progressDialog!!.dismiss()
                         e.printStackTrace()
                         val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
@@ -2212,6 +2213,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         override fun onResponse(call: retrofit2.Call<String>, response1:
                         Response<String>
                         ) {
+                            Log.v("sdfsdfdddd","response1 "+response1.body())
                             try {
                                 progressDialog!!.dismiss()
                                 val jObject = JSONObject(response1.body())
