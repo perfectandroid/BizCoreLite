@@ -62,7 +62,8 @@ class AgentCollectionReportActivity : AppCompatActivity(),
         "SAVINGS BANK",
         "RECURRING DEPOSIT",
         "GROUP DEPOSIT SCHEME",
-        "HOME SAFE DEPOSITE"
+        "HOME SAFE DEPOSITE",
+        "GROUP DEPOSITE CREDIT SCHEME"
     )
     var module: ArrayAdapter<*>? = null
     var dateTime: String? = null
@@ -193,6 +194,9 @@ class AgentCollectionReportActivity : AppCompatActivity(),
                     }
                     if (position == 5) {
                         modules = "HD"
+                    }
+                    if (position == 6) {
+                        modules = "GS"
                     }
                     alertDialog.dismiss()
                 }
@@ -346,6 +350,12 @@ class AgentCollectionReportActivity : AppCompatActivity(),
                             "BankHeader",
                             BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader))
                         )
+
+                        requestObject1.put(
+                            "Module",
+                            BizcoreApplication.encryptMessage(modules)
+                        )
+                        Log.v("sdfsdfdsfdsf","requestObject1 "+requestObject1)
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
@@ -360,6 +370,7 @@ class AgentCollectionReportActivity : AppCompatActivity(),
                             call: retrofit2.Call<String>, response:
                             Response<String>
                         ) {
+                            Log.v("sdfsdfdsfdsf","response "+response.body())
                             try {
                                 progressDialog!!.dismiss()
                                 val jObject = JSONObject(response.body())

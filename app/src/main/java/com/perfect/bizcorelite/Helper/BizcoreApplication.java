@@ -57,77 +57,76 @@ public class BizcoreApplication extends Application {
     public static final String SHARED_PREF12 = "common_appcode";
 
 
-
     private static final String PACKAGE = "package";
     public static final boolean DEBUG = true;
-    public static final String EXCEPTION_NO_IMEI                        = "No imei";
-   // public static final String TEST_IMEI                                = "IMEI999";/*IMEI999 "IMEI002" "IMIE001""CRDI007" "IMEI009" "IMEI004"*/
-    public static final int TRANSACTION_TIME_OUT                        = /*60000*/600000;
-    public static final int AGENT_TIME_OUT                              = 300000/* 10000*/;
-    private static final String ASCII                                   = "ASCII";
-    public static final String SERVICE_NOT_AVAILABLE                    = "Service is not available";
-    public static final int READ_PHONE_STATE_REQUEST                    = 1001;
-    public static final int REQUEST_AUTHENTICATION_WITHDRAWAL           = 100;
-    public static final int REQUEST_AUTHENTICATION_OTHER_FUNDTRANSFER   = 200;
-    public static final int REQUEST_AUTHENTICATION_BALANCE_ENQUIRY      = 300;
-    public static final int REQUEST_AUTHENTICATION_DEPOSIT              = 400;
-    public static final int REQUEST_AUTHENTICATION_MINISTATEMENT        = 500;
-    public static final int REQUEST_AUTHENTICATION_OWN_FUNDTRANSFER     = 600;
-    private static final int FLAG_NO_PHONEPERMISSION                    = 655;
+    public static final String EXCEPTION_NO_IMEI = "No imei";
+    // public static final String TEST_IMEI                                = "IMEI999";/*IMEI999 "IMEI002" "IMIE001""CRDI007" "IMEI009" "IMEI004"*/
+    public static final int TRANSACTION_TIME_OUT = /*60000*/600000;
+    public static final int AGENT_TIME_OUT = 300000/* 10000*/;
+    private static final String ASCII = "ASCII";
+    public static final String SERVICE_NOT_AVAILABLE = "Service is not available";
+    public static final int READ_PHONE_STATE_REQUEST = 1001;
+    public static final int REQUEST_AUTHENTICATION_WITHDRAWAL = 100;
+    public static final int REQUEST_AUTHENTICATION_OTHER_FUNDTRANSFER = 200;
+    public static final int REQUEST_AUTHENTICATION_BALANCE_ENQUIRY = 300;
+    public static final int REQUEST_AUTHENTICATION_DEPOSIT = 400;
+    public static final int REQUEST_AUTHENTICATION_MINISTATEMENT = 500;
+    public static final int REQUEST_AUTHENTICATION_OWN_FUNDTRANSFER = 600;
+    private static final int FLAG_NO_PHONEPERMISSION = 655;
 
-    public static final int REQUEST_ACCOUNT_FETCHING        = 21;
-    public static final int REQUEST_MINISTATEMENT           = 38;
-    public static final int REQUEST_BALANCE_ENQUIRY         = 31;
-    public static final int REQUEST_CARDED_ACC_FETCHING     = 32;
-    public static final String REQUEST_VERIFICATION_CALL    = "09";
-    public static final String REQUEST_WITHDRAWAL           = "01";
+    public static final int REQUEST_ACCOUNT_FETCHING = 21;
+    public static final int REQUEST_MINISTATEMENT = 38;
+    public static final int REQUEST_BALANCE_ENQUIRY = 31;
+    public static final int REQUEST_CARDED_ACC_FETCHING = 32;
+    public static final String REQUEST_VERIFICATION_CALL = "09";
+    public static final String REQUEST_WITHDRAWAL = "01";
 
-    public static final String PROCESSING_CODE              = "Processing_Code";
-    public static final String EXTENDED_PRIMARY_ACC_NO      = "Extended_Primary_AccountNumber";
-    public static final String CUSTOMER_NUMBER              = "Customer_Number";
-    public static final String ACCOUNT_IDENTIFICATION_1     = "AccountIdentification1";
-    public static final String FROM_MODULE                  = "From_Module";
-    public static final String CARD_ACCEPTOR_TERMINAL_CODE  = "Card_Acceptor_Terminal_IDCode";
-    public static final String REQUEST_MESSAGE              = "RequestMessage";
-    public static final String SYSTEM_TRACE_AUDIT_NO        = "SystemTrace_AuditNumber";
-    public static final String NARRATION                    = "Narration";
-    public static final String AGENT_ID                     = "Agent_ID";
-    public static final String TOKEN                        = "Token";
-    public static final String CARD_LESS                    = "CardLess";
-    public static final String VERIFY_OTP                   = "VerifyOTP";
-    public static final String AUTH_ID                      = "Auth_ID";
-    public static final String TEMP_CARD_NO                 = "0000000000000000";
-    public static final String TEMP_CUST_NO                 = "000000000000";
-    public static final String TEMP_ACC_NO                  = "000000000000";
-    public static final String CURRENT_DATE                 = "CurrentDate";
-    public static final String TRANS_DATE                   = "TransDate";
-    public static final String AMOUNT                       = "Amount";
-    public static final String DATA                         = "data";
-    public static final String LINE_NO                      = "line_no";
-    public static final String CARD_SWIPE_SUCCESS           = "SUCCESS";
-    public static final String OF_LNE_CUSTOMER              = "offlinecustomer";
-    public static final String LAST_UPDATE_LIST_DATE        = "last_sync_date";
-    public static final String LAST_SYNC_LIST_DATE          = "last_list_sync_date";
+    public static final String PROCESSING_CODE = "Processing_Code";
+    public static final String EXTENDED_PRIMARY_ACC_NO = "Extended_Primary_AccountNumber";
+    public static final String CUSTOMER_NUMBER = "Customer_Number";
+    public static final String ACCOUNT_IDENTIFICATION_1 = "AccountIdentification1";
+    public static final String FROM_MODULE = "From_Module";
+    public static final String CARD_ACCEPTOR_TERMINAL_CODE = "Card_Acceptor_Terminal_IDCode";
+    public static final String REQUEST_MESSAGE = "RequestMessage";
+    public static final String SYSTEM_TRACE_AUDIT_NO = "SystemTrace_AuditNumber";
+    public static final String NARRATION = "Narration";
+    public static final String AGENT_ID = "Agent_ID";
+    public static final String TOKEN = "Token";
+    public static final String CARD_LESS = "CardLess";
+    public static final String VERIFY_OTP = "VerifyOTP";
+    public static final String AUTH_ID = "Auth_ID";
+    public static final String TEMP_CARD_NO = "0000000000000000";
+    public static final String TEMP_CUST_NO = "000000000000";
+    public static final String TEMP_ACC_NO = "000000000000";
+    public static final String CURRENT_DATE = "CurrentDate";
+    public static final String TRANS_DATE = "TransDate";
+    public static final String AMOUNT = "Amount";
+    public static final String DATA = "data";
+    public static final String LINE_NO = "line_no";
+    public static final String CARD_SWIPE_SUCCESS = "SUCCESS";
+    public static final String OF_LNE_CUSTOMER = "offlinecustomer";
+    public static final String LAST_UPDATE_LIST_DATE = "last_sync_date";
+    public static final String LAST_SYNC_LIST_DATE = "last_list_sync_date";
 
 
     private static BizcoreApplication mInstance;
     private TelephonyManager telephonyManager;
     private static BizcoreApplication mBizcoreApplication;
 
-    public static final String ACNO ="AccountNumber";
+    public static final String ACNO = "AccountNumber";
     public static final String BANKKEY = "BankKey";
     public static final String BANKHeader = "BankHeader";
     public static final String AUTHENTICATION_ERROR_MESSAGE = "Authentication error \nYour attempt was failed";
     public static final String NETWORK_ERROR_MESSAGE = "Error in network connection";
 
 
-
-    public static synchronized  BizcoreApplication getInstance(){
-        if ( mBizcoreApplication == null ){
+    public static synchronized BizcoreApplication getInstance() {
+        if (mBizcoreApplication == null) {
             mBizcoreApplication = new BizcoreApplication();
         }
         return mBizcoreApplication;
     }
+
     public static Application getAppContext() {
         return mInstance;
     }
@@ -139,10 +138,11 @@ public class BizcoreApplication extends Application {
             return;
         }
     }
-    public static String encryptMessage(final String message )
+
+    public static String encryptMessage(final String message)
             throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException,
             InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, IOException {
-
+        Log.v("sfsdfddd", "mess  " + message);
 
         int ivSize = 16;
         byte[] iv = new byte[ivSize];
@@ -162,34 +162,34 @@ public class BizcoreApplication extends Application {
         byte[] encryptedIVAndText = new byte[ivSize + encrypted.length];
         System.arraycopy(iv, 0, encryptedIVAndText, 0, ivSize);
         System.arraycopy(encrypted, 0, encryptedIVAndText, ivSize, encrypted.length);
-        return new String( Base64.encode( encryptedIVAndText, Base64.DEFAULT), ASCII );
+        return new String(Base64.encode(encryptedIVAndText, Base64.DEFAULT), ASCII);
 
     }
 
-   /* public DeviceAppDetails getDeviceAppDetails( final Context context ) throws PackageManager.NameNotFoundException, SecurityException {
+    /* public DeviceAppDetails getDeviceAppDetails( final Context context ) throws PackageManager.NameNotFoundException, SecurityException {
+         final DeviceAppDetails deviceAppDetails = new DeviceAppDetails();
+         final PackageInfo packageInfo =context.getPackageManager().getPackageInfo( context.getPackageName(), 0);
+         deviceAppDetails.setAppVersion( packageInfo.versionCode );
+         deviceAppDetails.setVersionName( packageInfo.versionName );
+         return deviceAppDetails;
+
+     }
+ */
+    public DeviceAppDetails getDeviceAppDetails(final Context context) throws PackageManager.NameNotFoundException, SecurityException {
         final DeviceAppDetails deviceAppDetails = new DeviceAppDetails();
-        final PackageInfo packageInfo =context.getPackageManager().getPackageInfo( context.getPackageName(), 0);
-        deviceAppDetails.setAppVersion( packageInfo.versionCode );
-        deviceAppDetails.setVersionName( packageInfo.versionName );
+        final PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+        deviceAppDetails.setAppVersion(packageInfo.versionCode);
+        deviceAppDetails.setVersionName(packageInfo.versionName);
+
+
         return deviceAppDetails;
 
     }
-*/
-    public DeviceAppDetails getDeviceAppDetails( final Context context ) throws PackageManager.NameNotFoundException, SecurityException {
-        final DeviceAppDetails deviceAppDetails = new DeviceAppDetails();
-        final PackageInfo packageInfo =context.getPackageManager().getPackageInfo( context.getPackageName(), 0);
-        deviceAppDetails.setAppVersion( packageInfo.versionCode );
-        deviceAppDetails.setVersionName( packageInfo.versionName );
 
 
-        return deviceAppDetails;
-
-    }
-
-
-  //LIVE
+    //LIVE
     @SuppressLint("ObsoleteSdkInt")
-    public DeviceAppDetails1 getDeviceAppDetails1(final Context context ) throws PackageManager.NameNotFoundException, SecurityException {
+    public DeviceAppDetails1 getDeviceAppDetails1(final Context context) throws PackageManager.NameNotFoundException, SecurityException {
         final DeviceAppDetails1 deviceAppDetails1 = new DeviceAppDetails1();
         String deviceId = "";
         deviceId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -212,7 +212,6 @@ public class BizcoreApplication extends Application {
         return deviceAppDetails1;
 
     }*/
-
 
 
     //PERFECT DEMO
@@ -281,8 +280,8 @@ public class BizcoreApplication extends Application {
         return true;
     }
 
-    public static void toaster( final Context context, final String message ){
-        Toast.makeText( context, message, Toast.LENGTH_LONG ).show();
+    public static void toaster(final Context context, final String message) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
 }

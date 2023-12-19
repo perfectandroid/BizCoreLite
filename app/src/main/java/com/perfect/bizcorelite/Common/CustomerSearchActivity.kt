@@ -477,6 +477,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                     val call = apiService.getBalanceScreenshowingStatus(body)
                     call.enqueue(object : retrofit2.Callback<String> {
                         override fun onResponse(call: retrofit2.Call<String>, response: Response<String>) {
+                            Log.i("adsadsadsfgdf","status="+response.body())
                             try {
 //                                progressDialog!!.dismiss() //314400
                                 val jObject = JSONObject(response.body())
@@ -3994,6 +3995,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject1.put("FK_Account", BizcoreApplication.encryptMessage(fk_acc_ind))
                         requestObject1.put(BizcoreApplication.BANKKEY, BizcoreApplication.encryptMessage(resources.getString(R.string.BankKey)))
                         requestObject1.put(BizcoreApplication.BANKHeader, BizcoreApplication.encryptMessage(resources.getString(R.string.BankHeader)))
+                        Log.v("dsfsdfsd","requestObject1 "+requestObject1)
 
 
                     } catch (e: Exception) {
@@ -4010,6 +4012,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         override fun onResponse(call: retrofit2.Call<String>, response1:
                         Response<String>
                         ) {
+                            Log.v("dsfsdfsd","response1 "+response1.body())
                             progressDialog!!.dismiss()
                             val jObject = JSONObject(response1.body())
                             if (jObject.getString("StatusCode") == "0") {
