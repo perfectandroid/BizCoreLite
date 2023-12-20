@@ -67,7 +67,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textColor="@color/black"
-                        android:text="Proceed This Transaction With Above Reciept Amount."
+                        android:text="Proceed This Transaction With Above Receipt Amount."
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
