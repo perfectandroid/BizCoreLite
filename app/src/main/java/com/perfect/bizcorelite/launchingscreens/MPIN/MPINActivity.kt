@@ -112,6 +112,8 @@ class MPINActivity : AppCompatActivity(), View.OnClickListener {
             var bank_name = spReseller.getString("bank_name", "")
             var bank_icon_url = ApiService.IMAGE_URL + spReseller.getString("bank_icon", "")
             var partner_icon_url = ApiService.IMAGE_URL + spReseller.getString("partner_icon", "")
+            Log.v("dasdsadsss","partner_icon_url "+partner_icon_url)
+            Log.v("dasdsadsss","bank_icon "+bank_icon_url)
 
             txt_bankname!!.text = bank_name
             PicassoTrustAll.getInstance(this@MPINActivity)!!.load(bank_icon_url).error(android.R.color.transparent).into(img_bank!!)

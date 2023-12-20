@@ -161,7 +161,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         var bank_name = spReseller.getString("bank_name", "")
         var bank_icon_url = ApiService.IMAGE_URL + spReseller.getString("bank_icon", "")
         var partner_icon_url = ApiService.IMAGE_URL + spReseller.getString("partner_icon", "")
-        Log.v("dfsdfddd"," "+bank_icon_url)
+        Log.v("sdfsdfddd","partner_icon_url "+partner_icon_url)
         txt_bankname!!.text = bank_name
         PicassoTrustAll.getInstance(context!!)!!.load(bank_icon_url).error(android.R.color.transparent).into(img_bank!!)
         PicassoTrustAll.getInstance(context!!)!!.load(partner_icon_url).error(android.R.color.transparent).into(img_partner!!)

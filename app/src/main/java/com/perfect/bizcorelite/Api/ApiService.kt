@@ -3,9 +3,9 @@ package com.perfect.bizcorelite.Api
 object ApiService {
 
     ////Production
-    val BASE_URL = "https://collectr.perfectlimited.com/api/Bizcore/"
-    val IMAGE_URL = "https://collectr.perfectlimited.com"
-    val CERT_NAME = "bizcore.pem"
+//    val BASE_URL = "https://collectr.perfectlimited.com/api/Bizcore/"
+//    val IMAGE_URL = "https://collectr.perfectlimited.com"
+//    val CERT_NAME = "bizcore.pem"
 
     ////python dev
 //    val BASE_URL = "http://202.164.150.222:8000/api/Bizcore/"
@@ -18,9 +18,9 @@ object ApiService {
 //    val CERT_NAME = "bizcore.pem"
 
     ////python dev qa
-//    val BASE_URL = "http://202.164.150.222:8001/api/Bizcore/"
-//    val IMAGE_URL = "http://202.164.150.222:8001"
-//    val CERT_NAME = "bizcore.pem"
+    val BASE_URL = "http://202.164.150.222:8001/api/Bizcore/"
+    val IMAGE_URL = "http://202.164.150.222:8001"
+    val CERT_NAME = "bizcore.pem"
 
 
     ////dev

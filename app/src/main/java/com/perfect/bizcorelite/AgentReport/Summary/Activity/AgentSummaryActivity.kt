@@ -10,6 +10,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.View.GONE
@@ -25,6 +26,7 @@ import com.perfect.bizcorelite.Api.ApiInterface
 import com.perfect.bizcorelite.Api.ApiService
 import com.perfect.bizcorelite.DB.DBHandler
 import com.perfect.bizcorelite.Helper.BizcoreApplication
+import com.perfect.bizcorelite.Helper.BizcoreUtility
 import com.perfect.bizcorelite.Helper.ConnectivityUtils
 import com.perfect.bizcorelite.Helper.CryptoGraphy
 import com.perfect.bizcorelite.R
@@ -57,20 +59,20 @@ import javax.net.ssl.*
 
 class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
 
-    private var mYear: Int =0
-    private var mMonth:Int = 0
-    private var mDay:Int = 0
-    private var progressDialog  : ProgressDialog? = null
-    private var simpleDateFormat : SimpleDateFormat? =null
-    private var simpleDateFormat1 : SimpleDateFormat? =null
-    private var etdate      : TextView?         = null
-    private var select_date_search      : ImageView?         = null
-    private var imback      : ImageView?         = null
-    private var hashString      : String?         = null
-    private var dateTime      : String?         = null
-    private var iAmount: Int? =null
+    private var mYear: Int = 0
+    private var mMonth: Int = 0
+    private var mDay: Int = 0
+    private var progressDialog: ProgressDialog? = null
+    private var simpleDateFormat: SimpleDateFormat? = null
+    private var simpleDateFormat1: SimpleDateFormat? = null
+    private var etdate: TextView? = null
+    private var select_date_search: ImageView? = null
+    private var imback: ImageView? = null
+    private var hashString: String? = null
+    private var dateTime: String? = null
+    private var iAmount: Int? = null
     val calendar = Calendar.getInstance()
-    lateinit var dbHelper : DBHandler
+    lateinit var dbHelper: DBHandler
     lateinit var handler: Handler
     lateinit var r: Runnable
 
@@ -86,14 +88,14 @@ class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
         etdate!!.setOnClickListener(this)
         select_date_search!!.setOnClickListener(this)
         imback!!.setOnClickListener(this)
-        etdate!!.text=simpleDateFormat1!!.format(calendar.time)
+        etdate!!.text = simpleDateFormat1!!.format(calendar.time)
         view()
         getSummary(dateTime!!)
         handler = Handler()
         r = Runnable {
-           /* val intent= Intent(this, MPINActivity::class.java)
-            startActivity(intent)
-            finish()*/
+            /* val intent= Intent(this, MPINActivity::class.java)
+             startActivity(intent)
+             finish()*/
         }
         startHandler()
     }
@@ -117,20 +119,22 @@ class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
         super.attachBaseContext(LocaleHelper().onAttach(newBase))
     }
 
-    private fun view(){
-        val AgentName = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF2,0)
-        val AgentPhoneNumber = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF3,0)
-        tv_holder_name!!.text = AgentName.getString("Agent_Name", null)+" [ "+
-                AgentPhoneNumber.getString("CusMobile", null)+" ]"
+    private fun view() {
+        val AgentName = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF2, 0)
+        val AgentPhoneNumber =
+            applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF3, 0)
+        tv_holder_name!!.text = AgentName.getString("Agent_Name", null) + " [ " +
+                AgentPhoneNumber.getString("CusMobile", null) + " ]"
 
     }
 
     private fun getSummary(datetime: String) {
+        lin_footer.visibility= View.GONE
         val ID_CommonApp =
             applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
         var CommonAPIURL = ID_CommonApp.getString("CommonAPIURL", "")
         var CommonAPI = ID_CommonApp.getString("CommonAPI", "")
-        when(ConnectivityUtils.isConnected(this)) {
+        when (ConnectivityUtils.isConnected(this)) {
             true -> {
                 val ID_CommonApp =
                     applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
@@ -142,7 +146,7 @@ class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
                 progressDialog!!.setIndeterminate(true)
                 progressDialog!!.setIndeterminateDrawable(this.resources.getDrawable(R.drawable.progress))
                 progressDialog!!.show()
-                try{
+                try {
                     val client = OkHttpClient.Builder()
                         .sslSocketFactory(getSSLSocketFactory())
                         .hostnameVerifier(getHostnameVerifier())
@@ -160,122 +164,190 @@ class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
                     val requestObject1 = JSONObject()
                     try {
 //                        val calendar = Calendar.getInstance()
-                        val DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails(this)
+                        val DeviceAppDetails =
+                            BizcoreApplication.getInstance().getDeviceAppDetails(this)
                         var Imei = DeviceAppDetails.imei
                         if (Imei != null && !Imei.isEmpty()) {
-                        }else{
-                            val DeviceAppDetails1 = BizcoreApplication.getInstance().getDeviceAppDetails1(this)
+                        } else {
+                            val DeviceAppDetails1 =
+                                BizcoreApplication.getInstance().getDeviceAppDetails1(this)
                             Imei = DeviceAppDetails1.imei
                         }
-                        val AgentIdSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
+                        val AgentIdSP = applicationContext.getSharedPreferences(
+                            BizcoreApplication.SHARED_PREF1,
+                            0
+                        )
                         val agentId = AgentIdSP.getString("Agent_ID", null)
-                        val tokenSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF4, 0)
+                        val tokenSP = applicationContext.getSharedPreferences(
+                            BizcoreApplication.SHARED_PREF4,
+                            0
+                        )
                         val token = tokenSP.getString("token", null)
                         val randomNumber = CryptoGraphy.getInstance().randomNumber(agentId)
                         val hashList = ArrayList<String>()
-                        hashList.add( Imei )
-                        hashList.add( datetime )
-                        hashList.add( randomNumber )
-                        hashList.add( AgentIdSP.getString("Agent_ID", null).toString() )
-                        hashString = CryptoGraphy.getInstance().hashing( hashList )
-                        hashString = "06"+hashString+token
-                        requestObject1.put("Processing_Code", BizcoreApplication.encryptMessage("060000"))
-                        requestObject1.put("SystemTrace_AuditNumber", BizcoreApplication.encryptMessage(randomNumber))
+                        hashList.add(Imei)
+                        hashList.add(datetime)
+                        hashList.add(randomNumber)
+                        hashList.add(AgentIdSP.getString("Agent_ID", null).toString())
+                        hashString = CryptoGraphy.getInstance().hashing(hashList)
+                        hashString = "06" + hashString + token
+                        requestObject1.put(
+                            "Processing_Code",
+                            BizcoreApplication.encryptMessage("060000")
+                        )
+                        requestObject1.put(
+                            "SystemTrace_AuditNumber",
+                            BizcoreApplication.encryptMessage(randomNumber)
+                        )
                         requestObject1.put("Agent_ID", BizcoreApplication.encryptMessage(agentId))
                         requestObject1.put("TransDate", BizcoreApplication.encryptMessage(datetime))
-                        requestObject1.put("CurrentDate", BizcoreApplication.encryptMessage(datetime))
+                        requestObject1.put(
+                            "CurrentDate",
+                            BizcoreApplication.encryptMessage(datetime)
+                        )
                         requestObject1.put("Token", BizcoreApplication.encryptMessage(hashString))
-                        requestObject1.put("Card_Acceptor_Terminal_IDCode", BizcoreApplication.encryptMessage(Imei))
+                        requestObject1.put(
+                            "Card_Acceptor_Terminal_IDCode",
+                            BizcoreApplication.encryptMessage(Imei)
+                        )
                         requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bank_key))
-                        requestObject1.put("BankHeader", BizcoreApplication.encryptMessage(bank_header))
-                        requestObject1.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
-                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
-                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
+                        requestObject1.put(
+                            "BankHeader",
+                            BizcoreApplication.encryptMessage(bank_header)
+                        )
+                        requestObject1.put(
+                            "BankVerified",
+                            "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg="
+                        )//encrypted value for zero
+                        requestObject1.put(
+                            "CommonAPI",
+                            BizcoreApplication.encryptMessage(CommonAPI)
+                        )
+                        requestObject1.put(
+                            "CommonAPIURL",
+                            BizcoreApplication.encryptMessage(CommonAPIURL)
+                        )
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
                     }
-                    val body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString())
+                    val body = RequestBody.create(
+                        okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                        requestObject1.toString()
+                    )
                     val call = apiService.getAgentSummary(body)
-                    call.enqueue(object: retrofit2.Callback<String> {
-                        override fun onResponse(call: retrofit2.Call<String>, response:
-                        Response<String>
+                    call.enqueue(object : retrofit2.Callback<String> {
+                        override fun onResponse(
+                            call: retrofit2.Call<String>, response:
+                            Response<String>
                         ) {
-                            tv_receipt.text="₹ 0 Cr"
-                            tv_payment_dr.text="₹ 0 Dr "
-                            Log.v("sdfsdfsdfsdf","response  "+response.body());
+                            tv_receipt.text = "₹ 0 Cr"
+                            tv_payment_dr.text = "₹ 0 Dr "
+                            Log.v("sdfsdfsdfsdf", "response  " + response.body());
                             try {
                                 progressDialog!!.dismiss()
                                 val jObject = JSONObject(response.body())
                                 val jobjt = jObject.getJSONObject("AgntSummaryInfo")
                                 if (jObject.getString("StatusCode") == "0") {
                                     val jarray = jobjt.getJSONArray("AgentsummList")
-                                    iAmount=0
-                                    for(i in 0..jarray.length()-1){
-                                        val jsonObject=jarray.getJSONObject(i)
-                                        if(jsonObject.getString("Module").equals("")|| (jsonObject.getString("Module").length<=0)) {
-                                            ll_mod.visibility=GONE
-                                            ll_sum.visibility=GONE
-                                            val dialogBuilder = AlertDialog.Builder(this@AgentSummaryActivity, R.style.MyDialogTheme)
+                                    iAmount = 0
+                                    for (i in 0..jarray.length() - 1) {
+                                        val jsonObject = jarray.getJSONObject(i)
+                                        if (jsonObject.getString("Module")
+                                                .equals("") || (jsonObject.getString("Module").length <= 0)
+                                        ) {
+                                            ll_mod.visibility = GONE
+                                            ll_sum.visibility = GONE
+                                            val dialogBuilder = AlertDialog.Builder(
+                                                this@AgentSummaryActivity,
+                                                R.style.MyDialogTheme
+                                            )
                                             dialogBuilder.setMessage(jObject.getString("StatusMessage"))
                                                 .setCancelable(false)
-                                                .setPositiveButton("OK", DialogInterface.OnClickListener {
-                                                        dialog, id -> dialog.dismiss()
-                                                })
+                                                .setPositiveButton(
+                                                    "OK",
+                                                    DialogInterface.OnClickListener { dialog, id ->
+                                                        dialog.dismiss()
+                                                    })
                                             val alert = dialogBuilder.create()
                                             alert.show()
-                                            val nbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE)
+                                            val nbutton =
+                                                alert.getButton(DialogInterface.BUTTON_POSITIVE)
                                             nbutton.setTextColor(Color.MAGENTA)
+                                        } else {
+                                            ll_mod.visibility = VISIBLE
+                                            ll_sum.visibility = VISIBLE
                                         }
-                                        else{
-                                            ll_mod.visibility= VISIBLE
-                                            ll_sum.visibility=VISIBLE
-                                        }
-                                        if(jsonObject.getString("TransType").equals("R")) {
+                                        if (jsonObject.getString("TransType").equals("R")) {
                                             iAmount = iAmount!! + jsonObject.getInt("Amount")
-                                            Log.v("sdfsdfsdfsdf","sdsdss "+iAmount);
+                                            Log.v("sdfsdfsdfsdf", "sdsdss " + iAmount);
                                         }
-                                        tv_receipt.text = "₹ " +iAmount.toString()+".00 Cr"
+                                        tv_receipt.text = "₹ " + iAmount.toString() + ".00 Cr"
                                     }
-                                    tv_openbal.text="₹ " +jobjt.getString("OpBalance")
+                                    tv_openbal.text = "₹ " + jobjt.getString("OpBalance")
                                     val ID_CommonApp =
-                                        applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
-                                    var bizcore_offline = ID_CommonApp.getBoolean("biz_offline", false)
+                                        applicationContext.getSharedPreferences(
+                                            BizcoreApplication.SHARED_PREF12,
+                                            0
+                                        )
+                                    var bizcore_offline =
+                                        ID_CommonApp.getBoolean("biz_offline", false)
 
                                     try {
                                         if (bizcore_offline) {
-                                            tv_payment_dr.text="₹ " +jobjt.getString("Payment")
+                                            tv_payment_dr.text = "₹ " + jobjt.getString("Payment")
                                         }
                                     } catch (e: Exception) {
                                     }
-                                    tv_curbal.text="₹ " +jobjt.getString("Closing")
+                                    tv_curbal.text = "₹ " + jobjt.getString("Closing")
                                     val lLayout = GridLayoutManager(this@AgentSummaryActivity, 1)
-                                    rvsummmarymodule.layoutManager = lLayout as RecyclerView.LayoutManager?
+                                    rvsummmarymodule.layoutManager =
+                                        lLayout as RecyclerView.LayoutManager?
                                     rvsummmarymodule.setHasFixedSize(true)
-                                    val adapter = SummaryModuleAdapter(this@AgentSummaryActivity, jarray)
+                                    val adapter =
+                                        SummaryModuleAdapter(this@AgentSummaryActivity, jarray)
                                     rvsummmarymodule.adapter = adapter
-                                }
-                                else{
-                                    val dialogBuilder = AlertDialog.Builder(this@AgentSummaryActivity, R.style.MyDialogTheme)
+                                    val handler = Handler(Looper.getMainLooper())
+                                    handler.postDelayed({
+                                        Log.v("dsfsdfdsd","in")
+                                        Log.v("dsfsdfdsd","adapter.getTotalCount() "+adapter.getTotalCount())
+                                        Log.v("dsfsdfdsd","adapter.getTotalValue() "+adapter.getTotalValue())
+                                        lin_footer.visibility= View.VISIBLE
+                                        txt_count1.text = adapter.getTotalCount().toString()
+                                        var value =
+                                            BizcoreUtility.roundDecimalDoubleZero("" + adapter.getTotalValue())
+                                        txt_amount1.text = "₹ " + value
+                                    }, 2000)
+                                } else {
+
+                                    val dialogBuilder = AlertDialog.Builder(
+                                        this@AgentSummaryActivity,
+                                        R.style.MyDialogTheme
+                                    )
                                     dialogBuilder.setMessage(jObject.getString("StatusMessage"))
                                         .setCancelable(false)
-                                        .setPositiveButton("OK", DialogInterface.OnClickListener {
-                                                dialog, id -> dialog.dismiss()
-                                            doLogout()
-                                        })
+                                        .setPositiveButton(
+                                            "OK",
+                                            DialogInterface.OnClickListener { dialog, id ->
+                                                dialog.dismiss()
+                                                doLogout()
+                                            })
                                     val alert = dialogBuilder.create()
                                     alert.show()
                                     val pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE)
                                     pbutton.setTextColor(Color.MAGENTA)
                                 }
                             } catch (e: Exception) {
+                                Log.v("sdfsdfdsd", "e  " + e)
                                 progressDialog!!.dismiss()
                                 e.printStackTrace()
                             }
                         }
-                        override fun onFailure(call: retrofit2.Call<String>, t:Throwable) {
+
+                        override fun onFailure(call: retrofit2.Call<String>, t: Throwable) {
                             progressDialog!!.dismiss()
-                            val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
+                            val mySnackbar = Snackbar.make(
+                                findViewById(R.id.rl_main),
                                 " Some technical issues.", Snackbar.LENGTH_SHORT
                             )
                             mySnackbar.show()
@@ -284,14 +356,19 @@ class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
                 } catch (e: Exception) {
                     progressDialog!!.dismiss()
                     e.printStackTrace()
-                    val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),
+                    val mySnackbar = Snackbar.make(
+                        findViewById(R.id.rl_main),
                         " Some technical issues.", Snackbar.LENGTH_SHORT
                     )
                     mySnackbar.show()
                 }
             }
             false -> {
-                val mySnackbar = Snackbar.make(findViewById(R.id.rl_main),"No Internet Connection!!", Snackbar.LENGTH_SHORT)
+                val mySnackbar = Snackbar.make(
+                    findViewById(R.id.rl_main),
+                    "No Internet Connection!!",
+                    Snackbar.LENGTH_SHORT
+                )
                 mySnackbar.show()
             }
         }
@@ -299,39 +376,47 @@ class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun doLogout() {
         try {
-            val loginSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF,0)
+            val loginSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF, 0)
             val loginEditer = loginSP.edit()
             loginEditer.putString("loginsession", "No")
             loginEditer.commit()
-            val AgentIdSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
+            val AgentIdSP =
+                applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF1, 0)
             val AgentIdEditor = AgentIdSP.edit()
             AgentIdEditor.putString("Agent_ID", "")
             AgentIdEditor.commit()
-            val Agent_NameSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF2, 0)
+            val Agent_NameSP =
+                applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF2, 0)
             val Agent_NameEditer = Agent_NameSP.edit()
             Agent_NameEditer.putString("Agent_Name", "")
             Agent_NameEditer.commit()
-            val CusMobileSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF3, 0)
+            val CusMobileSP =
+                applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF3, 0)
             val CusMobileEditer = CusMobileSP.edit()
             CusMobileEditer.putString("CusMobile", "")
             CusMobileEditer.commit()
-            val tokenSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF4, 0)
+            val tokenSP =
+                applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF4, 0)
             val tokenEditer = tokenSP.edit()
             tokenEditer.putString("token", "")
             tokenEditer.commit()
-            val UserName = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF5, 0)
+            val UserName =
+                applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF5, 0)
             val UserNameEditor = UserName.edit()
             UserNameEditor.putString("username", "")
             UserNameEditor.commit()
-            val transactionIDSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF6, 0)
+            val transactionIDSP =
+                applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF6, 0)
             val transactionIDEditor = transactionIDSP.edit()
             transactionIDEditor.putString("Transaction_ID", "1")
             transactionIDEditor.commit()
-            val archiveIDSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF7, 0)
+            val archiveIDSP =
+                applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF7, 0)
             val archiveIDEditor = archiveIDSP.edit()
             archiveIDEditor.putString("Archive_ID", "1")
             archiveIDEditor.commit()
-            val loginTimeSP = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF8, 0)
+            val loginTimeSP =
+                applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF8, 0)
             val loginTimeEditer = loginTimeSP.edit()
             loginTimeEditer.putString("logintime", "")
             loginTimeEditer.commit()
@@ -357,6 +442,7 @@ class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
             override fun getAcceptedIssuers(): Array<X509Certificate> {
                 return originalTrustManager.acceptedIssuers
             }
+
             override fun checkClientTrusted(certs: Array<X509Certificate>?, authType: String) {
                 try {
                     if (certs != null && certs.size > 0) {
@@ -368,6 +454,7 @@ class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
                     Log.w("checkClientTrusted", e.toString())
                 }
             }
+
             override fun checkServerTrusted(certs: Array<X509Certificate>?, authType: String) {
                 try {
                     if (certs != null && certs.size > 0) {
@@ -381,6 +468,7 @@ class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
             }
         })
     }
+
     @Throws(
         CertificateException::class,
         KeyStoreException::class,
@@ -407,15 +495,15 @@ class AgentSummaryActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.etdate->{
+        when (v?.id) {
+            R.id.etdate -> {
                 dateSelector()
             }
-            R.id.select_date_search->{
+            R.id.select_date_search -> {
                 getSummary(dateTime!!)
             }
-            R.id.imback->{
-               onBackPressed()
+            R.id.imback -> {
+                onBackPressed()
             }
         }
     }

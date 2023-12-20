@@ -66,7 +66,8 @@ class AgentCollectionReportActivity : AppCompatActivity(),
         "SAVINGS BANK",
         "RECURRING DEPOSIT",
         "GROUP DEPOSIT SCHEME",
-        "HOME SAFE DEPOSITE"
+        "HOME SAFE DEPOSITE",
+        "GROUP DEPOSITE CREDIT SCHEME"
     )
     var module: ArrayAdapter<*>? = null
     var dateTime: String? = null
@@ -226,6 +227,9 @@ class AgentCollectionReportActivity : AppCompatActivity(),
                     if (position == 5) {
                         modules = "HD"
                     }
+                    if (position == 6) {
+                        modules = "GS"
+                    }
                     alertDialog.dismiss()
                 }
             alertDialog.show()
@@ -382,6 +386,10 @@ class AgentCollectionReportActivity : AppCompatActivity(),
                         requestObject1.put(
                             "BankHeader",
                             BizcoreApplication.encryptMessage(bank_header)
+                        )
+                        requestObject1.put(
+                            "Module",
+                            BizcoreApplication.encryptMessage(modules)
                         )
                         requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
                         requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))

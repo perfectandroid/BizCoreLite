@@ -7,7 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 33
     defaultConfig {
-        applicationId "com.perfect.collectr"
+        applicationId "com.perfect.collectr_8001"
         minSdkVersion 16
         targetSdkVersion 33
         versionCode 1

@@ -1207,6 +1207,7 @@ class CustomerSearchActivity : AppCompatActivity(), View.OnClickListener {
                             call: retrofit2.Call<String>, response:
                             Response<String>
                         ) {
+                            Log.i("response1212", "response==" + response.body())
                             try {
                                 progressDialog!!.dismiss()
                                 val jObject = JSONObject(response.body())
@@ -2453,6 +2454,9 @@ class CustomerSearchActivity : AppCompatActivity(), View.OnClickListener {
         } else if (strModule == "HD") {                      //..............<..........
             moduleFrom1 = "PDHD"
         }
+        else if (strModule == "GS") {                      //..............<..........
+            moduleFrom1 = "PDGD"
+        }
 
 
         if (moduleFrom1 == "DDCA" || moduleFrom1 == "DDSB") {
@@ -2471,7 +2475,7 @@ class CustomerSearchActivity : AppCompatActivity(), View.OnClickListener {
             AccountCodeFiledName = "FK_GroupDepositSchemeSubscriber"
             TableName = "GroupDepositSchemeRemittance"
             FieldName = ""
-        } else if (moduleFrom1 == "PDDD" || moduleFrom1 == "PDHD" || moduleFrom1 == "PDRD") {
+        } else if (moduleFrom1 == "PDDD" || moduleFrom1 == "PDHD" || moduleFrom1 == "PDRD"||moduleFrom1 == "PDGD") {
             AccountCodeFiledName = "FK_PeriodicDeposit"
             TableName = "PeriodicDepositRemittance"
             FieldName = "PdrAmount"

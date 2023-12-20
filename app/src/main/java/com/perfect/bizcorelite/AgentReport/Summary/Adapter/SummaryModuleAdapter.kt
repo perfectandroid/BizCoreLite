@@ -1,6 +1,7 @@
 package com.perfect.bizcorelite.AgentReport.Summary.Adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -22,7 +23,8 @@ import org.json.JSONObject
 class SummaryModuleAdapter(internal var context: Context, internal var jsonArray: JSONArray) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     internal var jsonObject: JSONObject? = null
-    internal var icount: Int? = null
+    internal var totalCount: Int? = 0
+    internal var totalValue: Double? = 0.00
     lateinit var dbHelper : DBHandler
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -44,11 +46,19 @@ class SummaryModuleAdapter(internal var context: Context, internal var jsonArray
                     holder.txt_module.text = jsonObject!!.getString("Module")
                     holder.txt_count.text = jsonObject!!.getString("Count")
                     holder.txt_amount.text = "₹ " + jsonObject!!.getString("Amount")
+                    Log.v("dfdfdsfdsdd","Count "+jsonObject!!.getString("Count"))
+                    Log.v("dfdfdsfdsdd","amount "+jsonObject!!.getString("Amount"))
+                    totalCount= totalCount!! +jsonObject!!.getString("Count").toInt()
+                    totalValue= totalValue!! +jsonObject!!.getString("Amount").toDouble()
+
+                    Log.v("dfdfdsfdsdd","totalCount "+totalCount)
+                    Log.v("dfdfdsfdsdd","totalValue "+totalValue)
                 }else{
                     holder.ll_mod.visibility=GONE
                 }
             }
         } catch (e: JSONException) {
+
             e.printStackTrace()
         }
     }
@@ -63,6 +73,13 @@ class SummaryModuleAdapter(internal var context: Context, internal var jsonArray
 
     override fun getItemViewType(position: Int): Int {
         return position % 2
+    }
+    fun getTotalCount(): Int? {
+        return totalCount
+    }
+
+    fun getTotalValue(): Double? {
+        return totalValue
     }
 
     private inner class MainViewHolder(v: View) : RecyclerView.ViewHolder(v) {
