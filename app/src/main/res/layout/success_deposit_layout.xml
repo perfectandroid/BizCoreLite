@@ -106,7 +106,7 @@
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/black"
-                        android:text="Reciever A/C"
+                        android:text="Receiver A/C"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <TextView

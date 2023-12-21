@@ -62,8 +62,8 @@ class AgentCollectionReportActivity : AppCompatActivity(),
         "SAVINGS BANK",
         "RECURRING DEPOSIT",
         "GROUP DEPOSIT SCHEME",
-        "HOME SAFE DEPOSITE",
-        "GROUP DEPOSITE CREDIT SCHEME"
+        "HOME SAFE DEPOSIT",
+        "GROUP DEPOSIT CREDIT SCHEME"
     )
     var module: ArrayAdapter<*>? = null
     var dateTime: String? = null

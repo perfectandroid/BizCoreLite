@@ -460,6 +460,12 @@ class ResetCredentialsFragment : Fragment(),View.OnClickListener  {
         hashList.add(currPin)
         hashList.add(newPin)
         val hashString = "08" + CryptoGraphy.getInstance().hashing(hashList) + token
+        progressDialog = ProgressDialog(context, R.style.Progress)
+        progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
+        progressDialog!!.setCancelable(false)
+        progressDialog!!.setIndeterminate(true)
+        progressDialog!!.setIndeterminateDrawable(this.resources.getDrawable(R.drawable.progress))
+        progressDialog!!.show()
         try {
             val client = OkHttpClient.Builder()
                 .sslSocketFactory(getSSLSocketFactory())
@@ -500,6 +506,8 @@ class ResetCredentialsFragment : Fragment(),View.OnClickListener  {
                 override fun onResponse(call: Call<String>, response:
                 Response<String>
                 ) {
+                    Log.v("dsfsdfdsfd","response  "+response.body())
+                    progressDialog!!.dismiss()
                     try {
                         val jObject = JSONObject(response.body())
                         val StatusCode = jObject.getString("StatusCode")
@@ -543,9 +551,17 @@ class ResetCredentialsFragment : Fragment(),View.OnClickListener  {
                     }
                 }
                 override fun onFailure(call: Call<String>?, t: Throwable?) {
+                    toast = Toast.makeText(context,"Something went wrong",Toast.LENGTH_LONG)
+                    toast.show()
+                    Log.v("dsfsdfdsfd","t  "+t)
+                    progressDialog!!.dismiss()
                 }
             })
         }catch (e:Exception){
+            toast = Toast.makeText(context,"Something went wrong",Toast.LENGTH_LONG)
+            toast.show()
+            Log.v("dsfsdfdsfd","e  "+e)
+            progressDialog!!.dismiss()
             e.printStackTrace()
         }
     }
@@ -601,6 +617,12 @@ class ResetCredentialsFragment : Fragment(),View.OnClickListener  {
         hashList.add(confirmPassword)
         val hashString = "05" + CryptoGraphy.getInstance().hashing(hashList) + token
         val deviceAppDetails : DeviceAppDetails = BizcoreApplication.getInstance().getDeviceAppDetails( context )
+        progressDialog = ProgressDialog(context, R.style.Progress)
+        progressDialog!!.setProgressStyle(android.R.style.Widget_ProgressBar)
+        progressDialog!!.setCancelable(false)
+        progressDialog!!.setIndeterminate(true)
+        progressDialog!!.setIndeterminateDrawable(this.resources.getDrawable(R.drawable.progress))
+        progressDialog!!.show()
         try {
             val client = OkHttpClient.Builder()
                 .sslSocketFactory(getSSLSocketFactory())
@@ -640,6 +662,7 @@ class ResetCredentialsFragment : Fragment(),View.OnClickListener  {
                 override fun onResponse(call: Call<String>, response:
                 Response<String>
                 ) {
+                    progressDialog!!.dismiss()
                     val jObject = JSONObject(response.body())
                     val jobjt = jObject.getJSONObject("LogInfo")
                     val StatusCode = jObject.getString("StatusCode")
@@ -664,9 +687,11 @@ class ResetCredentialsFragment : Fragment(),View.OnClickListener  {
 //                    }
                 }
                 override fun onFailure(call: Call<String>?, t: Throwable?) {
+                    progressDialog!!.dismiss()
                 }
             })
         } catch (e: Exception) {
+            progressDialog!!.dismiss()
         }
     }
 
