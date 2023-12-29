@@ -32,109 +32,35 @@
         <item>Daily Deposit</item>
         <item>Recurring Deposit</item>
         <item>Group Deposit Credit Scheme</item>
-        <item>Home Safe Deposite</item>
+        <item>Home Safe Deposit</item>
     </string-array>
 
+    <!--  <string name="BankKey">d.22333</string>-->
+    <!--  <string name="BankHeader">PERFECT SCORE BANK HEAD OFFICE</string>-->
 
-    <!--    perfect demo-->
-            <string name="BankVerified">0</string>
-            <string name="BankKey">d.22333</string>
-            <string name="BankHeader">PERFECT SCORE BANK HEAD OFFICE</string>
-            <string name="bank_name">PERFECT SCORE BANK HEAD OFFICE</string>
 
-    <!--    Mitco demo-->
+<!--    dev-->
+    <string name="BankVerified">0</string>
+    <string name="BankKey">d.22333</string>
+    <string name="BankHeader">PERFECT SCORE BANK HEAD OFFICE</string>
+    <string name="bank_name">PERFECT SCORE BANK HEAD OFFICE</string>
+
+<!--    qa-->
 <!--    <string name="BankVerified">0</string>-->
-<!--    <string name="BankKey">M.123</string>-->
-<!--    <string name="BankHeader">MITCO SCORE BANK HEAD OFFICE</string>-->
-<!--    <string name="bank_name">MITCO SCORE BANK HEAD OFFICE</string>-->
+<!--    <string name="BankKey">12345</string>-->
+<!--    <string name="BankHeader">PERFECT SCORE BANK HEAD OFFICE</string>-->
+<!--    <string name="bank_name">PERFECT SCORE BANK HEAD OFFICE</string>-->
 
-    <!--    perfect QA-->
-    <!--    <string name="BankVerified">0</string>-->
-    <!--    <string name="BankKey">12345</string>-->
-    <!--    <string name="BankHeader">PERFECT SCORE BANK HEAD OFFICE</string>-->
-    <!--    <string name="bank_name">PERFECT SCORE BANK HEAD OFFICE</string>-->
 
-    <!--   Maloth scb(MITCO)-->
 <!--    <string name="BankVerified">0</string>-->
-<!--    <string name="BankKey">C.189</string>-->
-<!--    <string name="BankHeader">The Maloth Service Co-Operative Bank Ltd; No.C.189 (LL) Head Office Cum  Main Branch</string>-->
-<!--    <string name="bank_name">The Maloth Service Co-Operative Bank</string>-->
+<!--    <string name="BankKey">F.1240</string>-->
+<!--    <string name="BankHeader">Koduvally Service Co-operative Bank Ltd.,No.F.1240 - HEAD OFFICE CUM MAIN BRANCH</string>-->
+<!--    <string name="bank_name">Koduvally Service Co-operative Bank Ltd.,No.F.1240 - HEAD OFFICE CUM MAIN BRANCH</string>-->
 
-    <!--   Punnad scb(MITCO)-->
-<!--                <string name="BankVerified">0</string>-->
-<!--                <string name="BankKey">LL.57</string>-->
-<!--                <string name="BankHeader">Punnad Service Co-operative Bank Ltd.No.LL.57 HEAD OFFICE CUM MAIN BRANCH</string>-->
-<!--                <string name="bank_name">Punnad Service Co-operative Bank</string>-->
-
-    <!--    Wayanad Pentioners-->
-    <!--        <string name="BankVerified">0</string>-->
-    <!--        <string name="BankKey">W.270</string>-->
-    <!--        <string name="BankHeader">Wayanad District Pensioners Welfare Co-operative Society Ltd.,No.W.270 HEAD OFFICE CUM MAIN BRANCH</string>-->
-    <!--        <string name="bank_name">Wayanad District Pensioners Welfare Co-operative Society</string>-->
-
-    <!--    Karassery Multi Purpose-->
-    <!--    <string name="BankVerified">0</string>-->
-    <!--    <string name="BankKey">D.3343</string>-->
-    <!--    <string name="BankHeader">Karassery Multi Purpose Co-operative Society Ltd No.D-3343 Head Office Cum  Main Branch</string>-->
-    <!--    <string name="bank_name">Karassery Multi Purpose Co-operative Society</string>-->
-
-    <!--    Karassery Multi Purpose2-->
-    <!--    <string name="BankVerified">0</string>-->
-    <!--    <string name="BankKey">D-3343</string>-->
-    <!--    <string name="BankHeader">Karassery Multi Purpose Co-operative Society Ltd No.D-3343 Head Office Cum  Main Branch</string>-->
-    <!--    <string name="bank_name">Karassery Multi Purpose Co-operative Society</string>-->
-
-
-    <!--    perfect motor-->
-    <!--    <string name="BankVerified">0</string>-->
-    <!--    <string name="BankKey">D.2869</string>-->
-    <!--    <string name="BankHeader">Perambra Area Motor &amp; Engineering Workers Co-operative Society Ltd No.D.2869 Head Office Cum Main Branch</string>-->
-    <!--    <string name="bank_name">Perambra Area Motor and Engineering Workers Co-operative Society</string>-->
-
-    <!--    Peoples Welfare Sahakarana Sangham-->
-    <!--    <string name="BankVerified">0</string>-->
-    <!--    <string name="BankKey">D.2968</string>-->
-    <!--    <string name="BankHeader">Peoples Welfare Sahakarana Sangham Ltd D.2968 Head Office Cum Main Branch</string>-->
-    <!--    <string name="bank_name">Peoples Welfare Sahakarana Sangham</string>-->
-
-    <!--&lt;!&ndash;    Calicut city janatha ->-->
-    <!--    <string name="BankVerified">0</string>-->
-    <!--    <string name="BankKey">D.3091</string>-->
-    <!--    <string name="BankHeader">Calicut City Janatha Welfare Co-operate Society Ltd.No.D.3091 Head Office Cum Main Branch</string>-->
-    <!--    <string name="bank_name">Calicut City Janatha Welfare Co-operate Society</string>-->
-
-
-    <!--&lt;!&ndash;   Thalayad merchants ->-->
-    <!--    <string name="BankVerified">0</string>-->
-    <!--    <string name="BankKey">D.3164</string>-->
-    <!--    <string name="BankHeader">Thalayad Merchants Welfare Co-operative Society Ltd.,No.D 3164 Head Office cum Main Branch</string>-->
-    <!--    <string name="bank_name">Thalayad Merchants Welfare Co-operative Society</string>-->
-
-    <!--&lt;!&ndash;    Edapally ->-->
-    <!--    <string name="BankVerified">0</string>-->
-    <!--    <string name="BankKey">2788</string>-->
-    <!--    <string name="BankHeader">Edappally Service Co-operative Bank Ltd.No.2788 HEAD OFFICE CUM MAIN BRANCH</string>-->
-    <!--    <string name="bank_name">Edappally Service Co-operative Bank</string>-->
-
-    <!--    <string name="BankKey"></string>-->
-    <!--    <string name="BankHeader">The Kazhakuttom Service Co-operative Bank Ltd., No.1457 Head Office Cum Main Branch</string>-->
-    <!--    <string name="bank_name">Kazhakuttom Service Co-operative Bank Ltd</string>-->
-
-    <!--<string name="BankKey">D .3296</string>
-    <string name="BankHeader">Malabar Social Welfare Co-operative Society Ltd</string>
-    <string name="BankVerified">0</string>-->
-
-    <!--    <string name="bank_name">Perfect BcLite</string>-->
-    <!--    <string name="bank_name">Malabar Social Welfare Co-operative Society Ltd No.D.3296</string>-->
-
-    <!--    <string name="BankKey">No.9349</string>-->
-    <!--    <string name="BankHeader">The Edacheri Service Co-operative Bank Ltd., No.9349 HEAD OFFICE CUM MAIN BRANCH</string>-->
-    <!--    <string name="bank_name"> The Edacheri Service Co-operative Bank Ltd</string>&ndash;&gt;-->
-
-
-    <!--    <string name="BankKey">No.583</string>-->
-    <!--    <string name="BankHeader">Kothamangalam Service Co-operative Bank Ltd., No.583 HEAD OFFICE</string>-->
-    <!--    <string name="bank_name">Kothamangalam Service Co-operative Bank Ltd</string>&ndash;&gt;-->
+<!--    <string name="BankVerified">0</string>-->
+<!--    <string name="BankKey">LL.116</string>-->
+<!--    <string name="BankHeader">The Irinave Service Co-operative Bank Ltd.No.LL.116 HEAD OFFICE CUM MAIN BRANCH</string>-->
+<!--    <string name="bank_name">The Irinave Service Co-operative Bank</string>-->
 
 
 </resources>

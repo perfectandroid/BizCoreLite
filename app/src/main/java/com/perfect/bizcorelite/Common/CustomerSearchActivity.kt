@@ -949,7 +949,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
 //            strModuleValue = "23"
 //            comparevalue = "ODGD"
         }
-        if (modul.equals("Home Safe Deposite")){
+        if (modul.equals("Home Safe Deposit")){
             strModule = "HD"
             strModuleValue = "24"
             comparevalue = "PDHD"
@@ -2354,6 +2354,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
     }
 
     private fun accountFetchingRequestOtp() {
+        Log.v("dfasdsadss","accountFetchingRequestOtp  ")
         when(ConnectivityUtils.isConnected(this)) {
             true -> {
                 progressDialog = ProgressDialog(this@CustomerSearchActivity, R.style.Progress)
@@ -2643,6 +2644,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
                         requestObject2.put("SubMode", BizcoreApplication.encryptMessage("0"))
                         requestObject2.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
+                        Log.v("dfasdsadss","sendPinForAccountFetching "+requestObject2.toString())
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
@@ -2657,6 +2659,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         override fun onResponse(call: retrofit2.Call<String>, response1:
                         Response<String>
                         ) {
+                            Log.v("dfasdsadss","sendPinForAccountFetching "+response1.body())
                             try {
                                 progressDialog!!.dismiss()
                                 val jObject1 = JSONObject(response1.body())
@@ -2789,6 +2792,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         requestObject2.put("BankHeader", BizcoreApplication.encryptMessage(getResources().getString(R.string.BankHeader)))
                         requestObject2.put("SubMode", BizcoreApplication.encryptMessage("1"))
                         requestObject2.put("BankVerified", "agbwyDoId+GHA2b+ByLGQ0lXIVqThlpfn81MS6roZkg=")//encrypted value for zero
+                        Log.v("dsfsdfdsfds","requestObject2 "+requestObject2.toString())
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
@@ -2803,6 +2807,7 @@ class CustomerSearchActivity : AppCompatActivity() ,View.OnClickListener{
                         override fun onResponse(call: retrofit2.Call<String>, response1:
                         Response<String>
                         ) {
+                            Log.v("dsfsdfdsfds","response1 "+response1.body())
                             try {
                                 progressDialog!!.dismiss()
                                 val jObject1 = JSONObject(response1.body())
