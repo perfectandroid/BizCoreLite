@@ -1046,7 +1046,7 @@ class CustomerSearchActivity : AppCompatActivity(), View.OnClickListener {
 //            strModuleValue = "23"
 //            comparevalue = "ODGD"
         }
-        if (modul.equals("Home Safe Deposite")) {
+        if (modul.equals("Home Safe Deposit")) {
             strModule = "HD"
             strModuleValue = "24"
             comparevalue = "PDHD"
