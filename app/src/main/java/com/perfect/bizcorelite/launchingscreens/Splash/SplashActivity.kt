@@ -22,6 +22,9 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.gson.GsonBuilder
 import com.perfect.bizcorelite.Api.ApiInterface
 import com.perfect.bizcorelite.Api.ApiService
@@ -51,6 +54,7 @@ import javax.net.ssl.*
 class SplashActivity : AppCompatActivity() {
 
     private val SPLASH_TIME_OUT = 3000
+    private val MY_REQUEST_CODE = 100
     lateinit var lin_common: LinearLayout
 
     private var progressDialog: ProgressDialog? = null
@@ -72,53 +76,33 @@ class SplashActivity : AppCompatActivity() {
         var common_code = ID_CommonApp.getString("common_appcode_check", "")
         var bank_code = ID_CommonApp.getString("bank_code", "")
         var bank_header = ID_CommonApp.getString("bank_header", "")
-        Log.v("asdasdasd33ds", "common_code =" + "_" + common_code + "_")
-        Log.v("asdasdasd33ds", "bank_code =" + bank_code)
-        Log.v("asdasdasd33ds", "bank_header =" + bank_header)
-        if (common_code.equals("")) {
-            getCommonAppCheck();
-        } else {
-            startApp()
+        val appUpdateManager = AppUpdateManagerFactory.create(this)
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
+                appUpdateManager.startUpdateFlowForResult(
+                    appUpdateInfo,
+                    AppUpdateType.IMMEDIATE,
+                    this,
+                    MY_REQUEST_CODE
+                )
+            } else {
+                Log.v("asdasdasd33ds", "common_code =" + "_" + common_code + "_")
+                Log.v("asdasdasd33ds", "bank_code =" + bank_code)
+                Log.v("asdasdasd33ds", "bank_header =" + bank_header)
+
+                if (common_code.equals("")) {
+                    getCommonAppCheck();
+                } else {
+                    startApp()
+                }
+            }
         }
 
-
-        // startApp()
-
-        //...............................
-//        Handler().postDelayed({
-//            val i = Intent(this@SplashActivity, WelcomeActivity::class.java)
-//            startActivity(i)
-//            finish()
-//            val Loginpref = applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF, 0)
-//            if (Loginpref.getString("loginsession", null) == null) {
-//                val i = Intent(this@SplashActivity, WelcomeActivity::class.java)
-//                startActivity(i)
-//                finish()
-//            } else if (Loginpref.getString(
-//                    "loginsession",
-//                    null
-//                ) != null && !Loginpref.getString(
-//                    "loginsession",
-//                    null
-//                )!!.isEmpty() && Loginpref.getString("loginsession", null) == "Yes"
-//            ) {
-//                val i = Intent(this@SplashActivity, MPINActivity::class.java)
-//                startActivity(i)
-//                finish()
-//            } else if (Loginpref.getString(
-//                    "loginsession",
-//                    null
-//                ) != null && !Loginpref.getString(
-//                    "loginsession",
-//                    null
-//                )!!.isEmpty() && Loginpref.getString("loginsession", null) == "No"
-//            ) {
-//                val i = Intent(this@SplashActivity, WelcomeActivity::class.java)
-//                startActivity(i)
-//                finish()
-//            }
-//        }, SPLASH_TIME_OUT.toLong())
     }
+
+
 
     private fun commonCodepopup() {
         lin_common.visibility = View.VISIBLE
@@ -138,6 +122,8 @@ class SplashActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Enter Valid Code", Toast.LENGTH_LONG).show()
             }
         }
+
+
 
 //
 //        val dialog = Dialog(this)
@@ -165,6 +151,35 @@ class SplashActivity : AppCompatActivity() {
 //        }
 //
 //        dialog.show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == MY_REQUEST_CODE) {
+            if (resultCode != RESULT_OK) {
+                val ID_CommonApp =
+                    applicationContext.getSharedPreferences(BizcoreApplication.SHARED_PREF12, 0)
+                var common_code = ID_CommonApp.getString("common_appcode_check", "")
+                val appUpdateManager = AppUpdateManagerFactory.create(this)
+                val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+                appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+                    if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
+                        appUpdateManager.startUpdateFlowForResult(
+                            appUpdateInfo,
+                            AppUpdateType.IMMEDIATE,
+                            this,
+                            MY_REQUEST_CODE
+                        )
+                    } else {
+                        if (common_code.equals("")) {
+                            getCommonAppCheck();
+                        } else {
+                            startApp()
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun getBankCode(bankCode: String) {
@@ -403,11 +418,20 @@ class SplashActivity : AppCompatActivity() {
 
                     //
                     try {
-                        requestObject1.put("Mode",BizcoreApplication.encryptMessage("41"))
-                        requestObject1.put("BankKey",BizcoreApplication.encryptMessage(bankCode))
-                        requestObject1.put("BankHeader",BizcoreApplication.encryptMessage(bankHeader))
-                        requestObject1.put("CommonAPI", BizcoreApplication.encryptMessage(CommonAPI))
-                        requestObject1.put("CommonAPIURL",BizcoreApplication.encryptMessage(CommonAPIURL))
+                        requestObject1.put("Mode", BizcoreApplication.encryptMessage("41"))
+                        requestObject1.put("BankKey", BizcoreApplication.encryptMessage(bankCode))
+                        requestObject1.put(
+                            "BankHeader",
+                            BizcoreApplication.encryptMessage(bankHeader)
+                        )
+                        requestObject1.put(
+                            "CommonAPI",
+                            BizcoreApplication.encryptMessage(CommonAPI)
+                        )
+                        requestObject1.put(
+                            "CommonAPIURL",
+                            BizcoreApplication.encryptMessage(CommonAPIURL)
+                        )
                     } catch (e: Exception) {
                         progressDialog!!.dismiss()
                         e.printStackTrace()
@@ -436,10 +460,19 @@ class SplashActivity : AppCompatActivity() {
 
                                 if (jObject.getString("StatusCode") == "0") {
                                     val jobjt = jObject.getJSONObject("ResellerDetails")
-                                    Log.v("dfsdfsdfdsfsddd", "BankName=" + jobjt["BankName"].toString())
-                                    Log.v("dfsdfsdfdsfsddd", "BankIcon=" + jobjt["BankIcon"].toString())
+                                    Log.v(
+                                        "dfsdfsdfdsfsddd",
+                                        "BankName=" + jobjt["BankName"].toString()
+                                    )
+                                    Log.v(
+                                        "dfsdfsdfdsfsddd",
+                                        "BankIcon=" + jobjt["BankIcon"].toString()
+                                    )
                                     Log.v("dfsdfsdfdsfsddd", "About=" + jobjt["About"].toString())
-                                    Log.v("dfsdfsdfdsfsddd", "TechPartnerLogo=" + jobjt["TechPartnerLogo"].toString())
+                                    Log.v(
+                                        "dfsdfsdfdsfsddd",
+                                        "TechPartnerLogo=" + jobjt["TechPartnerLogo"].toString()
+                                    )
                                     val sharedPreferences = applicationContext.getSharedPreferences(
                                         BizcoreApplication.SHARED_PREF12,
                                         0
@@ -592,7 +625,8 @@ class SplashActivity : AppCompatActivity() {
                         )
                         requestObject1.put(
                             "BankHeader",
-                            BizcoreApplication.encryptMessage(bank_header))
+                            BizcoreApplication.encryptMessage(bank_header)
+                        )
 
 
                     } catch (e: Exception) {
@@ -658,7 +692,10 @@ class SplashActivity : AppCompatActivity() {
                                             false
                                         )
                                         editor4.apply()
-                                        getReseller(getResources().getString(R.string.BankKey),getResources().getString(R.string.BankHeader))
+                                        getReseller(
+                                            getResources().getString(R.string.BankKey),
+                                            getResources().getString(R.string.BankHeader)
+                                        )
                                     }
 
                                 } else {
