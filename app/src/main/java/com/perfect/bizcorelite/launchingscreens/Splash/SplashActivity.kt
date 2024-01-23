@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -111,6 +112,7 @@ class SplashActivity : AppCompatActivity() {
         val btn_resend: Button? = findViewById<Button>(R.id.btn_resend)
         //   val idImgV1: ImageView = dialog.findViewById<ImageView>(R.id.idImgV1)
         // Glide.with(this).load(R.drawable.otpgif).into(idImgV1)
+
         btn_submit?.setOnClickListener {
             if (!etxt_nidhicode!!.text.toString().equals("")) {
                 var BankCode = etxt_nidhicode!!.text.toString()

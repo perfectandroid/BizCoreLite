@@ -2,78 +2,82 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/loginbg"
     android:orientation="vertical">
-
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_alignParentTop="true"
-        android:orientation="horizontal">
-
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:background="@drawable/toolbarbg"
+        android:layout_alignParentTop="true">
         <ImageView
             android:id="@+id/imback"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="left|center_vertical"
-            android:padding="8dp"
             android:src="@drawable/backimage"
-            android:tint="@color/colorAccentDark" />
+            android:layout_weight="5"
+            android:layout_gravity="left|center_vertical"
+            android:layout_margin="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/tv_header"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Collection"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:textColor="@color/white"
+            android:layout_weight="1"/>
     </LinearLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="10dp">
-
+                android:padding="10dp"
+                android:orientation="vertical">
                 <ImageView
                     android:layout_width="200dp"
                     android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:src="@drawable/applogodark" />
-
+                    android:src="@drawable/applogo"/>
                 <TextView
                     android:id="@+id/tvversn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="Version : 1.0.1"
-                    android:textColor="@color/colorAccentDark"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
+                    android:textStyle="bold"
+                    android:text="Version : 1.0.0"/>
                 <TextView
                     android:id="@+id/tvabt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
                     android:layout_margin="10dp"
-                    android:text="@string/Aboutus"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="13dp" />
-
+                    android:textSize="13dp"
+                    android:text="@string/Aboutus"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="20dp"
                     android:orientation="vertical">
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -84,24 +88,24 @@
                             android:id="@+id/tvLicense"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:textSize="18dp"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="Licenced By :"
-                            android:textColor="@color/colorAccentDark"
-                            android:textSize="18dp"
-                            android:textStyle="bold" />
+                            android:text="Licenced By :"/>
 
                         <ImageView
                             android:id="@+id/img_bank"
-
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:layout_gravity="center"
+                            android:src="@drawable/bank_icon"
                             android:padding="10dp"
-                            android:src="@drawable/bank_icon" />
+                            android:background="@drawable/circle"
+                            android:layout_gravity="center"/>
 
                     </LinearLayout>
 
@@ -109,28 +113,29 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_weight="1"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="60dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
                         android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/tvtechpartner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Technology Partner"
-                            android:textColor="@color/colorAccentDark"
-                            android:textSize="14dp"
-                            android:textStyle="bold" />
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:textSize="18dp"
+                            android:text="Technology Partner :"/>
 
                         <ImageView
+
                             android:id="@+id/imgpartner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:padding="5dp"
-                            android:src="@drawable/companylogo" />
+                            android:src="@drawable/companylogo"/>
 
                     </LinearLayout>
                 </LinearLayout>

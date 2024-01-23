@@ -3,49 +3,67 @@
     android:id="@+id/rl_main"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/greybg2"
     android:orientation="vertical">
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
+        android:background="@drawable/toolbarbg"
         android:layout_height="?android:attr/actionBarSize">
-
         <ImageView
             android:id="@+id/imback"
-            android:layout_width="match_parent"
+            android:src="@drawable/backimage"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginLeft="15dp"
-            android:layout_weight="4"
-            android:src="@drawable/backimage"
-            android:tint="@color/colorAccentDark" />
-
+            android:layout_weight="4.4"/>
         <TextView
             android:id="@+id/tvheader"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
             android:text="Collection Report"
-            android:textColor="@color/colorAccentDark"
             android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <ImageView
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="4"
-            android:padding="10dp" />
+            android:layout_weight="2"/>
+<!--        <LinearLayout-->
+<!--            android:id="@+id/ll_print"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:padding="5dp"-->
+<!--            android:visibility="invisible"-->
+<!--            android:orientation="vertical"-->
+<!--            android:layout_weight="3.5">-->
+<!--            <ImageView-->
+<!--                android:src="@drawable/ic_print"-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_weight="1"/>-->
+<!--            <TextView-->
+<!--                android:text="Print"-->
+<!--                android:textSize="15sp"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:gravity="center"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="2"/>-->
+<!--        </LinearLayout>-->
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/grey">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -72,7 +90,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/lnr1"
                         android:layout_margin="5dp"
-                        android:background="@color/colorPrimary"
+                        android:background="@drawable/selection_card_bg"
                         android:orientation="vertical"
                         android:padding="5dp">
 
@@ -101,7 +119,7 @@
                                     android:layout_marginTop="5dp"
                                     android:layout_weight="0.5"
                                     android:text="Module"
-                                    android:textColor="@color/colorAccentDark"
+                                    android:textColor="@color/white"
                                     android:textSize="15dp" />
 
                                 <LinearLayout
@@ -110,9 +128,9 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:layout_margin="5dp"
-                                    android:padding="5dp"
-                                    android:background="@drawable/underline"
-                                    android:orientation="horizontal">
+                                    android:background="@drawable/etbgsqaure"
+                                    android:orientation="horizontal"
+                                    android:padding="10dp">
 
                                     <TextView
                                         android:id="@+id/txtv_selecmdl"
@@ -120,6 +138,7 @@
                                         android:layout_height="30dp"
                                         android:layout_gravity="left"
                                         android:layout_marginLeft="5dip"
+                                        android:layout_marginTop="2dip"
                                         android:layout_weight="1"
                                         android:padding="3dip"
                                         android:text="Select Module"
@@ -130,12 +149,11 @@
 
                                     <ImageView
                                         android:id="@+id/imgv_down_mod"
-                                        android:layout_width="30dp"
-                                        android:layout_height="30dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
                                         android:layout_centerVertical="true"
-                                        android:src="@drawable/arrowdown"
                                         android:layout_gravity="end"
-                                        android:tint="@color/colorAccentDark"
+                                        android:background="@drawable/ic_down"
                                         tools:ignore="DuplicateIds" />
 
                                 </LinearLayout>
@@ -213,7 +231,7 @@
                                 android:layout_marginLeft="15dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_weight="0.9"
-                                android:background="@drawable/underline"
+                                android:background="@drawable/etbgsqaure"
                                 android:gravity="center"
                                 android:orientation="vertical">
 
@@ -245,9 +263,8 @@
                                             android:id="@+id/img_calender1"
                                             android:layout_width="30dp"
                                             android:layout_height="30dp"
-                                            android:tint="@color/colorAccentDark"
                                             android:layout_margin="8dp"
-                                            android:src="@drawable/ic_calender"
+                                            android:background="@drawable/ic_date"
                                             android:contentDescription="@string/date_remarks" />
 
                                         <TextView
@@ -271,6 +288,8 @@
                                 android:layout_height="match_parent"
                                 android:layout_below="@+id/ln"
                                 android:layout_gravity="center"
+                                android:layout_margin="5dp"
+
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:orientation="horizontal">
@@ -282,10 +301,10 @@
                                     android:layout_gravity="center"
                                     android:layout_marginLeft="10dp"
                                     android:layout_marginRight="15dp"
-                                    android:background="@color/white"
+                                    android:background="@drawable/btncancelbg"
                                     android:gravity="center"
                                     android:text="Submit"
-                                    android:textColor="@color/colorAccentDark" />
+                                    android:textColor="@color/colorPrimary" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -312,10 +331,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:layout_below="@+id/lnr_layoutt"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginLeft="11dp"
                             android:layout_marginTop="8dp"
-                            android:layout_marginRight="5dp"
-                            android:background="@color/colorAccentlight"
+                            android:layout_marginRight="11dp"
+                            android:background="@drawable/bt_corner"
                             android:orientation="horizontal"
                             android:visibility="gone">
 
@@ -326,7 +345,7 @@
                                 android:layout_weight="1.2"
                                 android:gravity="center_horizontal|center_vertical"
                                 android:text="Slno"
-                                android:textColor="@color/colorAccentDark"
+                                android:textColor="@color/white"
                                 android:textStyle="bold|normal" />
 
                             <TextView
@@ -336,7 +355,7 @@
                                 android:layout_weight=".9"
                                 android:gravity="center_horizontal|center_vertical"
                                 android:text="Name"
-                                android:textColor="@color/colorAccentDark"
+                                android:textColor="@color/white"
                                 android:textStyle="bold|normal" />
 
                             <TextView
@@ -347,7 +366,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center_horizontal|center_vertical"
                                 android:text="Amount"
-                                android:textColor="@color/colorAccentDark"
+                                android:textColor="@color/white"
                                 android:textStyle="bold|normal" />
 
                             <TextView
@@ -358,7 +377,7 @@
                                 android:layout_weight="1.1"
                                 android:gravity="center_horizontal|center_vertical"
                                 android:text="@string/module"
-                                android:textColor="@color/colorAccentDark"
+                                android:textColor="@color/white"
                                 android:textStyle="bold|normal" />
 
                             <TextView
@@ -368,7 +387,7 @@
                                 android:layout_weight="1.1"
                                 android:gravity="center_horizontal|center_vertical"
                                 android:text="Time"
-                                android:textColor="@color/colorAccentDark"
+                                android:textColor="@color/white"
                                 android:textStyle="bold|normal" />
 
                             <TextView
@@ -388,10 +407,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/lnr_layout1"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginBottom="3dp"
-                            android:layout_marginTop="3dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
                             android:minHeight="10dp"
                             android:visibility="gone"
                             app:cardCornerRadius="5dp">

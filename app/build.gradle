@@ -7,7 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 33
     defaultConfig {
-        applicationId "com.mscore.mscorecommon"
+        applicationId "com.mscore.bizcore"
         minSdkVersion 16
         targetSdkVersion 33
         versionCode 1

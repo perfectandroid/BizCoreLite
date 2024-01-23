@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -10,7 +9,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@drawable/loginbg">
 
             <ImageView
                 android:layout_width="200dp"
@@ -21,12 +21,12 @@
                 android:layout_marginRight="10dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:src="@drawable/applogodark"/>
+                android:src="@drawable/applogo"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorAccentDark"
-                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textStyle="italic|bold"
                 android:padding="10dp"
                 android:textSize="30dp"
                 android:gravity="center"
@@ -41,8 +41,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorAccentDark"
-                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textStyle="italic|bold"
                 android:padding="5dp"
                 android:gravity="center"
                 android:layout_gravity="center"
@@ -54,7 +54,7 @@
             <Button
                 android:id="@+id/btnlogout"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="wrap_content"
                 android:text="QUIT"
                 android:textStyle="bold"
                 android:layout_marginLeft="30dp"
@@ -62,8 +62,9 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="40dp"
                 android:textColor="@color/colorPrimaryDark"
-                android:background="@drawable/shadow_back2"
-                android:layout_above="@+id/btncancel"/>
+                android:background="@drawable/btncancelbg"
+                android:layout_above="@+id/btncancel"
+                android:padding="10dp"/>
             <Button
                 android:id="@+id/btncancel"
                 android:layout_width="match_parent"
@@ -79,7 +80,6 @@
                 android:visibility="gone"
                 android:padding="10dp"
                 android:layout_alignParentBottom="true"/>
-
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ll_bottom_bar"

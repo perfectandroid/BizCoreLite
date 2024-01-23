@@ -23,26 +23,27 @@
             android:layout_marginRight="20dp"
             android:text="Are You Sure You Want To Quit This App ?"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="15dp" />
+            android:textSize="20sp" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="15dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:weightSum="1">
 
             <LinearLayout
                 android:id="@+id/quit_app_ok"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight=".5"
-                android:background="@drawable/rounded_square"
+                android:padding="10dp"
+                android:background="@drawable/btnexitbg"
                 android:gravity="center">
 
 
@@ -52,7 +53,7 @@
                     android:textColor="@color/white"
                     android:text="YES"
                     android:textStyle="bold"
-                    android:textSize="15dp"
+                    android:textSize="18dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -61,8 +62,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight=".5"
-                android:backgroundTint="@color/colorAccent"
-                android:background="@drawable/rounded_square"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="20dp"
+                android:padding="10dp"
+                android:background="@drawable/btnexitbg"
                 android:gravity="center">
 
                 <TextView
@@ -71,7 +75,7 @@
                     android:textColor="@color/white"
                     android:text="NO"
                     android:textStyle="bold"
-                    android:textSize="15dp"
+                    android:textSize="18dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
