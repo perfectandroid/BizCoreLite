@@ -2692,10 +2692,10 @@ class CustomerSearchActivity : AppCompatActivity(), View.OnClickListener {
                             "BankHeader",
                             BizcoreApplication.encryptMessage(bank_header)
                         )
-                        requestObject2.put(
-                            "BranchCode",
-                            BizcoreApplication.encryptMessage(branchcode)
-                        )
+//                        requestObject2.put(
+//                            "BranchCode",
+//                            BizcoreApplication.encryptMessage(branchcode)
+//                        )
                         requestObject2.put(
                             "AccountCodeFiledName",
                             BizcoreApplication.encryptMessage(accountCodeFiledName)
@@ -2717,9 +2717,10 @@ class CustomerSearchActivity : AppCompatActivity(), View.OnClickListener {
                             BizcoreApplication.encryptMessage(CommonAPIURL)
                         )
 
-
                     } catch (e: Exception) {
+                        Log.v("sdfsdfdsfdddd","requestObject2  "+requestObject2.toString());
                         progressDialog!!.dismiss()
+                        Log.v("sdfsdfdsfdddd","Excep  "+e);
                         e.printStackTrace()
                         val mySnackbar = Snackbar.make(
                             findViewById(R.id.rl_main),
@@ -2821,7 +2822,7 @@ class CustomerSearchActivity : AppCompatActivity(), View.OnClickListener {
                             progressDialog!!.dismiss()
                             val mySnackbar = Snackbar.make(
                                 findViewById(R.id.rl_main),
-                                " Some technical issues.", Snackbar.LENGTH_SHORT
+                                " Some technical issues...", Snackbar.LENGTH_SHORT
                             )
                             mySnackbar.show()
                         }
@@ -2831,7 +2832,7 @@ class CustomerSearchActivity : AppCompatActivity(), View.OnClickListener {
                     e.printStackTrace()
                     val mySnackbar = Snackbar.make(
                         findViewById(R.id.rl_main),
-                        " Some technical issues.", Snackbar.LENGTH_SHORT
+                        " Some technical issues....", Snackbar.LENGTH_SHORT
                     )
                     mySnackbar.show()
                 }

@@ -5,7 +5,7 @@ object ApiService {
     ////Production
 //    val BASE_URL = "https://collectr.perfectlimited.com/api/Bizcore/"
 //    val IMAGE_URL = "https://collectr.perfectlimited.com"
-//    val CERT_NAME = "bizcore.pem"
+//    val CERT_NAME = "collectr_perfectlimitedcom.pem"
 
     ////python dev
 //    val BASE_URL = "http://202.164.150.222:8000/api/Bizcore/"
@@ -15,6 +15,10 @@ object ApiService {
     ////python qa
 //    val BASE_URL = "http://202.164.150.65:8002/api/Bizcore/"
 //    val IMAGE_URL = "http://202.164.150.65:8002"
+//    val CERT_NAME = "bizcore.pem"
+
+//    val BASE_URL = "http://202.164.150.65/api/Bizcore/"
+//    val IMAGE_URL = "http://202.164.150.65"
 //    val CERT_NAME = "bizcore.pem"
 
     ////python dev qa

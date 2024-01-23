@@ -83,6 +83,8 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:hint="Enter Code"
+                android:inputType="text"
+                android:singleLine="true"
                 android:textColor="@color/colorAccentDark"
                 android:textColorHint="@color/black"
                 android:textSize="14dp" />

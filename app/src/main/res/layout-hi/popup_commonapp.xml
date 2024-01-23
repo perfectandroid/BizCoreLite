@@ -53,8 +53,12 @@
                 <EditText
                     android:id="@+id/etxt_nidhicode"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
                     android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:inputType="text"
+                    android:singleLine="true"
                     android:hint="Enter Code"
                     android:textColor="@color/colorAccentDark"
                     android:textColorHint="@color/black"
