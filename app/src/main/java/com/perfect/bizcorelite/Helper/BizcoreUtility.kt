@@ -4,7 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Log
+import android.widget.Toast
 import com.perfect.bizcorelite.R
+import com.pos.sdk.printer.POIPrinterManager
+import com.pos.sdk.printer.models.PrintLine
+import com.pos.sdk.printer.models.TextPrintLine
 import com.softland.palmtecandro.palmtecandro
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -130,7 +134,7 @@ object BizcoreUtility {
     //    softLand4GPrinter(bankName, title, dateTime,printdata, greetings,printValue)
 
 //Bluetooth printer 8-02-2023   //314400
-        bluetoothPrinter(printValue1,printdata,context,doubleLine)
+//        bluetoothPrinter(printValue1,printdata,context,doubleLine)
 
 
 
@@ -169,6 +173,135 @@ object BizcoreUtility {
 //        context.startActivity(intent)
 
 
+        //palmtech p10 thirunerlly
+        printTextP10(bankName, title, dateTime, printdata, deviceId, agent_Name!!, context)
+
+    }
+
+    private fun printTextP10(
+        bankName: String,
+        title: String,
+        dateTime: String,
+        message: String,
+        deviceId: String,
+        agent_name: String,
+        context: Context
+    ) {
+try {
+
+    Log.v("sfsdfdsf", "bankName " + bankName)
+    Log.v("sfsdfdsf", "title " + title)
+    Log.v("sfsdfdsf", "dateTime " + dateTime)
+    Log.v("sfsdfdsf", "message " + message)
+    Log.v("sfsdfdsf", "agent_name " + agent_name)
+    val printerManager = POIPrinterManager(context)
+    printerManager.open()
+    val state: Int = printerManager.getPrinterState()
+    printerManager.setPrintFont("/system/fonts/Android-1.ttf")
+    printerManager.setPrintGray(2000)
+    printerManager.setLineSpace(5)
+    val p1: PrintLine = TextPrintLine(title, PrintLine.CENTER)
+    printerManager.addPrintLine(p1)
+    //        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_bank_baner);
+//        printerManager.addPrintLine(new BitmapPrintLine(bitmap, PrintLine.CENTER));
+    printerManager.setPrintFont("/system/fonts/Android-1.ttf")
+    val HEADER1ALIGN: PrintLine =
+        TextPrintLine(bankName, PrintLine.CENTER, 25, true, false, false)
+    printerManager.addPrintLine(HEADER1ALIGN)
+    val HEADER2 = "Agent Name :$agent_name"
+    val HEADER2ALIGN: PrintLine =
+        TextPrintLine(HEADER2, PrintLine.CENTER, 22, true, false, false)
+    printerManager.addPrintLine(HEADER2ALIGN)
+    val HEADER3 = "Date :$dateTime"
+    val HEADER3ALIGN: PrintLine =
+        TextPrintLine(HEADER3, PrintLine.CENTER, 22, true, false, false)
+    printerManager.addPrintLine(HEADER3ALIGN)
+    //        String HEADER14= "PHONE : 2705880 ";
+//        PrintLine HEADER4ALIGN = new TextPrintLine(HEADER14, PrintLine.CENTER, 22,true,false,false);
+//        printerManager.addPrintLine(HEADER4ALIGN);
+    printerManager.addPrintLine(TextPrintLine("", PrintLine.RIGHT, 5, false, false, false))
+    printerManager.setPrintFont("/system/fonts/DroidSansMono.ttf")
+    val lineSeperator = message.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }
+        .toTypedArray()
+    for (data in lineSeperator) {
+        val lineSeperator1 = data.split(":".toRegex()).dropLastWhile { it.isEmpty() }
+            .toTypedArray()
+        val list: List<TextPrintLine> = printList(
+            lineSeperator1[0], ":",
+            lineSeperator1[1], 20, true
+        )
+        printerManager.addPrintLine(list)
+    }
+    //        List<TextPrintLine> list1 = printList("DATE: 17-11-2022", "", "TIME: 16:28:44", 20, true);
+//        printerManager.addPrintLine(list1);
+//        List<TextPrintLine> list2 = printList("Item", "Quantity", "Price", 24, true);
+//        printerManager.addPrintLine(list2);
+//        List<TextPrintLine> list3 = printList("Tomato", "1", "₹140.00", 24, false);
+//        printerManager.addPrintLine(list3);
+//        List<TextPrintLine> list4 = printList("Orange", "1", "₹110.00", 24, false);
+//        printerManager.addPrintLine(list4);
+    printerManager.addPrintLine(TextPrintLine("", PrintLine.RIGHT, 5, false, false, false))
+
+//        PrintLine taxableamount = new TextPrintLine("Taxable Amount  ₹250.00", PrintLine.RIGHT,24,false,false,false);
+//        printerManager.addPrintLine(taxableamount);
+//        PrintLine cgst = new TextPrintLine("CGST @9%  ₹22.50", PrintLine.RIGHT,24,false,false,false);
+//        printerManager.addPrintLine(cgst);
+//        PrintLine sgst = new TextPrintLine("SGST @9%  ₹22.50", PrintLine.RIGHT,24,false,false,false);
+//        printerManager.addPrintLine(sgst);
+//        PrintLine tot = new TextPrintLine("Grand Total   ₹295.00", PrintLine.RIGHT,26,true,false,false);
+//        printerManager.addPrintLine(tot);
+    printerManager.addPrintLine(TextPrintLine(""))
+    val FOOTER1 = "THANK YOU "
+    val FOOTER1ALIGN: PrintLine =
+        TextPrintLine(FOOTER1, PrintLine.CENTER, 22, true, false, false)
+    printerManager.addPrintLine(FOOTER1ALIGN)
+    val FOOTER2 = "HAVE A NICE DAY "
+    val FOOTER2ALIGN: PrintLine =
+        TextPrintLine(FOOTER2, PrintLine.CENTER, 22, true, false, false)
+    printerManager.addPrintLine(FOOTER2ALIGN)
+    printerManager.addPrintLine(TextPrintLine("", PrintLine.CENTER))
+    printerManager.addPrintLine(TextPrintLine("", PrintLine.CENTER))
+    printerManager.addPrintLine(TextPrintLine("", PrintLine.CENTER))
+    val listener: POIPrinterManager.IPrinterListener = object : POIPrinterManager.IPrinterListener {
+        override fun onStart() {}
+        override fun onFinish() {
+            //printerManager.cleanCache();
+            printerManager.close()
+        }
+
+        override fun onError(code: Int, msg: String) {
+            Log.e("POIPrinterManager", "code: " + code + "msg: " + msg)
+            printerManager.close()
+        }
+    }
+    if (state == 4) {
+        printerManager.close()
+        return
+    }
+    printerManager.beginPrint(listener)
+}
+catch (e:Exception)
+{
+    Toast.makeText(context, "Printer not Found", Toast.LENGTH_SHORT).show()
+}
+    }
+
+
+    private fun printList(
+        leftStr: String,
+        centerStr: String,
+        rightStr: String,
+        size: Int,
+        bold: Boolean
+    ): List<TextPrintLine> {
+        val textPrintLine1 = TextPrintLine(leftStr, PrintLine.LEFT, size, bold)
+        val textPrintLine2 = TextPrintLine(centerStr, PrintLine.CENTER, size, bold)
+        val textPrintLine3 = TextPrintLine(rightStr, PrintLine.RIGHT, size, bold)
+        val list: MutableList<TextPrintLine> = ArrayList<TextPrintLine>()
+        list.add(textPrintLine1)
+        list.add(textPrintLine2)
+        list.add(textPrintLine3)
+        return list
     }
 
     private fun bluetoothPrinter(

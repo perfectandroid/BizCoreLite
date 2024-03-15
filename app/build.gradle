@@ -66,5 +66,6 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0-rc01'
 
     implementation 'com.github.GoodieBag:Pinview:v1.4'
+        implementation files('libs/P10_Lib.jar')
 
 }
